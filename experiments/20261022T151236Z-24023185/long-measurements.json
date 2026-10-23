@@ -1,0 +1,2636 @@
+[
+  {
+    "case": "p5-S-stable-long",
+    "job_id": "4452103",
+    "node": "c141",
+    "model": "S",
+    "n": 1,
+    "mps": false,
+    "threads": 1,
+    "workers": 0,
+    "launcher": {
+      "ok": true,
+      "children": [
+        {
+          "child": "g0-p0",
+          "pid": 788926,
+          "exit_code": 0
+        }
+      ],
+      "wall_seconds": 3605.490405207005,
+      "total_items": 158752448,
+      "total_items_per_second": 44030.750371913804,
+      "exit_code": 0,
+      "devices": [
+        "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993"
+      ],
+      "mps_verified": true,
+      "actual_peak_training_processes": 1,
+      "all_training_overlap_seconds": 3600.0003974437714,
+      "same_workload": true
+    },
+    "child_results": [
+      {
+        "ok": true,
+        "child": "g0-p0",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792692032.5300145,
+        "stable_end_epoch": 1792695632.530412,
+        "items": 158752448,
+        "steps": 2480507,
+        "stable_seconds": 3600.0003984979994,
+        "items_per_second": 44097.897340854484,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3604.6975716899906,
+        "maxrss_kib": 1099356,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452103/step_0/user/task_0\n",
+          "memory.current": "774160384",
+          "memory.max": "max",
+          "memory.peak": "792576000",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 3603135139\nuser_usec 3512044379\nsystem_usec 91090760\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452103/step_0/user/task_0",
+              "memory.current": "774160384",
+              "memory.max": "max",
+              "memory.peak": "792576000",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452103/step_0/user",
+              "memory.current": "774848512",
+              "memory.max": "193273528320",
+              "memory.peak": "793264128",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452103/step_0",
+              "memory.current": "779423744",
+              "memory.max": "max",
+              "memory.peak": "797683712",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452103",
+              "memory.current": "804028416",
+              "memory.max": "193273528320",
+              "memory.peak": "822198272",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452103/step_0/user",
+            "memory.current": "774848512",
+            "memory.max": "193273528320",
+            "memory.peak": "793264128",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      }
+    ],
+    "sample_count": 721,
+    "host_effective_peak_bytes": 793264128,
+    "host_effective_limit_bytes": 193273528320,
+    "mean_cpu_percent": 99.7528128238362,
+    "maximum_sampled_gpu_memory_fraction": 0.008942919753730565,
+    "mean_sampled_gpu_power_watts": 142.56610263522884,
+    "max_oom_kill": 0,
+    "torch_per_process_max_reserved_bytes": 92274688,
+    "allocation": {
+      "case": "p5-S-stable-long",
+      "stage": 5,
+      "kind": "train",
+      "job": "4452103",
+      "submit": "2026-10-22T18:00:19",
+      "eligible": "2026-10-22T18:00:19",
+      "start": "2026-10-22T18:00:23",
+      "end": "2026-10-22T19:00:36",
+      "queue_seconds": 4.0,
+      "node": "c141",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "outcome": "PASS",
+      "layer": "exit",
+      "batch_first": true,
+      "req_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "alloc_tres": "billing=1000000,cpu=14,energy=5110136,gres/gpu=1,mem=180G,node=1",
+      "max_rss": "",
+      "total_cpu": "01:00:04",
+      "elapsed": "3613",
+      "timeline": {
+        "batch_start": "2026-10-22T18:00:24.391231+00:00",
+        "step_launch": "2026-10-22T18:00:24.440471+00:00",
+        "child_spawn": "2026-10-22T18:00:27.806656+00:00",
+        "python_start": "2026-10-22T18:00:27.875629+00:00",
+        "sample": "2026-10-22T18:00:27.923381+00:00",
+        "import_complete": "2026-10-22T18:00:29.309182+00:00",
+        "cuda_initialized": "2026-10-22T18:00:30.375873+00:00",
+        "warmup_complete": "2026-10-22T18:00:32.211238+00:00",
+        "stable_training_start": "2026-10-22T18:00:32.531324+00:00",
+        "validation_checkpoint_cycle": "2026-10-22T18:05:32.577656+00:00",
+        "stable_training_end": "2026-10-22T19:00:32.532243+00:00",
+        "validation_complete": "2026-10-22T19:00:32.578774+00:00",
+        "save_load_complete": "2026-10-22T19:00:32.584425+00:00",
+        "process_exit": "2026-10-22T19:00:32.608234+00:00",
+        "batch_end": "2026-10-22T19:00:36.714221+00:00"
+      },
+      "actual_gpus": 1,
+      "requested_gpus": 1,
+      "requested_cpus": 14,
+      "requested_mem_mib": 184320,
+      "request": {
+        "id": "p5-S-stable-long",
+        "stage": 5,
+        "kind": "train",
+        "gpus": 1,
+        "cpus": 14,
+        "mem_mib": 184320,
+        "exclusive": false,
+        "mode": "step",
+        "chdir": "/tmp",
+        "log": "home",
+        "license": "default",
+        "ntpn": false,
+        "gpt": true,
+        "array": 1,
+        "throttle": 1,
+        "wall_seconds": 3900,
+        "hold": 0,
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 1,
+        "mps": false,
+        "seconds": 3600,
+        "threads": 1,
+        "workers": 0,
+        "job_name": "ca_151236Z-24023185_5498ac60b0",
+        "comment": "capella-audit:20261022T151236Z-24023185:p5-S-stable-long"
+      },
+      "repeat_index": 1,
+      "gpu_hours": 1.003611111111111
+    }
+  },
+  {
+    "case": "p5-S-throughput-long",
+    "job_id": "4452201",
+    "node": "c141",
+    "model": "S",
+    "n": 12,
+    "mps": true,
+    "threads": 1,
+    "workers": 0,
+    "launcher": {
+      "ok": true,
+      "children": [
+        {
+          "child": "g0-p0",
+          "pid": 812953,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p1",
+          "pid": 812954,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p2",
+          "pid": 812957,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p3",
+          "pid": 812960,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p4",
+          "pid": 812962,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p5",
+          "pid": 812965,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p6",
+          "pid": 812968,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p7",
+          "pid": 812969,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p8",
+          "pid": 812970,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p9",
+          "pid": 812971,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p10",
+          "pid": 812972,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p11",
+          "pid": 812973,
+          "exit_code": 0
+        }
+      ],
+      "wall_seconds": 3615.988190670003,
+      "total_items": 1347606848,
+      "total_items_per_second": 372680.1020747535,
+      "exit_code": 0,
+      "devices": [
+        "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993"
+      ],
+      "mps_verified": true,
+      "actual_peak_training_processes": 12,
+      "all_training_overlap_seconds": 3599.923175573349,
+      "same_workload": true
+    },
+    "child_results": [
+      {
+        "ok": true,
+        "child": "g0-p0",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5806031,
+        "stable_end_epoch": 1792699281.581371,
+        "items": 112984960,
+        "steps": 1765390,
+        "stable_seconds": 3600.000768856,
+        "items_per_second": 31384.70440824492,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.603205783991,
+        "maxrss_kib": 1131892,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9389940736",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853318576\nuser_usec 41282368591\nsystem_usec 570949984\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9389940736",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9390628864",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9394851840",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9419677696",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9390628864",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p1",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.574672,
+        "stable_end_epoch": 1792699281.5750403,
+        "items": 113016832,
+        "steps": 1765888,
+        "stable_seconds": 3600.0003685850243,
+        "items_per_second": 31393.561230223186,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.5596951289917,
+        "maxrss_kib": 1131652,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9389682688",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853283600\nuser_usec 41282352407\nsystem_usec 570931193\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9389682688",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9390370816",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9394593792",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9419419648",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9390370816",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p10",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5901499,
+        "stable_end_epoch": 1792699281.5904887,
+        "items": 113349824,
+        "steps": 1771091,
+        "stable_seconds": 3600.0003392559884,
+        "items_per_second": 31486.059255046068,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.276118968992,
+        "maxrss_kib": 1075040,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390047232",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853277495\nuser_usec 41282349278\nsystem_usec 570928217\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390047232",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9390735360",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9394958336",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9419784192",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9390735360",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p11",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.58081,
+        "stable_end_epoch": 1792699281.5821142,
+        "items": 111768512,
+        "steps": 1746383,
+        "stable_seconds": 3600.0013049049885,
+        "items_per_second": 31046.797635244136,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.275207558996,
+        "maxrss_kib": 1072972,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390047232",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853277256\nuser_usec 41282349042\nsystem_usec 570928214\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390047232",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9390735360",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9394958336",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9419784192",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9390735360",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p2",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5126462,
+        "stable_end_epoch": 1792699281.5133255,
+        "items": 111994944,
+        "steps": 1749921,
+        "stable_seconds": 3600.0006793270004,
+        "items_per_second": 31109.70079620563,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.4269547440053,
+        "maxrss_kib": 1140064,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390395392",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853222005\nuser_usec 41282327410\nsystem_usec 570894594\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390395392",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9391083520",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9395306496",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9420132352",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9391083520",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p3",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.530908,
+        "stable_end_epoch": 1792699281.532786,
+        "items": 111677504,
+        "steps": 1744961,
+        "stable_seconds": 3600.001876558992,
+        "items_per_second": 31021.512718417045,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.47515953501,
+        "maxrss_kib": 1131596,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390206976",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853244861\nuser_usec 41282334480\nsystem_usec 570910380\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390469120",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9391157248",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9395380224",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9420206080",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9391157248",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p4",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5806017,
+        "stable_end_epoch": 1792699281.5822353,
+        "items": 113324160,
+        "steps": 1770690,
+        "stable_seconds": 3600.0016345350014,
+        "items_per_second": 31478.919040723616,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.4367163679854,
+        "maxrss_kib": 1133308,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9389940736",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853323366\nuser_usec 41282371412\nsystem_usec 570951953\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9389940736",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9390628864",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9394851840",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9419677696",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9390628864",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p5",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5821311,
+        "stable_end_epoch": 1792699281.5829527,
+        "items": 111698816,
+        "steps": 1745294,
+        "stable_seconds": 3600.0008221949975,
+        "items_per_second": 31027.441802609046,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.4700283329876,
+        "maxrss_kib": 1129240,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9389678592",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853318576\nuser_usec 41282368591\nsystem_usec 570949984\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9389940736",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9390628864",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9394851840",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9419677696",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9390628864",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p6",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5309448,
+        "stable_end_epoch": 1792699281.5327816,
+        "items": 111745152,
+        "steps": 1746018,
+        "stable_seconds": 3600.001837599004,
+        "items_per_second": 31040.304155657777,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.352021232975,
+        "maxrss_kib": 1072048,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390469120",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853249642\nuser_usec 41282337264\nsystem_usec 570912378\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390469120",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9391153152",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9395376128",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9420201984",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9391153152",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p7",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5382564,
+        "stable_end_epoch": 1792699281.538969,
+        "items": 111632320,
+        "steps": 1744255,
+        "stable_seconds": 3600.000713329995,
+        "items_per_second": 31008.971633436227,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.3336537150026,
+        "maxrss_kib": 1069708,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390206976",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853244861\nuser_usec 41282334480\nsystem_usec 570910380\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390469120",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9391157248",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9395380224",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9420206080",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9391157248",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p8",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.5479736,
+        "stable_end_epoch": 1792699281.5492406,
+        "items": 111778176,
+        "steps": 1746534,
+        "stable_seconds": 3600.0012681620137,
+        "items_per_second": 31049.4823956183,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.302423540008,
+        "maxrss_kib": 1076952,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390469120",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853246632\nuser_usec 41282336227\nsystem_usec 570910404\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390469120",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9391157248",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9395380224",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9420206080",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9391157248",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p9",
+        "requested_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "device_count": 1,
+        "observed_uuid": "GPU-aab039ef-b14d-72f0-e13c-8f99917c8993",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792695681.530881,
+        "stable_end_epoch": 1792699281.5326395,
+        "items": 112635648,
+        "steps": 1759932,
+        "stable_seconds": 3600.001758489001,
+        "items_per_second": 31287.66471694048,
+        "synthetic": true,
+        "torch_peak_allocated": 81360384,
+        "torch_peak_reserved": 92274688,
+        "duration": 3614.1977262260043,
+        "maxrss_kib": 1074436,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0\n",
+          "memory.current": "9390395392",
+          "memory.max": "max",
+          "memory.peak": "9404878848",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 41853222769\nuser_usec 41282328164\nsystem_usec 570894604\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,9,16-17,24-25,32-33,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user/task_0",
+              "memory.current": "9390395392",
+              "memory.max": "max",
+              "memory.peak": "9404878848",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+              "memory.current": "9391083520",
+              "memory.max": "193273528320",
+              "memory.peak": "9405566976",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0",
+              "memory.current": "9395306496",
+              "memory.max": "max",
+              "memory.peak": "9409789952",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201",
+              "memory.current": "9420132352",
+              "memory.max": "193273528320",
+              "memory.peak": "9434615808",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452201/step_0/user",
+            "memory.current": "9391083520",
+            "memory.max": "193273528320",
+            "memory.peak": "9405566976",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      }
+    ],
+    "sample_count": 723,
+    "host_effective_peak_bytes": 9405112320,
+    "host_effective_limit_bytes": 193273528320,
+    "mean_cpu_percent": 1156.2846684084643,
+    "maximum_sampled_gpu_memory_fraction": 0.10692893665866639,
+    "mean_sampled_gpu_power_watts": 300.7131396957123,
+    "max_oom_kill": 0,
+    "torch_per_process_max_reserved_bytes": 92274688,
+    "allocation": {
+      "case": "p5-S-throughput-long",
+      "stage": 5,
+      "kind": "train",
+      "job": "4452201",
+      "submit": "2026-10-22T19:00:45",
+      "eligible": "2026-10-22T19:00:45",
+      "start": "2026-10-22T19:01:00",
+      "end": "2026-10-22T20:01:26",
+      "queue_seconds": 15.0,
+      "node": "c141",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "outcome": "PASS",
+      "layer": "exit",
+      "batch_first": true,
+      "req_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "alloc_tres": "billing=1000000,cpu=14,energy=5991163,gres/gpu=1,mem=180G,node=1",
+      "max_rss": "",
+      "total_cpu": "11:37:37",
+      "elapsed": "3626",
+      "timeline": {
+        "batch_start": "2026-10-22T19:01:03.650375+00:00",
+        "step_launch": "2026-10-22T19:01:03.703622+00:00",
+        "child_spawn": "2026-10-22T19:01:07.115770+00:00",
+        "python_start": "2026-10-22T19:01:07.193179+00:00",
+        "sample": "2026-10-22T19:01:07.239084+00:00",
+        "import_complete": "2026-10-22T19:01:12.284750+00:00",
+        "cuda_initialized": "2026-10-22T19:01:15.335732+00:00",
+        "warmup_complete": "2026-10-22T19:01:21.215931+00:00",
+        "stable_training_start": "2026-10-22T19:01:21.514156+00:00",
+        "validation_checkpoint_cycle": "2026-10-22T19:06:21.611788+00:00",
+        "stable_training_end": "2026-10-22T20:01:21.514990+00:00",
+        "validation_complete": "2026-10-22T20:01:21.639838+00:00",
+        "save_load_complete": "2026-10-22T20:01:21.693374+00:00",
+        "process_exit": "2026-10-22T20:01:21.773131+00:00",
+        "batch_end": "2026-10-22T20:01:26.372942+00:00"
+      },
+      "actual_gpus": 1,
+      "requested_gpus": 1,
+      "requested_cpus": 14,
+      "requested_mem_mib": 184320,
+      "request": {
+        "id": "p5-S-throughput-long",
+        "stage": 5,
+        "kind": "train",
+        "gpus": 1,
+        "cpus": 14,
+        "mem_mib": 184320,
+        "exclusive": false,
+        "mode": "step",
+        "chdir": "/tmp",
+        "log": "home",
+        "license": "default",
+        "ntpn": false,
+        "gpt": true,
+        "array": 1,
+        "throttle": 1,
+        "wall_seconds": 3900,
+        "hold": 0,
+        "environment": "standalone",
+        "model": "S",
+        "concurrency": 12,
+        "mps": true,
+        "seconds": 3600,
+        "threads": 1,
+        "workers": 0,
+        "job_name": "ca_151236Z-24023185_064afbcc98",
+        "comment": "capella-audit:20261022T151236Z-24023185:p5-S-throughput-long"
+      },
+      "repeat_index": 1,
+      "gpu_hours": 1.0072222222222222
+    }
+  },
+  {
+    "case": "p5-M-stable-long",
+    "job_id": "4452704",
+    "node": "c78",
+    "model": "M",
+    "n": 1,
+    "mps": false,
+    "threads": 1,
+    "workers": 0,
+    "launcher": {
+      "ok": true,
+      "children": [
+        {
+          "child": "g0-p0",
+          "pid": 1330152,
+          "exit_code": 0
+        }
+      ],
+      "wall_seconds": 3609.725011793984,
+      "total_items": 123179520,
+      "total_items_per_second": 34124.35008138791,
+      "exit_code": 0,
+      "devices": [
+        "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774"
+      ],
+      "mps_verified": true,
+      "actual_peak_training_processes": 1,
+      "all_training_overlap_seconds": 3600.0007286071777,
+      "same_workload": true
+    },
+    "child_results": [
+      {
+        "ok": true,
+        "child": "g0-p0",
+        "requested_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "device_count": 1,
+        "observed_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-32x4-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792703185.850135,
+        "stable_end_epoch": 1792706785.8508637,
+        "items": 123179520,
+        "steps": 1924680,
+        "stable_seconds": 3600.0007295639953,
+        "items_per_second": 34216.526399126196,
+        "synthetic": true,
+        "torch_peak_allocated": 129666560,
+        "torch_peak_reserved": 148897792,
+        "duration": 3608.8863409269834,
+        "maxrss_kib": 1145724,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452704/step_0/user/task_0\n",
+          "memory.current": "1284132864",
+          "memory.max": "max",
+          "memory.peak": "1299611648",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 3600484478\nuser_usec 3522451307\nsystem_usec 78033171\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "34-39,52-55,58-61",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452704/step_0/user/task_0",
+              "memory.current": "1284132864",
+              "memory.max": "max",
+              "memory.peak": "1299611648",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452704/step_0/user",
+              "memory.current": "1284820992",
+              "memory.max": "193273528320",
+              "memory.peak": "1300299776",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452704/step_0",
+              "memory.current": "1289019392",
+              "memory.max": "max",
+              "memory.peak": "1304633344",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452704",
+              "memory.current": "1314205696",
+              "memory.max": "193273528320",
+              "memory.peak": "1329815552",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452704/step_0/user",
+            "memory.current": "1284820992",
+            "memory.max": "193273528320",
+            "memory.peak": "1300299776",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      }
+    ],
+    "sample_count": 722,
+    "host_effective_peak_bytes": 1300299776,
+    "host_effective_limit_bytes": 193273528320,
+    "mean_cpu_percent": 99.56503304063831,
+    "maximum_sampled_gpu_memory_fraction": 0.009506417614525723,
+    "mean_sampled_gpu_power_watts": 214.97210526315789,
+    "max_oom_kill": 0,
+    "torch_per_process_max_reserved_bytes": 148897792,
+    "allocation": {
+      "case": "p5-M-stable-long",
+      "stage": 5,
+      "kind": "train",
+      "job": "4452704",
+      "submit": "2026-10-22T21:05:52",
+      "eligible": "2026-10-22T21:05:52",
+      "start": "2026-10-22T21:06:05",
+      "end": "2026-10-22T22:06:30",
+      "queue_seconds": 13.0,
+      "node": "c78",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "outcome": "PASS",
+      "layer": "exit",
+      "batch_first": true,
+      "req_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "alloc_tres": "billing=1000000,cpu=14,energy=5266352,gres/gpu=1,mem=180G,node=1",
+      "max_rss": "",
+      "total_cpu": "01:00:01",
+      "elapsed": "3625",
+      "timeline": {
+        "batch_start": "2026-10-22T21:06:06.840636+00:00",
+        "step_launch": "2026-10-22T21:06:06.888492+00:00",
+        "child_spawn": "2026-10-22T21:06:16.955608+00:00",
+        "python_start": "2026-10-22T21:06:17.022925+00:00",
+        "sample": "2026-10-22T21:06:17.074965+00:00",
+        "import_complete": "2026-10-22T21:06:18.523222+00:00",
+        "cuda_initialized": "2026-10-22T21:06:20.041348+00:00",
+        "warmup_complete": "2026-10-22T21:06:25.731231+00:00",
+        "stable_training_start": "2026-10-22T21:06:25.851579+00:00",
+        "validation_checkpoint_cycle": "2026-10-22T21:11:25.972853+00:00",
+        "stable_training_end": "2026-10-22T22:06:25.852691+00:00",
+        "validation_complete": "2026-10-22T22:06:25.911380+00:00",
+        "save_load_complete": "2026-10-22T22:06:25.920175+00:00",
+        "process_exit": "2026-10-22T22:06:25.946089+00:00",
+        "batch_end": "2026-10-22T22:06:30.876316+00:00"
+      },
+      "actual_gpus": 1,
+      "requested_gpus": 1,
+      "requested_cpus": 14,
+      "requested_mem_mib": 184320,
+      "request": {
+        "id": "p5-M-stable-long",
+        "stage": 5,
+        "kind": "train",
+        "gpus": 1,
+        "cpus": 14,
+        "mem_mib": 184320,
+        "exclusive": false,
+        "mode": "step",
+        "chdir": "/tmp",
+        "log": "home",
+        "license": "default",
+        "ntpn": false,
+        "gpt": true,
+        "array": 1,
+        "throttle": 1,
+        "wall_seconds": 3900,
+        "hold": 0,
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 1,
+        "mps": false,
+        "seconds": 3600,
+        "threads": 1,
+        "workers": 0,
+        "job_name": "ca_151236Z-24023185_4ec2b39a5e",
+        "comment": "capella-audit:20261022T151236Z-24023185:p5-M-stable-long"
+      },
+      "repeat_index": 1,
+      "gpu_hours": 1.0069444444444444
+    }
+  },
+  {
+    "case": "p5-M-throughput-long",
+    "job_id": "4452785",
+    "node": "c78",
+    "model": "M",
+    "n": 4,
+    "mps": true,
+    "threads": 1,
+    "workers": 0,
+    "launcher": {
+      "ok": true,
+      "children": [
+        {
+          "child": "g0-p0",
+          "pid": 1358374,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p1",
+          "pid": 1358376,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p2",
+          "pid": 1358379,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p3",
+          "pid": 1358382,
+          "exit_code": 0
+        }
+      ],
+      "wall_seconds": 3608.5919455229887,
+      "total_items": 358247296,
+      "total_items_per_second": 99276.20008254485,
+      "exit_code": 0,
+      "devices": [
+        "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774"
+      ],
+      "mps_verified": true,
+      "actual_peak_training_processes": 4,
+      "all_training_overlap_seconds": 3599.9775247573853,
+      "same_workload": true
+    },
+    "child_results": [
+      {
+        "ok": true,
+        "child": "g0-p0",
+        "requested_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 4,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "device_count": 1,
+        "observed_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-32x4-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792706819.9831712,
+        "stable_end_epoch": 1792710419.9850872,
+        "items": 89594048,
+        "steps": 1399907,
+        "stable_seconds": 3600.0019169449806,
+        "items_per_second": 24887.222303490034,
+        "synthetic": true,
+        "torch_peak_allocated": 129666560,
+        "torch_peak_reserved": 148897792,
+        "duration": 3607.8045842990105,
+        "maxrss_kib": 1122408,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0\n",
+          "memory.current": "3264446464",
+          "memory.max": "max",
+          "memory.peak": "3279122432",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 14230106287\nuser_usec 14087188013\nsystem_usec 142918273\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "34-39,52-55,58-61",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0",
+              "memory.current": "3264446464",
+              "memory.max": "max",
+              "memory.peak": "3279122432",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+              "memory.current": "3265134592",
+              "memory.max": "193273528320",
+              "memory.peak": "3279810560",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0",
+              "memory.current": "3269787648",
+              "memory.max": "max",
+              "memory.peak": "3284615168",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785",
+              "memory.current": "3293859840",
+              "memory.max": "193273528320",
+              "memory.peak": "3308683264",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+            "memory.current": "3265134592",
+            "memory.max": "193273528320",
+            "memory.peak": "3279810560",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p1",
+        "requested_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 4,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "device_count": 1,
+        "observed_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-32x4-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792706819.959495,
+        "stable_end_epoch": 1792710419.9612188,
+        "items": 89674432,
+        "steps": 1401163,
+        "stable_seconds": 3600.001724333997,
+        "items_per_second": 24909.552513225484,
+        "synthetic": true,
+        "torch_peak_allocated": 129666560,
+        "torch_peak_reserved": 148897792,
+        "duration": 3607.7329086569953,
+        "maxrss_kib": 1117852,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0\n",
+          "memory.current": "3264462848",
+          "memory.max": "max",
+          "memory.peak": "3279122432",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 14230094378\nuser_usec 14087184954\nsystem_usec 142909424\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "34-39,52-55,58-61",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0",
+              "memory.current": "3264462848",
+              "memory.max": "max",
+              "memory.peak": "3279122432",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+              "memory.current": "3265150976",
+              "memory.max": "193273528320",
+              "memory.peak": "3279810560",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0",
+              "memory.current": "3269804032",
+              "memory.max": "max",
+              "memory.peak": "3284615168",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785",
+              "memory.current": "3293876224",
+              "memory.max": "193273528320",
+              "memory.peak": "3308683264",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+            "memory.current": "3265150976",
+            "memory.max": "193273528320",
+            "memory.peak": "3279810560",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p2",
+        "requested_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 4,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "device_count": 1,
+        "observed_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-32x4-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792706819.9595003,
+        "stable_end_epoch": 1792710419.9614663,
+        "items": 89565568,
+        "steps": 1399462,
+        "stable_seconds": 3600.0019670640177,
+        "items_per_second": 24879.310850223013,
+        "synthetic": true,
+        "torch_peak_allocated": 129666560,
+        "torch_peak_reserved": 148897792,
+        "duration": 3607.71559709101,
+        "maxrss_kib": 1120804,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0\n",
+          "memory.current": "3264462848",
+          "memory.max": "max",
+          "memory.peak": "3279122432",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 14230095700\nuser_usec 14087184954\nsystem_usec 142910746\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "34-39,52-55,58-61",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0",
+              "memory.current": "3264462848",
+              "memory.max": "max",
+              "memory.peak": "3279122432",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+              "memory.current": "3265150976",
+              "memory.max": "193273528320",
+              "memory.peak": "3279810560",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0",
+              "memory.current": "3269804032",
+              "memory.max": "max",
+              "memory.peak": "3284615168",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785",
+              "memory.current": "3293876224",
+              "memory.max": "193273528320",
+              "memory.peak": "3308683264",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+            "memory.current": "3265150976",
+            "memory.max": "193273528320",
+            "memory.peak": "3279810560",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p3",
+        "requested_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 4,
+        "mps": true,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "device_count": 1,
+        "observed_uuid": "GPU-1ea5ad1e-f301-daa8-48c4-357ebaab2774",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-32x4-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792706819.9595013,
+        "stable_end_epoch": 1792710419.960696,
+        "items": 89413248,
+        "steps": 1397082,
+        "stable_seconds": 3600.0011952019995,
+        "items_per_second": 24837.00508743385,
+        "synthetic": true,
+        "torch_peak_allocated": 129666560,
+        "torch_peak_reserved": 148897792,
+        "duration": 3607.6953841460054,
+        "maxrss_kib": 1115820,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0\n",
+          "memory.current": "3264462848",
+          "memory.max": "max",
+          "memory.peak": "3279122432",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 14230095700\nuser_usec 14087184954\nsystem_usec 142910746\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "34-39,52-55,58-61",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user/task_0",
+              "memory.current": "3264462848",
+              "memory.max": "max",
+              "memory.peak": "3279122432",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+              "memory.current": "3265150976",
+              "memory.max": "193273528320",
+              "memory.peak": "3279810560",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0",
+              "memory.current": "3269804032",
+              "memory.max": "max",
+              "memory.peak": "3284615168",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785",
+              "memory.current": "3293876224",
+              "memory.max": "193273528320",
+              "memory.peak": "3308683264",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4452785/step_0/user",
+            "memory.current": "3265150976",
+            "memory.max": "193273528320",
+            "memory.peak": "3279810560",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      }
+    ],
+    "sample_count": 721,
+    "host_effective_peak_bytes": 3279810560,
+    "host_effective_limit_bytes": 193273528320,
+    "mean_cpu_percent": 393.83124708934827,
+    "maximum_sampled_gpu_memory_fraction": 0.038411770844203275,
+    "mean_sampled_gpu_power_watts": 435.03303744798893,
+    "max_oom_kill": 0,
+    "torch_per_process_max_reserved_bytes": 148897792,
+    "allocation": {
+      "case": "p5-M-throughput-long",
+      "stage": 5,
+      "kind": "train",
+      "job": "4452785",
+      "submit": "2026-10-22T22:06:43",
+      "eligible": "2026-10-22T22:06:43",
+      "start": "2026-10-22T22:06:47",
+      "end": "2026-10-22T23:07:01",
+      "queue_seconds": 4.0,
+      "node": "c78",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "outcome": "PASS",
+      "layer": "exit",
+      "batch_first": true,
+      "req_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "alloc_tres": "billing=1000000,cpu=14,energy=8393074,gres/gpu=1,mem=180G,node=1",
+      "max_rss": "",
+      "total_cpu": "03:57:10",
+      "elapsed": "3614",
+      "timeline": {
+        "batch_start": "2026-10-22T22:06:48.633405+00:00",
+        "step_launch": "2026-10-22T22:06:48.691378+00:00",
+        "child_spawn": "2026-10-22T22:06:52.194641+00:00",
+        "python_start": "2026-10-22T22:06:52.279691+00:00",
+        "sample": "2026-10-22T22:06:52.310240+00:00",
+        "import_complete": "2026-10-22T22:06:54.915834+00:00",
+        "cuda_initialized": "2026-10-22T22:06:56.042529+00:00",
+        "warmup_complete": "2026-10-22T22:06:59.747135+00:00",
+        "stable_training_start": "2026-10-22T22:06:59.965408+00:00",
+        "validation_checkpoint_cycle": "2026-10-22T22:12:00.065787+00:00",
+        "stable_training_end": "2026-10-22T23:06:59.963083+00:00",
+        "validation_complete": "2026-10-22T23:07:00.063423+00:00",
+        "save_load_complete": "2026-10-22T23:07:00.071247+00:00",
+        "process_exit": "2026-10-22T23:07:00.106764+00:00",
+        "batch_end": "2026-10-22T23:07:01.203313+00:00"
+      },
+      "actual_gpus": 1,
+      "requested_gpus": 1,
+      "requested_cpus": 14,
+      "requested_mem_mib": 184320,
+      "request": {
+        "id": "p5-M-throughput-long",
+        "stage": 5,
+        "kind": "train",
+        "gpus": 1,
+        "cpus": 14,
+        "mem_mib": 184320,
+        "exclusive": false,
+        "mode": "step",
+        "chdir": "/tmp",
+        "log": "home",
+        "license": "default",
+        "ntpn": false,
+        "gpt": true,
+        "array": 1,
+        "throttle": 1,
+        "wall_seconds": 3900,
+        "hold": 0,
+        "environment": "standalone",
+        "model": "M",
+        "concurrency": 4,
+        "mps": true,
+        "seconds": 3600,
+        "threads": 1,
+        "workers": 0,
+        "job_name": "ca_151236Z-24023185_412136f0be",
+        "comment": "capella-audit:20261022T151236Z-24023185:p5-M-throughput-long"
+      },
+      "repeat_index": 1,
+      "gpu_hours": 1.0038888888888888
+    }
+  },
+  {
+    "case": "p5-L-stable-long",
+    "job_id": "4453048",
+    "node": "c5",
+    "model": "L",
+    "n": 1,
+    "mps": false,
+    "threads": 1,
+    "workers": 0,
+    "launcher": {
+      "ok": true,
+      "children": [
+        {
+          "child": "g0-p0",
+          "pid": 481604,
+          "exit_code": 0
+        }
+      ],
+      "wall_seconds": 3605.345698419005,
+      "total_items": 80816128,
+      "total_items_per_second": 22415.639098197717,
+      "exit_code": 0,
+      "devices": [
+        "GPU-0ab45f70-5f13-72dd-96fc-a93bfe542d8f"
+      ],
+      "mps_verified": true,
+      "actual_peak_training_processes": 1,
+      "all_training_overlap_seconds": 3600.0016264915466,
+      "same_workload": true
+    },
+    "child_results": [
+      {
+        "ok": true,
+        "child": "g0-p0",
+        "requested_uuid": "GPU-0ab45f70-5f13-72dd-96fc-a93bfe542d8f",
+        "environment": "standalone",
+        "model": "L",
+        "concurrency": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-0ab45f70-5f13-72dd-96fc-a93bfe542d8f",
+        "device_count": 1,
+        "observed_uuid": "GPU-0ab45f70-5f13-72dd-96fc-a93bfe542d8f",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-64x6-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792714356.5638285,
+        "stable_end_epoch": 1792717956.565455,
+        "items": 80816128,
+        "steps": 1262752,
+        "stable_seconds": 3600.0016249730033,
+        "items_per_second": 22448.914311422304,
+        "synthetic": true,
+        "torch_peak_allocated": 224309248,
+        "torch_peak_reserved": 289406976,
+        "duration": 3604.673904621006,
+        "maxrss_kib": 1119412,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4453048/step_0/user/task_0\n",
+          "memory.current": "824840192",
+          "memory.max": "max",
+          "memory.peak": "838610944",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 3606182068\nuser_usec 3537600331\nsystem_usec 68581736\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "1-5,8-9,11-13,20-23",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453048/step_0/user/task_0",
+              "memory.current": "824840192",
+              "memory.max": "max",
+              "memory.peak": "838610944",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453048/step_0/user",
+              "memory.current": "825528320",
+              "memory.max": "193273528320",
+              "memory.peak": "839299072",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453048/step_0",
+              "memory.current": "830152704",
+              "memory.max": "max",
+              "memory.peak": "843923456",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453048",
+              "memory.current": "854663168",
+              "memory.max": "193273528320",
+              "memory.peak": "868433920",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453048/step_0/user",
+            "memory.current": "825528320",
+            "memory.max": "193273528320",
+            "memory.peak": "839299072",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      }
+    ],
+    "sample_count": 721,
+    "host_effective_peak_bytes": 839299072,
+    "host_effective_limit_bytes": 193273528320,
+    "mean_cpu_percent": 99.83831466593386,
+    "maximum_sampled_gpu_memory_fraction": 0.010904727120943336,
+    "mean_sampled_gpu_power_watts": 266.27520110957005,
+    "max_oom_kill": 0,
+    "torch_per_process_max_reserved_bytes": 289406976,
+    "allocation": {
+      "case": "p5-L-stable-long",
+      "stage": 5,
+      "kind": "train",
+      "job": "4453048",
+      "submit": "2026-10-23T00:12:09",
+      "eligible": "2026-10-23T00:12:09",
+      "start": "2026-10-23T00:12:26",
+      "end": "2026-10-23T01:12:40",
+      "queue_seconds": 17.0,
+      "node": "c5",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "outcome": "PASS",
+      "layer": "exit",
+      "batch_first": true,
+      "req_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "alloc_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "max_rss": "",
+      "total_cpu": "01:00:06",
+      "elapsed": "3614",
+      "timeline": {
+        "batch_start": "2026-10-23T00:12:28.439425+00:00",
+        "step_launch": "2026-10-23T00:12:28.493126+00:00",
+        "child_spawn": "2026-10-23T00:12:31.875021+00:00",
+        "python_start": "2026-10-23T00:12:31.944658+00:00",
+        "sample": "2026-10-23T00:12:31.990061+00:00",
+        "import_complete": "2026-10-23T00:12:33.410530+00:00",
+        "cuda_initialized": "2026-10-23T00:12:34.524609+00:00",
+        "warmup_complete": "2026-10-23T00:12:36.345387+00:00",
+        "stable_training_start": "2026-10-23T00:12:36.565265+00:00",
+        "validation_checkpoint_cycle": "2026-10-23T00:17:36.628977+00:00",
+        "stable_training_end": "2026-10-23T01:12:36.567323+00:00",
+        "validation_complete": "2026-10-23T01:12:36.625787+00:00",
+        "save_load_complete": "2026-10-23T01:12:36.631131+00:00",
+        "process_exit": "2026-10-23T01:12:36.653536+00:00",
+        "batch_end": "2026-10-23T01:12:40.692763+00:00"
+      },
+      "actual_gpus": 1,
+      "requested_gpus": 1,
+      "requested_cpus": 14,
+      "requested_mem_mib": 184320,
+      "request": {
+        "id": "p5-L-stable-long",
+        "stage": 5,
+        "kind": "train",
+        "gpus": 1,
+        "cpus": 14,
+        "mem_mib": 184320,
+        "exclusive": false,
+        "mode": "step",
+        "chdir": "/tmp",
+        "log": "home",
+        "license": "default",
+        "ntpn": false,
+        "gpt": true,
+        "array": 1,
+        "throttle": 1,
+        "wall_seconds": 3900,
+        "hold": 0,
+        "environment": "standalone",
+        "model": "L",
+        "concurrency": 1,
+        "mps": false,
+        "seconds": 3600,
+        "threads": 1,
+        "workers": 0,
+        "job_name": "ca_151236Z-24023185_c92c441ba6",
+        "comment": "capella-audit:20261022T151236Z-24023185:p5-L-stable-long"
+      },
+      "repeat_index": 1,
+      "gpu_hours": 1.0038888888888888
+    }
+  },
+  {
+    "case": "p5-L-throughput-long",
+    "job_id": "4453151",
+    "node": "c116",
+    "model": "L",
+    "n": 3,
+    "mps": true,
+    "threads": 2,
+    "workers": 0,
+    "launcher": {
+      "ok": true,
+      "children": [
+        {
+          "child": "g0-p0",
+          "pid": 1265656,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p1",
+          "pid": 1265657,
+          "exit_code": 0
+        },
+        {
+          "child": "g0-p2",
+          "pid": 1265660,
+          "exit_code": 0
+        }
+      ],
+      "wall_seconds": 3608.7542340880027,
+      "total_items": 138995840,
+      "total_items_per_second": 38516.29426217404,
+      "exit_code": 0,
+      "devices": [
+        "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68"
+      ],
+      "mps_verified": true,
+      "actual_peak_training_processes": 3,
+      "all_training_overlap_seconds": 3600.002818107605,
+      "same_workload": true
+    },
+    "child_results": [
+      {
+        "ok": true,
+        "child": "g0-p0",
+        "requested_uuid": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "environment": "standalone",
+        "model": "L",
+        "concurrency": 3,
+        "mps": true,
+        "threads": 2,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "device_count": 1,
+        "observed_uuid": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-64x6-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792717994.5509942,
+        "stable_end_epoch": 1792721594.5538957,
+        "items": 45929280,
+        "steps": 717645,
+        "stable_seconds": 3600.0029018999776,
+        "items_per_second": 12758.123049223059,
+        "synthetic": true,
+        "torch_peak_allocated": 224309248,
+        "torch_peak_reserved": 289406976,
+        "duration": 3607.948112878017,
+        "maxrss_kib": 1156052,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4453151/step_0/user/task_0\n",
+          "memory.current": "3097083904",
+          "memory.max": "max",
+          "memory.peak": "3107065856",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 20830152719\nuser_usec 20702569742\nsystem_usec 127582977\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,12,16-17,24-25,32,37,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user/task_0",
+              "memory.current": "3097083904",
+              "memory.max": "max",
+              "memory.peak": "3107065856",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user",
+              "memory.current": "3097772032",
+              "memory.max": "193273528320",
+              "memory.peak": "3107753984",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0",
+              "memory.current": "3102392320",
+              "memory.max": "max",
+              "memory.peak": "3112370176",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151",
+              "memory.current": "3127369728",
+              "memory.max": "193273528320",
+              "memory.peak": "3137347584",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user",
+            "memory.current": "3097772032",
+            "memory.max": "193273528320",
+            "memory.peak": "3107753984",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p1",
+        "requested_uuid": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "environment": "standalone",
+        "model": "L",
+        "concurrency": 3,
+        "mps": true,
+        "threads": 2,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "device_count": 1,
+        "observed_uuid": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-64x6-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792717994.5509841,
+        "stable_end_epoch": 1792721594.5538123,
+        "items": 45778368,
+        "steps": 715287,
+        "stable_seconds": 3600.0028285489534,
+        "items_per_second": 12716.203342110097,
+        "synthetic": true,
+        "torch_peak_allocated": 224309248,
+        "torch_peak_reserved": 289406976,
+        "duration": 3607.8962695910013,
+        "maxrss_kib": 1159324,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4453151/step_0/user/task_0\n",
+          "memory.current": "3097092096",
+          "memory.max": "max",
+          "memory.peak": "3107065856",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 20830145251\nuser_usec 20702567214\nsystem_usec 127578036\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,12,16-17,24-25,32,37,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user/task_0",
+              "memory.current": "3097092096",
+              "memory.max": "max",
+              "memory.peak": "3107065856",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user",
+              "memory.current": "3097780224",
+              "memory.max": "193273528320",
+              "memory.peak": "3107753984",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0",
+              "memory.current": "3102400512",
+              "memory.max": "max",
+              "memory.peak": "3112370176",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151",
+              "memory.current": "3127377920",
+              "memory.max": "193273528320",
+              "memory.peak": "3137347584",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user",
+            "memory.current": "3097780224",
+            "memory.max": "193273528320",
+            "memory.peak": "3107753984",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      },
+      {
+        "ok": true,
+        "child": "g0-p2",
+        "requested_uuid": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "environment": "standalone",
+        "model": "L",
+        "concurrency": 3,
+        "mps": true,
+        "threads": 2,
+        "workers": 0,
+        "python": "3.9.25 (main, Jul 13 2026, 00:00:00) \n[GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]",
+        "torch": "2.5.1+cu124",
+        "cuda": "12.4",
+        "visible_devices": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "device_count": 1,
+        "observed_uuid": "GPU-9c8086f4-93f0-9e91-b530-16fd55958c68",
+        "gpu_name": "NVIDIA H100",
+        "gpu_total_bytes": 99949674496,
+        "binding_verified": true,
+        "workload": {
+          "model_id": "cnn-64x6-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "stable_start_epoch": 1792717994.55097,
+        "stable_end_epoch": 1792721594.5539637,
+        "items": 47288192,
+        "steps": 738878,
+        "stable_seconds": 3600.002990219975,
+        "items_per_second": 13135.597978242373,
+        "synthetic": true,
+        "torch_peak_allocated": 224309248,
+        "torch_peak_reserved": 289406976,
+        "duration": 3607.9014980450156,
+        "maxrss_kib": 1159336,
+        "cgroup": {
+          "proc_self_cgroup": "0::/system.slice/slurmstepd.scope/job_4453151/step_0/user/task_0\n",
+          "memory.current": "3097083904",
+          "memory.max": "max",
+          "memory.peak": "3107065856",
+          "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "cpu.max": "max 100000",
+          "cpu.stat": "usage_usec 20830154519\nuser_usec 20702569742\nsystem_usec 127584777\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 0\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0",
+          "cpuset.cpus.effective": "0,12,16-17,24-25,32,37,40-41,48-49,56-57",
+          "memory.scopes": [
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user/task_0",
+              "memory.current": "3097083904",
+              "memory.max": "max",
+              "memory.peak": "3107065856",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user",
+              "memory.current": "3097772032",
+              "memory.max": "193273528320",
+              "memory.peak": "3107753984",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0",
+              "memory.current": "3102388224",
+              "memory.max": "max",
+              "memory.peak": "3112370176",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            },
+            {
+              "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151",
+              "memory.current": "3127365632",
+              "memory.max": "193273528320",
+              "memory.peak": "3137347584",
+              "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+            }
+          ],
+          "effective_memory": {
+            "path": "/sys/fs/cgroup/system.slice/slurmstepd.scope/job_4453151/step_0/user",
+            "memory.current": "3097772032",
+            "memory.max": "193273528320",
+            "memory.peak": "3107753984",
+            "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0"
+          }
+        },
+        "exit_code": 0
+      }
+    ],
+    "sample_count": 721,
+    "host_effective_peak_bytes": 3107753984,
+    "host_effective_limit_bytes": 193273528320,
+    "mean_cpu_percent": 576.4708084359708,
+    "maximum_sampled_gpu_memory_fraction": 0.033204633204633204,
+    "mean_sampled_gpu_power_watts": 437.81873786407766,
+    "max_oom_kill": 0,
+    "torch_per_process_max_reserved_bytes": 289406976,
+    "allocation": {
+      "case": "p5-L-throughput-long",
+      "stage": 5,
+      "kind": "train",
+      "job": "4453151",
+      "submit": "2026-10-23T01:12:52",
+      "eligible": "2026-10-23T01:12:52",
+      "start": "2026-10-23T01:12:58",
+      "end": "2026-10-23T02:13:15",
+      "queue_seconds": 6.0,
+      "node": "c116",
+      "state": "COMPLETED",
+      "exit_code": "0:0",
+      "outcome": "PASS",
+      "layer": "exit",
+      "batch_first": true,
+      "req_tres": "billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",
+      "alloc_tres": "billing=1000000,cpu=14,energy=8547984,gres/gpu=1,mem=180G,node=1",
+      "max_rss": "",
+      "total_cpu": "05:47:08",
+      "elapsed": "3617",
+      "timeline": {
+        "batch_start": "2026-10-23T01:12:59.759444+00:00",
+        "step_launch": "2026-10-23T01:12:59.810152+00:00",
+        "child_spawn": "2026-10-23T01:13:06.630584+00:00",
+        "python_start": "2026-10-23T01:13:06.701059+00:00",
+        "sample": "2026-10-23T01:13:06.750640+00:00",
+        "import_complete": "2026-10-23T01:13:08.393729+00:00",
+        "cuda_initialized": "2026-10-23T01:13:10.221236+00:00",
+        "warmup_complete": "2026-10-23T01:13:14.311223+00:00",
+        "stable_training_start": "2026-10-23T01:13:14.553552+00:00",
+        "validation_checkpoint_cycle": "2026-10-23T01:18:14.684433+00:00",
+        "stable_training_end": "2026-10-23T02:13:14.555313+00:00",
+        "validation_complete": "2026-10-23T02:13:14.634435+00:00",
+        "save_load_complete": "2026-10-23T02:13:14.642203+00:00",
+        "process_exit": "2026-10-23T02:13:14.673480+00:00",
+        "batch_end": "2026-10-23T02:13:15.745214+00:00"
+      },
+      "actual_gpus": 1,
+      "requested_gpus": 1,
+      "requested_cpus": 14,
+      "requested_mem_mib": 184320,
+      "request": {
+        "id": "p5-L-throughput-long",
+        "stage": 5,
+        "kind": "train",
+        "gpus": 1,
+        "cpus": 14,
+        "mem_mib": 184320,
+        "exclusive": false,
+        "mode": "step",
+        "chdir": "/tmp",
+        "log": "home",
+        "license": "default",
+        "ntpn": false,
+        "gpt": true,
+        "array": 1,
+        "throttle": 1,
+        "wall_seconds": 3900,
+        "hold": 0,
+        "environment": "standalone",
+        "model": "L",
+        "concurrency": 3,
+        "mps": true,
+        "seconds": 3600,
+        "threads": 2,
+        "workers": 0,
+        "job_name": "ca_151236Z-24023185_70f1fcf033",
+        "comment": "capella-audit:20261022T151236Z-24023185:p5-L-throughput-long"
+      },
+      "repeat_index": 1,
+      "gpu_hours": 1.0047222222222223
+    }
+  }
+]

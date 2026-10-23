@@ -9,6 +9,8 @@ import tempfile
 import time
 import types
 import unittest
+import tarfile
+import socket
 from unittest.mock import patch
 
 SCRIPT=Path(__file__).resolve().parents[1]/'capella_audit.sh'
@@ -22,7 +24,7 @@ class ControllerTests(unittest.TestCase):
         self.tmp=tempfile.TemporaryDirectory(); self.root=Path(self.tmp.name)/'run'
         self.root.mkdir(); (self.root/'jobs').mkdir(); (self.root/'cases').mkdir()
         self.cfg=copy.deepcopy(m.DEFAULT)
-        self.cfg.update(schema_version=2,run_id='20261022T000000Z-12345678',cat_dir=str(self.root/'cat'),
+        self.cfg.update(schema_version=3,run_id='20261022T000000Z-12345678',cat_dir=str(self.root/'cat'),
                         sacct_fields=['JobIDRaw','JobID','State','Start','End','ExitCode'])
         m.atomic(self.root/'config.json',self.cfg); self.c=m.Controller(self.root)
     def tearDown(self): self.tmp.cleanup()
@@ -38,7 +40,7 @@ class ControllerTests(unittest.TestCase):
         self.assertEqual(self.c.guard(self.c.case('x',mem_mib=193251)),'DOCUMENTED_MEMORY_CAP')
         self.assertEqual(self.c.guard(self.c.case('x',exclusive=True)),'EXCLUSIVE_REQUIRES_ALL_GPU')
         self.assertEqual(self.c.guard(self.c.case('x',array=4,throttle=4,gpus=2)),'GPU_CONCURRENCY_LIMIT')
-        self.c.state['reserved_gpu_hours']=64
+        self.c.state['reserved_gpu_hours']=self.cfg['gpu_hour_budget']
         self.assertEqual(self.c.guard(self.c.case('x')),'GPU_HOUR_RESERVATION_BUDGET')
     def test_site_rejection_never_submits(self):
         calls=[]
@@ -165,7 +167,7 @@ if name=='sacct' and '--helpformat' in sys.argv:
         self.assertEqual(r.returncode,0,r.stdout+r.stderr)
         runs=[p for p in (home/'capella-audit').iterdir() if p.is_dir()]; self.assertEqual(len(runs),1)
         run=runs[0]
-        self.assertTrue((run/'REPORT.md').is_file()); self.assertTrue(run.with_suffix('.tar.gz').is_file())
+        self.assertTrue((run/'REPORT.md').is_file()); self.assertTrue(run.with_suffix('.full.tar.gz').is_file())
         self.assertEqual(m.read(run/'config.json')['cat_dir'],'')
         self.assertEqual(m.read(run/'results.json')['reserved_gpu_hour_upper_bound'],0)
         invoked=calls.read_text().splitlines()
@@ -229,11 +231,177 @@ if name=='sacct' and '--helpformat' in sys.argv:
         self.assertEqual(r['global_actual_peak_gpus'],3)
         self.assertEqual(r['experiments'][-1]['outcome'],'NO_RESOURCES')
         self.assertAlmostEqual(r['gpu_hours_observed'],60/3600)
-        self.assertTrue(self.root.with_suffix('.tar.gz').is_file())
+        self.assertTrue(self.root.with_suffix('.full.tar.gz').is_file())
     def test_uuid_and_field_parsing(self):
         u='01234567-89ab-cdef-0123-456789abcdef'
         self.assertEqual(m.normalize_uuid(u),'GPU-'+u)
         self.assertEqual(m.normalize_uuid('MIG-'+u),'')
         self.assertEqual(m.field('WorkDir=/a path/b StdOut=/home/x file NodeList=c27','WorkDir'),'/a path/b')
+
+    def own_cat(self):
+        cat=Path(self.cfg['cat_dir']); cat.mkdir(exist_ok=True)
+        m.atomic(cat/'audit-owner.json',{'run_id':self.cfg['run_id'],'uid':os.getuid()})
+        return cat
+
+    def test_short_tmp_works_for_multiprocessing_unix_listener(self):
+        # Real IPC, even when the inherited TMPDIR would exceed Linux's socket limit.
+        long=self.root/('x'*100)/('y'*50); long.mkdir(parents=True)
+        with patch.dict(os.environ,{'TMPDIR':str(long)}): scratch=m.short_temp()
+        try:
+            self.assertLess(len(str(scratch)),30)
+            self.assertEqual(scratch.stat().st_mode & 0o777,0o700)
+            env=os.environ.copy(); env['TMPDIR']=str(scratch)
+            code='from multiprocessing.connection import Listener; l=Listener(family="AF_UNIX"); print(l.address); l.close()'
+            result=subprocess.run([sys.executable,'-I','-c',code],env=env,capture_output=True,text=True,timeout=10)
+            self.assertEqual(result.returncode,0,result.stderr)
+            self.assertIn(str(scratch),result.stdout)
+            with socket.socket(socket.AF_UNIX) as sock,self.assertRaises(OSError): sock.bind(str(long/'listener-abcdefgh'))
+        finally: m.shutil.rmtree(scratch)
+
+    def test_export_full_logs_results_and_checkpoint_option(self):
+        cat=self.own_cat(); (cat/'slurm').mkdir(); (cat/'slurm'/'complete.out').write_bytes(b'Z'*2_100_001)
+        (self.root/'controller.log').write_text('full controller log\n')
+        (cat/'weights.pt').write_bytes(b'own-checkpoint')
+        (self.root/'.venv').mkdir(); (self.root/'.venv'/'secret-software').write_text('excluded')
+        (cat/'external-link').symlink_to('/etc/hosts')
+        manifest=m.export_run(self.root)
+        self.assertTrue(manifest['complete_logs'])
+        archive=self.root.with_suffix('.full.tar.gz')
+        self.assertEqual(m.verify_export(archive),manifest)
+        with tarfile.open(archive) as tar:
+            self.assertEqual(tar.extractfile('run/cat/slurm/complete.out').read(),b'Z'*2_100_001)
+            self.assertFalse(any('.venv/' in n or 'weights.pt' in n or 'external-link' in n for n in tar.getnames()))
+        with patch.object(m,'command') as commands:
+            all_manifest=m.export_run(self.root,True)
+        commands.assert_not_called()
+        self.assertTrue(any(r['archive_path'].endswith('/weights.pt') for r in all_manifest['files']))
+        self.assertTrue((self.root.parent/'run.all.tar.gz.sha256').exists())
+
+    def test_export_v2_partial_and_no_legacy_archive_overwrite(self):
+        self.cfg['schema_version']=2; m.atomic(self.root/'config.json',self.cfg)
+        original=self.root.with_suffix('.tar.gz'); original.write_bytes(b'original evidence')
+        manifest=m.export_run(self.root)
+        self.assertFalse(manifest['complete_logs']); self.assertEqual(manifest['gaps'][0]['source'],'cat')
+        self.assertEqual(original.read_bytes(),b'original evidence')
+        self.assertFalse(any('BOUNDED' in str(x) for x in manifest['files']))
+
+    def test_export_refuses_active_controller_and_corrupt_content(self):
+        self.own_cat(); (self.root/'test.log').write_bytes(b'actual content')
+        with (self.root/'controller.lock').open('a') as lock:
+            m.fcntl.flock(lock,m.fcntl.LOCK_EX|m.fcntl.LOCK_NB)
+            with self.assertRaisesRegex(RuntimeError,'active'): m.export_run(self.root)
+        m.export_run(self.root); archive=self.root.with_suffix('.full.tar.gz')
+        corrupt=self.root.parent/'corrupt.tar.gz'
+        import io
+        with tarfile.open(archive) as source,tarfile.open(corrupt,'w:gz') as dest:
+            for member in source:
+                payload=source.extractfile(member).read()
+                if member.name.endswith('/test.log'): payload=b'bad content'; member.size=len(payload)
+                dest.addfile(member,io.BytesIO(payload))
+        with self.assertRaisesRegex(RuntimeError,'checksum mismatch'): m.verify_export(corrupt)
+
+    def test_capture_keeps_output_beyond_two_megabytes(self):
+        output='a'*2_100_001+'TAIL'
+        with patch.object(m,'command',return_value=(0,output)): m.capture(self.root/'big.log',['fake'])
+        self.assertIn('TAIL',(self.root/'big.log').read_text())
+
+    def test_node_pairing_changes_one_factor_and_counterbalances(self):
+        cases=[]
+        with patch.object(self.c,'node_available',return_value=True),patch.object(self.c,'execute',side_effect=lambda c:cases.append(c)):
+            self.c.node_paths('c59')
+        self.assertEqual(len(cases),16)
+        for i in range(8):
+            base=cases[0]
+            changed={k for k in cases[i] if cases[i][k]!=base.get(k)}-{'id'}
+            self.assertLessEqual(len(changed),1)
+        self.assertTrue(cases[8]['id'].endswith('ntpn-r2'))
+        resource=[]
+        with patch.object(self.c,'node_available',return_value=True),patch.object(self.c,'execute',side_effect=lambda c:resource.append(c)):
+            self.c.followup_resources()
+        self.assertTrue(any(c['mode']=='direct' for c in resource))
+        self.assertEqual({c['gpus'] for c in resource},{4})
+
+    def test_training_preflight_stops_cat_before_cuda_discovery(self):
+        c=self.c.train_case('cat-test','S',1); c['storage']='cat'
+        m.atomic(self.root/'cases'/'cat-test.json',c)
+        with patch.object(m,'fs_probe',return_value=72),patch.object(m,'context_snapshot',return_value={}),patch.object(m,'command') as cmd:
+            self.assertEqual(m.run_training(self.root,'cat-test'),72)
+        cmd.assert_not_called()
+        self.assertEqual(m.read(self.root/'jobs'/'cat-test'/'local_0'/'launcher.error.json')['type'],'FILESYSTEM_PREFLIGHT')
+
+    def test_local_training_can_proceed_to_cuda_discovery_without_cat(self):
+        c=self.c.train_case('local-test','S',1); c['storage']='local'
+        m.atomic(self.root/'cases'/'local-test.json',c)
+        with patch.object(m,'fs_probe',return_value=72),patch.object(m,'context_snapshot',return_value={}),patch.object(m,'capture'),patch.object(m,'command',return_value=(1,'CUDA unavailable')) as cmd:
+            self.assertEqual(m.run_training(self.root,'local-test'),76)
+        self.assertIn('--devices',cmd.call_args.args[0])
+
+    def test_report_includes_launcher_root_error_and_ipc_error(self):
+        case=self.c.case('fault',kind='train'); m.atomic(self.root/'cases'/'fault.json',case)
+        self.c.state['cases']['fault']={'status':'DONE','outcome':'INCONCLUSIVE_OR_FAILED','pass':False}
+        out=self.root/'jobs'/'fault'/'123_0'; out.mkdir(parents=True)
+        m.atomic(out/'launcher.error.json',{'traceback':"PermissionError: /data/cat/ws unavailable"})
+        (out/'g0-p0.log').write_text('OSError: AF_UNIX path too long\n')
+        self.c.report(); types={r['type'] for r in m.read(self.root/'findings.json')['confirmed']}
+        self.assertTrue({'CAT_PATH_UNUSABLE','IPC_TEMP_PATH_TOO_LONG'}<=types)
+
+    def test_probe_retries_preserve_initial_failure_and_mount_evidence(self):
+        (self.root/'fs').mkdir(); c=self.c.case('probe',retry_probe=True)
+        m.atomic(self.root/'cases'/'probe.json',c)
+        with patch.object(m,'context_snapshot',return_value={'hostname':'c59'}),patch.object(m,'command',return_value=(0,'mock root filesystem')),patch.dict(os.environ,{'SLURM_JOB_ID':'123'}),patch.object(m.time,'sleep'):
+            self.assertEqual(m.fs_probe(self.root,'probe','step'),72)
+        d=self.root/'jobs'/'probe'/'123_0'
+        self.assertEqual(m.read(d/'step.home.json')['rw'],'PASS')
+        self.assertEqual(m.read(d/'step.cat.json')['rw'],'FAIL')
+        self.assertTrue((d/'step-retry.cat.json').exists())
+        self.assertIn('cat_mount',m.read(d/'step.cat.json'))
+        self.assertFalse(Path(self.cfg['cat_dir']).exists())
+        self.assertEqual(list((self.root/'fs').iterdir()),[])
+
+    def test_multigpu_margin_is_per_physical_gpu_and_includes_cpu(self):
+        c=self.c.train_case('multi','S',2); c.update(gpus=4,cpus=56)
+        self.c.state['cases']['multi']={'pass':True}
+        d=self.root/'jobs'/'multi'/'123_0'; d.mkdir(parents=True)
+        m.atomic(d/'launcher.result.json',{'total_items_per_second':800,'total_items':48000,'devices':['GPU-'+str(i) for i in range(4)]})
+        m.atomic(d/'launcher.context.json',{'affinity':list(range(56))})
+        m.atomic(self.root/'jobs'/'multi'/'sacct.json',[dict(JobID='123',Start='2026-10-22T00:00:00',
+            End='2026-10-22T00:01:00',AllocTRES='gres/gpu=4')])
+        for gpu in range(4):
+            for child in range(2):
+                m.atomic(d/f'child-g{gpu}-p{child}'/'result.json',dict(ok=True,binding_verified=True,observed_uuid='GPU-'+str(gpu),
+                    torch_peak_reserved=50,gpu_total_bytes=1000,workload={'fixed':True}))
+        sample={'cgroup':{'effective_memory':{'memory.peak':'10','memory.max':'100','memory.events':'oom_kill 0'}},
+                'gpu':{'output':'\n'.join(f'GPU-{i}, 100, 10, 50, 70' for i in range(4))},'cpu_total_percent':560,
+                'thread_total':16,'rss_sum_kib':100}
+        for _ in range(2): m.event(d,'sample',data=sample)
+        r=self.c.measure([c])[0]
+        self.assertAlmostEqual(r['gpu_fraction'],.1); self.assertAlmostEqual(r['cpu_fraction'],.1)
+        self.assertEqual(r['items_per_gpu_hour'],720000); self.assertTrue(r['safe'])
+        self.assertAlmostEqual(r['requested_gpu_hours'],4*c['wall_seconds']/3600)
+        m.atomic(d/'launcher.context.json',{'affinity':list(range(6))})
+        self.assertFalse(self.c.measure([c])[0]['safe'])
+
+    def test_resume_drains_registered_jobs_before_new_stages(self):
+        c=self.c.case('later',stage=6); m.atomic(self.root/'cases'/'later.json',c)
+        self.c.state['cases']['later']={'status':'ACTIVE','job_id':'123'}
+        self.c.cfg['stages']=[1]; self.c.state['evidence_complete']=True
+        order=[]
+        with patch.object(self.c,'execute_group',side_effect=lambda cases:order.append([c['id'] for c in cases])),patch.object(self.c,'report',side_effect=lambda:order.append('report')):
+            self.c.run()
+        self.assertEqual(order,[['later'],'report'])
+
+    def test_host_memory_checks_job_ancestor_and_final_counters(self):
+        fraction,oom=m.memory_evidence({'effective_memory':{'memory.peak':'10','memory.max':'100','memory.events':'oom_kill 0'},
+            'memory.scopes':[{'memory.peak':'95','memory.max':'100','memory.events':'oom_kill 1'}]})
+        self.assertEqual(fraction,.95); self.assertTrue(oom)
+        self.assertEqual(m.memory_evidence({'memory.max':'max','memory.peak':'100'}),(0,False))
+
+    def test_job_count_comparison_matches_resources_per_gpu(self):
+        cases=[]
+        with patch.object(self.c,'execute_group',side_effect=lambda g:cases.extend(g)),patch.object(self.c,'execute',side_effect=lambda c:cases.append(c)):
+            self.c.job_concurrency()
+        self.assertEqual({c['mem_mib']/c['gpus'] for c in cases},{179200})
+        self.assertEqual({c['cpus']/c['gpus'] for c in cases},{14})
+        self.assertEqual({(c['concurrency'],c['threads'],c['workers'],c['mps']) for c in cases},{(1,1,0,False)})
 
 if __name__=='__main__': unittest.main()

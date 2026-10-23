@@ -8,7 +8,7 @@ export PATH=/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 exec /usr/bin/python3 -I - "$0" "$@" <<'CAPELLA_PY'
 import argparse, collections, contextlib, csv, datetime as dt, fcntl, hashlib
 import json, math, os, pathlib, re, shlex, shutil, signal
-import subprocess as sp, sys, tarfile, time, traceback, uuid
+import subprocess as sp, sys, tarfile, tempfile, time, traceback, uuid
 
 SELF = pathlib.Path(sys.argv[1] if len(sys.argv)>1 else sys.argv[0]).resolve()
 ARGS = sys.argv[2:]
@@ -45,7 +45,7 @@ def command(argv, timeout=30, cwd=None):
 def capture(path, argv, timeout=30):
     rc, out = command(argv, timeout)
     pathlib.Path(path).parent.mkdir(parents=True, exist_ok=True)
-    pathlib.Path(path).write_text('$ '+shlex.join([str(a) for a in argv])+'\n'+out[:2_000_000]+f'\nEXIT={rc}\n')
+    pathlib.Path(path).write_text('$ '+shlex.join([str(a) for a in argv])+'\n'+out+f'\nEXIT={rc}\n')
     return rc, out
 def field(text, key):
     m=re.search(r'(?:^|\s)'+re.escape(key)+r'=(.*?)(?=\s[A-Za-z][A-Za-z0-9_:/]*=|$)',text,re.S)
@@ -56,20 +56,13 @@ def stamp(x):
 def number(x, default=0):
     try: return int(x)
     except (ValueError,TypeError): return default
-def bounded_excerpt(src, dst):
-    try:
-        p=pathlib.Path(src)
-        if not p.is_file(): raise OSError('not a regular file')
-        with p.open('rb') as f:
-            start=f.read(32768); size=f.seek(0,2); f.seek(max(32768,size-65536)); end=f.read(65536)
-        pathlib.Path(dst).write_bytes(start+(b'\n...BOUNDED EXCERPT...\n' if size>32768 else b'')+end)
-    except OSError as e: pathlib.Path(dst).write_text('UNAVAILABLE: '+str(e))
 
 DEFAULT = dict(account='swtest', partition='capella', expected_user='chwu350f',
     workspace_days=3, max_gpus=4, queue_timeout=1800, max_job_seconds=4500, total_seconds=129600,
-    gpu_hour_budget=64, poll_seconds=15, sample_seconds=5, short_seconds=90, long_seconds=3600,
-    repeats=2, models=['S','M','L'], threads=1, workers=0, tune_threads=[2], tune_workers=[2],
-    paired_nodes=[], min_gpu_headroom=.20, min_host_headroom=.20, stages=[1,2,3,4,5,6],
+    gpu_hour_budget=80, poll_seconds=15, sample_seconds=5, short_seconds=90, long_seconds=3600,
+    repeats=2, models=['S','M','L'], threads=1, workers=0, tune_threads=[2], tune_workers=[1,2],
+    profile='followup', paired_nodes=['c59','c23'], node_samples=6, max_diagnostic_nodes=8, targeted_queue_timeout=300,
+    ballast_mib=[1024,4096], min_gpu_headroom=.20, min_host_headroom=.20, min_cpu_headroom=.10, stages=[1,2,3,4,5,6],
     documented_cpus_per_gpu=14, documented_mem_mib_per_gpu=193250)
 
 BATCH = r'''#!/usr/bin/env bash
@@ -108,11 +101,12 @@ def cgroup_snapshot():
                     if not own_scope(scope): break
                     if str(scope) not in ['/sys/fs/cgroup'] and not str(scope).startswith('/sys/fs/cgroup/'): break
                     values={'path':str(scope)}
-                    for name in ['memory.current','memory.max','memory.peak','memory.events']:
+                    for name in ['memory.current','memory.max','memory.peak','memory.events','cpu.max','cpu.stat','cpuset.cpus.effective']:
                         try: values[name]=(scope/name).read_text().strip()
                         except OSError: pass
                     scopes.append(values)
                 out['memory.scopes']=scopes
+                out['cpu.scopes']=[{k:v for k,v in s.items() if k in ['path','cpu.max','cpu.stat','cpuset.cpus.effective']} for s in scopes]
                 finite=[s for s in scopes if s.get('memory.max','').isdigit() and int(s['memory.max'])>0]
                 if finite: out['effective_memory']=min(finite,key=lambda s:int(s['memory.max']))
             elif 'memory' in controllers.split(','):
@@ -135,11 +129,23 @@ def cgroup_snapshot():
     except (OSError,ValueError): pass
     return out
 
+def memory_evidence(cg):
+    fraction=0.; oom=False
+    for memory in cg.get('memory.scopes',[])+[cg.get('effective_memory',cg)]:
+        current=memory.get('memory.peak',memory.get('memory.current',memory.get('memory.max_usage_in_bytes','')))
+        maximum=memory.get('memory.max',memory.get('memory.limit_in_bytes',''))
+        try:
+            if 0<int(maximum)<(1<<60): fraction=max(fraction,int(current)/int(maximum))
+        except (ValueError,TypeError): pass
+        if re.search(r'(?:^|\n)(?:oom|oom_kill)\s+[1-9]',memory.get('memory.events','')): oom=True
+        if number(memory.get('memory.failcnt'))>0: oom=True
+    return fraction,oom
+
 def context_snapshot():
     return dict(time=now(), epoch=time.time(), hostname=os.uname().nodename, pid=os.getpid(),
         uid=os.getuid(), gid=os.getgid(), cwd=os.getcwd(), affinity=sorted(os.sched_getaffinity(0)),
         env={k:v for k,v in os.environ.items() if k.startswith(('SLURM_','CUDA_'))
-             or k in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS']},
+             or k in ['OMP_NUM_THREADS','MKL_NUM_THREADS','OPENBLAS_NUM_THREADS','TMPDIR','XDG_CACHE_HOME']},
         namespaces={k:os.readlink('/proc/self/ns/'+k) for k in ['mnt','pid','user']},
         cgroup=cgroup_snapshot())
 
@@ -147,14 +153,22 @@ def fs_probe(root, case_id, layer):
     root=pathlib.Path(root); cfg=read(root/'config.json'); c=read(root/'cases'/f'{case_id}.json')
     key=job_key(); out=root/'jobs'/case_id/key; out.mkdir(parents=True,exist_ok=True)
     event(out,layer+'_start'); atomic(out/f'{layer}.context.json',context_snapshot())
+    if c.get('access')=='pre-touch':
+        capture(out/f'{layer}.pre-touch.txt',['stat','/data/cat','/data/cat/ws',cfg['cat_dir']],10)
     rc=0
     for label,p in [('home',root/'fs'),('cat',pathlib.Path(cfg['cat_dir']))]:
         report={'path':str(p),'layer':layer}
         for tool,args in [('namei',['-l',str(p)]),('findmnt',['-T',str(p)]),('stat',['-c','%a %U %G %u %g %n',str(p)])]:
             code,txt=command([tool]+args,8); report[tool]={'exit':code,'output':txt}
+        if label=='cat':
+            code,txt=command(['findmnt','-T','/data/cat','-o','TARGET,SOURCE,FSTYPE,OPTIONS'],8)
+            report['cat_mount']={'exit':code,'output':txt}
+            report['owner']=read(p/'audit-owner.json',{})
         # Do not mkdir on an unmounted /data/cat: the login controller made this exact directory.
         f=p/f'{case_id}-{key}-{layer}-{uuid.uuid4().hex}.probe'
         try:
+            if label=='cat' and cfg.get('schema_version',2)>=3 and report['owner']!={'run_id':cfg['run_id'],'uid':os.getuid()}:
+                raise OSError('Own workspace marker missing or mismatched; no write attempted')
             payload=os.urandom(4096)
             with f.open('xb') as h: h.write(payload); h.flush(); os.fsync(h.fileno())
             loaded=f.read_bytes()
@@ -173,7 +187,108 @@ def fs_probe(root, case_id, layer):
     capture(out/f'{layer}.job.txt',['scontrol','show','job',os.environ['SLURM_JOB_ID'],'-dd'])
     event(out,layer+'_end',exit_code=rc)
     time.sleep(c.get('hold',0))
+    if rc and c.get('retry_probe') and not layer.endswith('-retry'):
+        # Keep the original failure even if a later access sees the mount recover.
+        time.sleep(10); fs_probe(root,case_id,layer+'-retry')
     return rc
+
+def short_temp():
+    # multiprocessing appends /pymp-XXXXXXXX/listener-XXXXXXXX (AF_UNIX limit).
+    # Never inherit a long workspace TMPDIR, and never reuse another job's path.
+    return pathlib.Path(tempfile.mkdtemp(prefix='ca-',dir='/tmp'))
+
+def sha256_file(path):
+    h=hashlib.sha256()
+    with pathlib.Path(path).open('rb') as f:
+        for block in iter(lambda:f.read(1024*1024),b''): h.update(block)
+    return h.hexdigest()
+
+def verify_export(archive):
+    # Verify bytes actually stored, not just an archive listing or gzip header.
+    with tarfile.open(archive,'r:gz') as tar:
+        members=tar.getmembers()
+        manifests=[m for m in members if m.name.endswith('/export-manifest.json')]
+        if len(manifests)!=1: raise RuntimeError('Expected exactly one export manifest')
+        manifest=json.load(tar.extractfile(manifests[0])); expected={r['archive_path']:r for r in manifest['files']}
+        seen=set()
+        for member in members:
+            if not member.isfile() or member.name in seen or member.name.startswith('/') or '..' in pathlib.PurePosixPath(member.name).parts:
+                raise RuntimeError('Unsafe/duplicate archive member: '+member.name)
+            seen.add(member.name)
+            if member.name==manifests[0].name: continue
+            record=expected.get(member.name)
+            if not record: raise RuntimeError('Unlisted archive member: '+member.name)
+            h=hashlib.sha256()
+            with tar.extractfile(member) as stream:
+                for block in iter(lambda:stream.read(1024*1024),b''): h.update(block)
+            if h.hexdigest()!=record['sha256'] or member.size!=record['bytes']:
+                raise RuntimeError('Export checksum mismatch: '+member.name)
+        if seen-{manifests[0].name}!=set(expected): raise RuntimeError('Missing archive files')
+    return manifest
+
+def export_run(root,include_checkpoints=False,controller_owned=False):
+    root=pathlib.Path(root).resolve(); cfg=read(root/'config.json',{})
+    if cfg.get('schema_version') not in [2,3] or root.stat().st_uid!=os.getuid():
+        raise RuntimeError('Export requires an owned standalone v2/v3 run directory')
+    if not re.fullmatch(r'\d{8}T\d{6}Z-[a-f0-9]{8}',cfg.get('run_id','')):
+        raise RuntimeError('Invalid run identifier')
+    # A second exporter must not race, and snapshots of an active controller are refused.
+    with (root/'export.lock').open('a') as export_lock, (root/'controller.lock').open('a') as controller_lock:
+        try:
+            fcntl.flock(export_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            if not controller_owned: fcntl.flock(controller_lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except BlockingIOError: raise RuntimeError('Controller/export is active; export after it exits')
+        manifest=dict(format_version=1,run_id=cfg['run_id'],time=now(),exporter_sha256=sha256_file(SELF),
+            include_checkpoints=include_checkpoints,files=[],excluded=[],gaps=[],
+            policy='All regular HOME/cat logs and results; no symlink following; software/cache excluded; checkpoint option explicit.')
+        sources=[('home',root)]; cat=cfg.get('cat_dir')
+        if cat:
+            catpath=pathlib.Path(cat)
+            owner=read(catpath/'audit-owner.json',{})
+            if catpath.is_dir() and catpath.resolve()!=root and catpath.stat().st_uid==os.getuid() and owner=={'run_id':cfg['run_id'],'uid':os.getuid()}:
+                sources.append(('cat',catpath))
+            else: manifest['gaps'].append({'source':'cat','path':cat,'reason':'Workspace unavailable or ownership marker mismatch; full cat logs cannot be recovered from HOME excerpts.'})
+        archive=root.parent/(root.name+('.all' if include_checkpoints else '.full')+'.tar.gz')
+        partial=archive.with_name(archive.name+'.partial')
+        try:
+            with tarfile.open(partial,'w:gz',dereference=False) as tar:
+                for label,base in sources:
+                    for directory,dirs,files in os.walk(base,followlinks=False):
+                        directory=pathlib.Path(directory)
+                        for name in list(dirs):
+                            p=directory/name
+                            if name in ['.venv','cache'] or p.is_symlink():
+                                manifest['excluded'].append({'source':label,'path':str(p.relative_to(base)),'reason':'software/cache/symlink'})
+                                dirs.remove(name)
+                        for name in sorted(files):
+                            p=directory/name; relative=p.relative_to(base)
+                            if label=='home' and relative==pathlib.Path('export-status.json'):
+                                manifest['excluded'].append({'source':label,'path':str(relative),'reason':'previous export status; current archive manifest is authoritative'}); continue
+                            if p.is_symlink() or not p.is_file():
+                                manifest['excluded'].append({'source':label,'path':str(relative),'reason':'not a regular file'}); continue
+                            if name.endswith(('.pt','.pth')) and not include_checkpoints:
+                                manifest['excluded'].append({'source':label,'path':str(relative),'reason':'checkpoint option not enabled'}); continue
+                            arcname=root.name+'/'+label+'/'+relative.as_posix()
+                            try:
+                                record=dict(archive_path=arcname,bytes=p.stat().st_size,sha256=sha256_file(p))
+                                tar.add(p,arcname=arcname,recursive=False); manifest['files'].append(record)
+                            except OSError as e: raise RuntimeError('File changed/unreadable during export: '+str(p)) from e
+                manifest['complete_logs']=not manifest['gaps']
+                # Add metadata from memory so it cannot include or overwrite itself.
+                import io
+                payload=json.dumps(manifest,ensure_ascii=False,indent=2).encode()
+                info=tarfile.TarInfo(root.name+'/export-manifest.json'); info.size=len(payload); info.mode=0o600
+                tar.addfile(info,io.BytesIO(payload))
+            verify_export(partial)
+            os.replace(partial,archive)
+            digest=sha256_file(archive)
+            archive.with_name(archive.name+'.sha256').write_text(digest+'  '+archive.name+'\n')
+            atomic(root/'export-status.json',dict(archive=str(archive),sha256=digest,time=now(),
+                complete_logs=manifest['complete_logs'],files=len(manifest['files']),gaps=manifest['gaps']))
+        finally:
+            with contextlib.suppress(FileNotFoundError): partial.unlink()
+    print('ARCHIVE='+str(archive)+'\nCOMPLETE_LOGS='+str(manifest['complete_logs']),flush=True)
+    return manifest
 
 def job_key():
     return os.environ.get('SLURM_ARRAY_JOB_ID',os.environ.get('SLURM_JOB_ID','local'))+'_'+os.environ.get('SLURM_ARRAY_TASK_ID','0')
@@ -425,6 +540,10 @@ def torch_child(root,case_id,child_id,device_uuid):
         assert y[0,0].item()==32
         event(out,'cuda_initialized',uuid=observed,requested_uuid=device_uuid,binding_verified=result['binding_verified'])
         torch.cuda.reset_peak_memory_stats()
+        result['ballast_mib']=c.get('ballast_mib',0)
+        # A separate, labelled memory pressure factor; model/data/batch stay fixed.
+        ballast=torch.empty(result['ballast_mib']*1024*1024,dtype=torch.uint8,device='cuda')
+        ballast.fill_(17); torch.cuda.synchronize()
         if c['kind']=='smoke':
             net=torch.nn.Sequential(torch.nn.Linear(128,128),torch.nn.ReLU(),torch.nn.Linear(128,16)).cuda()
             opt=torch.optim.Adam(net.parameters()); data=torch.randn(64,128,device='cuda')
@@ -441,7 +560,7 @@ def torch_child(root,case_id,child_id,device_uuid):
             result.update(items=64*steps,steps=steps,stable_seconds=time.monotonic()-started,synthetic=True)
         else:
             workload=BuiltinWorkload()
-            artifacts=pathlib.Path(cfg['cat_dir'])/'training'/case_id/job_key()/child_id
+            artifacts=pathlib.Path(os.environ['AUDIT_WORK_ROOT'])/'training'/child_id
             ctx=dict(model=c['model'],output_dir=str(artifacts/'results'),scratch_dir=os.environ['TMPDIR'],
                      cache_dir=os.environ['XDG_CACHE_HOME'],workers=result['workers'],threads=result['threads'],
                      seed=20261022,device='cuda:0',physical_uuid=device_uuid,
@@ -495,6 +614,10 @@ def torch_child(root,case_id,child_id,device_uuid):
 def run_training(root,case_id):
     root=pathlib.Path(root); cfg=read(root/'config.json'); c=read(root/'cases'/f'{case_id}.json')
     out=root/'jobs'/case_id/job_key(); out.mkdir(parents=True,exist_ok=True)
+    rc=fs_probe(root,case_id,'payload-preflight')
+    if rc and (c.get('storage','cat')=='cat' or rc!=72):
+        atomic(out/'launcher.error.json',dict(type='FILESYSTEM_PREFLIGHT',exit_code=rc,storage=c.get('storage','cat')))
+        return rc
     atomic(out/'launcher.context.json',context_snapshot())
     capture(out/'cpu.txt',['lscpu'])
     # Ask CUDA/PyTorch in the selected environment for allocation-visible UUIDs.
@@ -511,8 +634,20 @@ def run_training(root,case_id):
     stop=out/'sampler.stop'; stop.unlink(missing_ok=True)
     sample_log=(out/'sampler.log').open('w')
     monitor=None
-    procs=[]; logs=[]; mps_started=False; pipe=None
+    procs=[]; logs=[]; mps_started=False; pipe=None; local_dirs=[]; persistent=None
     try:
+        work_root=short_temp(); local_dirs.append(work_root)
+        local_rc,local_mount=capture(out/'local-storage-mount.txt',
+            ['findmnt','-n','-T',str(work_root),'-o','TARGET,SOURCE,FSTYPE'],10)
+        if local_rc or not local_mount.split() or local_mount.split()[-1] not in ['xfs','ext4','ext3','ext2','btrfs','tmpfs','ramfs','zfs','overlay']:
+            raise RuntimeError('Cannot verify local filesystem for isolated /tmp workload and IPC: '+local_mount)
+        persistent=(pathlib.Path(cfg['cat_dir'])/'work'/case_id/job_key()) if c.get('storage','cat')=='cat' else work_root
+        os.environ['AUDIT_WORK_ROOT']=str(persistent)
+        atomic(out/'storage.json',dict(storage=c.get('storage','cat'),work_root=str(persistent),
+            local_temporary=str(work_root),transient_local_artifacts=c.get('storage')=='local'))
+        if c.get('ballast_mib',0)*1024**2*c.get('concurrency',1) > (1-cfg['min_gpu_headroom'])*min(
+                [number(x) for x in re.findall(r'\d+',command(gpu_command('memory.total'),10)[1])] or [0])*1024**2:
+            raise RuntimeError('BALLAST_CAPACITY_GATE: requested memory pressure exceeds GPU margin')
         if c.get('mps'):
             # Private server, only allocation-visible UUIDs; never change compute mode or stop an existing server.
             pipe=pathlib.Path('/tmp')/('ca-mps-'+uuid.uuid4().hex[:16]); pipe.mkdir(mode=0o700)
@@ -527,16 +662,17 @@ def run_training(root,case_id):
             for n in range(c.get('concurrency',1)):
                 child=f'g{g}-p{n}'; env=os.environ.copy(); env['CUDA_VISIBLE_DEVICES']=device
                 threads=str(c.get('threads',cfg['threads']))
-                work=pathlib.Path(cfg['cat_dir'])/'processes'/case_id/job_key()/child
+                work=persistent/'processes'/child
+                scratch=short_temp(); local_dirs.append(scratch)
                 env.update(OMP_NUM_THREADS=threads,MKL_NUM_THREADS=threads,OPENBLAS_NUM_THREADS=threads,
                            NUMEXPR_NUM_THREADS=threads,PYTHONUNBUFFERED='1',PYTHONDONTWRITEBYTECODE='1',
-                           TMPDIR=str(work/'tmp'),XDG_CACHE_HOME=str(work/'cache'),
+                           TMPDIR=str(scratch),XDG_CACHE_HOME=str(work/'cache'),
                            TORCH_HOME=str(work/'cache'/'torch'),HF_HOME=str(work/'cache'/'hf'),
                            MPLCONFIGDIR=str(work/'cache'/'mpl'))
-                pathlib.Path(env['TMPDIR']).mkdir(parents=True); pathlib.Path(env['XDG_CACHE_HOME']).mkdir(parents=True)
+                pathlib.Path(env['XDG_CACHE_HOME']).mkdir(parents=True,exist_ok=True)
                 argv=environment_prefix(root,c,env)+[str(root/'runtime.py'),'--torch-child',str(root),case_id,child,device]
                 f=(out/f'{child}.log').open('w'); logs.append(f)
-                event(out,'child_spawn',child=child,uuid=device,argv=argv)
+                event(out,'child_spawn',child=child,uuid=device,argv=argv,tmpdir=str(scratch),storage=c.get('storage','cat'))
                 p=sp.Popen(argv,stdout=f,stderr=sp.STDOUT,env=env); procs.append((child,p))
         if c['kind'] in ['train','smoke','pipeline']:
             deadline=time.monotonic()+220
@@ -593,6 +729,15 @@ def run_training(root,case_id):
             except (OSError,sp.TimeoutExpired): pass
         if pipe:
             with contextlib.suppress(OSError): shutil.rmtree(pipe)
+        try:
+            if c.get('storage')=='local' and persistent:
+                for p in (persistent/'training').rglob('*'):
+                    if p.is_file() and not p.is_symlink() and p.suffix in ['.json','.jsonl','.log','.txt']:
+                        target=out/'local-results'/p.relative_to(persistent)
+                        target.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,target)
+        finally:
+            for path in local_dirs:
+                with contextlib.suppress(OSError): shutil.rmtree(path)
 
 def prepare_runtime(root):
     root=pathlib.Path(root); target=root/'.venv'; python=target/'bin'/'python3'
@@ -616,6 +761,12 @@ def batch(root,case_id):
     event(out,'batch_start'); atomic(out/'batch.context.json',context_snapshot())
     capture(out/'job-start.txt',['scontrol','show','job',os.environ['SLURM_JOB_ID'],'-dd'])
     mode=c['mode']; exits=[]
+    if c['kind']!='fs':
+        preflight=fs_probe(root,case_id,'batch-preflight')
+        exits.append({'layer':'batch-preflight','exit_code':preflight})
+        if preflight and (c.get('storage','cat')=='cat' or preflight!=72):
+            atomic(out/'batch.result.json',{'exit_code':preflight,'layers':exits})
+            event(out,'batch_end',exit_code=preflight); return preflight
     if c['kind']=='fs':
         if mode in ['direct','both']: exits.append({'layer':'batch','exit_code':fs_probe(root,case_id,'batch')})
         if mode in ['step','both']:
@@ -647,7 +798,7 @@ def pipeline(root,case_id):
 class Controller:
     def __init__(self,root):
         self.root=pathlib.Path(root); self.cfg=read(self.root/'config.json')
-        if self.cfg.get('schema_version')!=2: raise RuntimeError('Only standalone v2 run directories are supported')
+        if self.cfg.get('schema_version')!=3: raise RuntimeError('Use this version only with new v3 run directories; export also supports v2')
         for name in ['tmp','cache']: (self.root/name).mkdir(exist_ok=True)
         os.environ.update(TMPDIR=str(self.root/'tmp'),XDG_CACHE_HOME=str(self.root/'cache'))
         self.state=read(self.root/'state.json',dict(created=time.time(),reserved_gpu_hours=0,cases={},notes=[]))
@@ -660,8 +811,10 @@ class Controller:
         # Site metadata only. No historical/current job inventory is requested.
         for name,args in [
             ('partition',['scontrol','show','partition',self.cfg['partition']]),
+            ('nodes',['sinfo','-N','-h','-p',self.cfg['partition'],'-o','%N|%T|%E|%G|%c|%m']),
             ('licenses',['scontrol','show','licenses']),
             ('qos',['sacctmgr','-nP','show','qos','normal','format=Name,Flags,MaxWall,MaxTRESPU,MaxTRESPJ']),
+            ('association',['sacctmgr','-nP','show','assoc','where','user='+self.cfg['expected_user'],'account='+self.cfg['account']]),
             ('identity',['id']),('hostname',['hostname','-f']),('slurm-version',['scontrol','--version'])]:
             capture(d/(name+'.txt'),args)
         fmt='JobIDRaw,JobID,JobName,State,ExitCode,Submit,Eligible,Start,End,ElapsedRaw,NodeList,ReqCPUS,AllocCPUS,ReqMem,ReqTRES,AllocTRES,MaxRSS,TotalCPU,Reason'
@@ -675,7 +828,8 @@ class Controller:
     def case(self,id,**kw):
         c=dict(id=id,stage=2,kind='fs',gpus=1,cpus=1,mem_mib=1024,exclusive=False,
                mode='both',chdir='/tmp',log='home',license='default',ntpn=False,gpt=False,
-               array=1,throttle=1,wall_seconds=300,hold=0)
+               array=1,throttle=1,wall_seconds=300,hold=0,
+               storage='local' if self.cfg['profile']=='followup' else 'cat')
         c.update(kw); c['wall_seconds']=min(math.ceil(c['wall_seconds']/60)*60,self.cfg['max_job_seconds'])
         return c
     def guard(self,c):
@@ -829,7 +983,7 @@ class Controller:
                     if time.time()-s['control_deadline_epoch']>180:
                         s.update(status='ACTIVE_UNRESOLVED',**{'pass':False},outcome='CONTROL_UNAVAILABLE_POSSIBLY_ACTIVE')
                         self.stop=True; self.save(); results.append(False); continue
-                elif time.time()-s['submit_epoch']>self.cfg['queue_timeout'] and active_lines:
+                elif time.time()-s['submit_epoch']>c.get('queue_timeout',self.cfg['queue_timeout']) and active_lines:
                     # Cancel pending elements individually; keep already-running array members.
                     for line in active_lines:
                         parts=line.split('|'); element=parts[0]
@@ -853,7 +1007,76 @@ class Controller:
             live=remaining
             if live: time.sleep(self.cfg['poll_seconds'])
         # Preserve input order even when jobs finish in another order.
+        if self.cfg['profile']=='followup' and not getattr(self,'_pairing',False):
+            self.diagnose_new_nodes(cases)
         return [self.state['cases'].get(c['id'],{}).get('pass',False) for c in cases]
+
+    def node_available(self,node):
+        rc,txt=capture(self.root/'evidence'/('node-'+node+'.txt'),
+            ['sinfo','-N','-h','-n',node,'-p',self.cfg['partition'],'-o','%N|%T|%E'])
+        event(self.root,'node_state',node=node,exit_code=rc,output=txt)
+        return rc==0 and any(len(parts)>=2 and parts[1].lower() in ['idle','mixed','allocated']
+            for parts in [line.strip().split('|') for line in txt.splitlines()])
+
+    def node_paths(self,node,full=True):
+        if not self.node_available(node):
+            self.note(node+': not currently eligible; node pairing unverified'); return
+        done=self.state.setdefault('diagnosed_nodes',[])
+        if node not in done: done.append(node); self.save()
+        variants=[('default',{}),('cat',{'license':'cat'})]
+        if full:
+            variants += [('all',{'license':'cat,horse,narwhal,walrus'}),('touch',{'access':'pre-touch'}),
+                         ('cat-cwd',{'chdir':self.cfg['cat_dir']}),('alias-cwd',{'chdir':str(self.root/'cat-link')}),
+                         ('cat-log',{'log':'cat'}),('ntpn',{'ntpn':True})]
+        for rep in range(1,self.cfg['repeats']+1):
+            # Counterbalance order so one parameter is not always tested later.
+            for label,kw in (variants if rep%2 else list(reversed(variants))):
+                self.execute(self.case(f'f2-{node}-{label}-r{rep}',node=node,retry_probe=True,
+                    queue_timeout=self.cfg['targeted_queue_timeout'],**kw))
+
+    def diagnose_new_nodes(self,cases):
+        self._pairing=True
+        try:
+            for c in cases:
+                for p in (self.root/'jobs'/c['id']).glob('*_*/*.cat.json'):
+                    if read(p,{}).get('rw')!='FAIL': continue
+                    node=read(p.with_name(p.name[:-len('.cat.json')]+'.context.json'),{}).get('hostname','').split('.')[0]
+                    if not re.fullmatch(r'c\d+',node) or node in self.state.get('diagnosed_nodes',[]): continue
+                    if len(self.state.get('diagnosed_nodes',[]))>=self.cfg['max_diagnostic_nodes']:
+                        self.note('New cat failure on '+node+': node pairing budget exhausted; raw evidence retained'); continue
+                    self.node_paths(node,full=False)
+        finally: self._pairing=False
+
+    def followup_paths(self):
+        baseline=[self.execute(self.case(f'f2-auto-baseline-r{i+1}')) for i in range(3)]
+        rc,txt=capture(self.root/'evidence'/'node-sample.txt',
+            ['sinfo','-N','-h','-p',self.cfg['partition'],'-o','%N|%T|%E'])
+        eligible=sorted({p[0] for p in [s.strip().split('|') for s in txt.splitlines()]
+            if len(p)>=2 and re.fullmatch(r'c\d+',p[0]) and p[1].lower() in ['idle','mixed','allocated']},
+            key=lambda n:hashlib.sha256((self.cfg['run_id']+n).encode()).hexdigest()) if rc==0 else []
+        nodes=self.state.get('sample_nodes')
+        if nodes is None: nodes=list(dict.fromkeys(self.cfg['paired_nodes']+eligible))[:self.cfg['node_samples']]
+        self.state['sample_nodes']=nodes; self.save()
+        self._pairing=True
+        try:
+            for node in nodes: self.node_paths(node)
+        finally: self._pairing=False
+        # Local GPU tests may proceed if HOME/batch/step works; cat failures remain failures.
+        homes=list((self.root/'jobs').glob('f2-auto-*/*_*/*.home.json'))
+        local_ok=len(homes)>=6 and all(read(p,{}).get('rw')=='PASS' for p in homes)
+        self.state['local_startup_ok']=local_ok; self.save()
+        return all(baseline)
+
+    def followup_resources(self):
+        nodes=list(dict.fromkeys(self.cfg['paired_nodes']+self.state.get('sample_nodes',[])))[:3]
+        for node in nodes:
+            if not self.node_available(node): continue
+            for rep in range(1,self.cfg['repeats']+1):
+                variants=[('base',{}),('ntpn',{'ntpn':True}),('exclusive',{'exclusive':True}),('gpt',{'gpt':True}),('direct',{'mode':'direct'})]
+                for label,kw in (variants if rep%2 else list(reversed(variants))):
+                    base=dict(stage=3,node=node,gpus=4,cpus=56,mem_mib=716800,mode='both',
+                        wall_seconds=180,queue_timeout=self.cfg['targeted_queue_timeout'])
+                    self.execute(self.case(f'f3-{node}-{label}-r{rep}',**dict(base,**kw)))
 
     def fs_matrix(self):
         baseline=[]
@@ -920,8 +1143,8 @@ class Controller:
             ds=list((self.root/'jobs'/c['id']).glob('*_*/launcher.result.json'))
             if len(ds)!=1: continue
             d=ds[0].parent; lr=read(ds[0],{}); rr=[read(p,{}) for p in d.glob('child-*/result.json')]
-            if len(rr)!=c['concurrency'] or not all(r.get('ok') and r.get('binding_verified') for r in rr): continue
-            gpu_fraction=0.; host_fraction=0.; samples=0; oom=False; cpu=[]; threads=[]; rss=[]; utilization=[]; power=[]
+            if len(rr)!=c['gpus']*c['concurrency'] or not all(r.get('ok') and r.get('binding_verified') for r in rr): continue
+            gpu_fraction=0.; host_fraction=0.; samples=0; oom=False; cpu=[]; threads=[]; rss=[]; utilization=[]; power=[]; quotas=[]
             for line in (d/'events.jsonl').read_text().splitlines():
                 r=json.loads(line)
                 if r.get('kind')!='sample': continue
@@ -933,29 +1156,47 @@ class Controller:
                             gpu_fraction=max(gpu_fraction,float(row[2])/float(row[1]))
                             if len(row)>=5: utilization.append(float(row[3])); power.append(float(row[4]))
                         except ValueError: pass
-                memory=cg.get('effective_memory',cg)
-                current=memory.get('memory.peak',memory.get('memory.current',memory.get('memory.max_usage_in_bytes','')))
-                maximum=memory.get('memory.max',memory.get('memory.limit_in_bytes',''))
-                try: host_fraction=max(host_fraction,int(current)/int(maximum))
-                except ValueError: pass
-                if re.search(r'oom_kill\s+[1-9]',memory.get('memory.events','')): oom=True
-                if number(memory.get('memory.failcnt'))>0: oom=True
+                fraction,seen_oom=memory_evidence(cg); host_fraction=max(host_fraction,fraction); oom |= seen_oom
+                for scope in cg.get('cpu.scopes',[cg]):
+                    limits=scope.get('cpu.max','').split()
+                    if len(limits)==2 and all(x.isdigit() for x in limits) and int(limits[1])>0:
+                        quotas.append(int(limits[0])/int(limits[1]))
+            for child in rr:
+                fraction,seen_oom=memory_evidence(child.get('cgroup',{}))
+                host_fraction=max(host_fraction,fraction); oom |= seen_oom
             # Per-process allocator peak guards against missed transient GPU peaks.
-            peak_fraction=sum(r.get('torch_peak_reserved',0) for r in rr)/max(1,rr[0].get('gpu_total_bytes',0))
+            by_gpu=collections.defaultdict(float)
+            for r in rr: by_gpu[r.get('observed_uuid')]+=r.get('torch_peak_reserved',0)/max(1,r.get('gpu_total_bytes',0))
+            peak_fraction=max(by_gpu.values(),default=0)
             gpu_fraction=max(gpu_fraction,peak_fraction)
             if samples<2 or gpu_fraction<=0 or host_fraction<=0: continue
             workload=json.dumps(rr[0].get('workload'),sort_keys=True)
             baseline=self.state.setdefault('workload_fingerprints',{}).setdefault(c['model'],workload)
             if workload!=baseline:
                 self.state.setdefault('workload_mismatches',[]).append(c['id']); continue
-            safe=(gpu_fraction<=1-self.cfg['min_gpu_headroom'] and host_fraction<=1-self.cfg['min_host_headroom'] and not oom)
+            affinity=read(d/'launcher.context.json',{}).get('affinity',[])
+            mean_cpu=sum(cpu)/len(cpu)
+            capacity=min([len(affinity)]+quotas) if affinity else 0
+            cpu_fraction=mean_cpu/(100*capacity) if capacity else None
+            safe=(gpu_fraction<=1-self.cfg['min_gpu_headroom'] and host_fraction<=1-self.cfg['min_host_headroom'] and
+                cpu_fraction is not None and cpu_fraction<=1-self.cfg['min_cpu_headroom'] and not oom)
+            allocated_hours=0.; queue_times=[]
+            for row in read(self.root/'jobs'/c['id']/'sacct.json',[]):
+                if '.' in row.get('JobID',''): continue
+                began=stamp(row.get('Start')); ended=stamp(row.get('End')); submitted=stamp(row.get('Submit'))
+                match=re.search(r'(?:^|,)gres/gpu=(\d+)(?:,|$)',row.get('AllocTRES',''))
+                if began and ended and match: allocated_hours+=(ended-began)*int(match.group(1))/3600
+                if began and submitted: queue_times.append(began-submitted)
             data.append(dict(case=c['id'],model=c['model'],n=c['concurrency'],mps=c['mps'],
                 threads=c['threads'],workers=c['workers'],seconds=c['seconds'],
                 throughput=lr['total_items_per_second'],gpu_fraction=gpu_fraction,host_fraction=host_fraction,
-                samples=samples,safe=safe,requested_gpu_hours=c['wall_seconds']/3600,
+                samples=samples,safe=safe,host_oom_observed=oom,requested_gpu_hours=c['wall_seconds']*c['gpus']/3600,
+                gpus=c['gpus'],storage=c.get('storage','cat'),ballast_mib=c.get('ballast_mib',0),
+                nodes=sorted({r.get('NodeList') for r in read(self.root/'jobs'/c['id']/'sacct.json',[]) if r.get('NodeList')}),
                 workload=rr[0].get('workload'),
-                items_per_gpu_hour=lr['total_items_per_second']*3600,
-                mean_cpu_percent=sum(cpu)/len(cpu),max_threads=max(threads),max_rss_sum_kib=max(rss),
+                observed_gpu_hours=allocated_hours or None,queue_seconds=max(queue_times) if queue_times else None,
+                items_per_gpu_hour=lr.get('total_items',0)/allocated_hours if allocated_hours else None,
+                mean_cpu_percent=mean_cpu,cpu_fraction=cpu_fraction,affinity_cpus=len(affinity),effective_cpu_capacity=capacity,max_threads=max(threads),max_rss_sum_kib=max(rss),
                 mean_gpu_utilization=sum(utilization)/len(utilization) if utilization else None,
                 mean_gpu_power_watts=sum(power)/len(power) if power else None,
                 child_speeds=[r.get('items_per_second',0) for r in rr]))
@@ -1002,12 +1243,20 @@ class Controller:
                 c=self.train_case(f'p5-{model}-{label}-long',model,r['n'],r['mps'],
                     seconds=self.cfg['long_seconds'],threads=r['threads'],workers=r['workers'])
                 ok=self.execute(c); long=self.measure([c])
-                candidates[model][label]=dict(r,long_case=c['id'],long_pass=ok and bool(long) and long[0]['safe'])
+                candidates[model][label]=dict(r,long_case=c['id'],long_pass=ok and bool(long) and long[0]['safe'],
+                    long_measurement=long[0] if long else None)
         self.state['candidates']=candidates; atomic(self.root/'training-measurements.json',observed); self.save()
         return candidates
 
     def final_stage(self):
-        io_ok=self.execute(self.case('p6-io',stage=6,kind='io',mode='step',cpus=14,mem_mib=8192))
+        io_ok=self.execute(self.case('p6-io',stage=6,kind='io',mode='step',storage='cat',cpus=14,mem_mib=8192))
+        if self.cfg['profile']=='followup':
+            # A failed mount on one allocation must not veto all cat comparisons.
+            for rep in range(1,self.cfg['repeats']+1):
+                if io_ok: break
+                if list((self.root/'jobs'/'p6-io').glob('*_*/io.json')): break  # actual I/O integrity failure
+                io_ok=self.execute(self.case(f'f6-io-retry-r{rep}',stage=6,kind='io',mode='step',storage='cat',cpus=14,mem_mib=8192))
+            self.followup_pipelines(io_ok); return
         if not io_ok: self.note('Own I/O checks did not pass; synthetic pipeline blocked'); return
         for model,picks in self.state.get('candidates',{}).items():
             for label,pick in picks.items():
@@ -1017,23 +1266,63 @@ class Controller:
                 c.update(kind='pipeline',gpus=4,cpus=56,mem_mib=716800)
                 self.execute(c)
 
+    def job_concurrency(self):
+        # Change Slurm allocations, keeping one process per GPU, one thread, zero workers.
+        for rep in range(1,self.cfg['repeats']+1):
+            for jobs in [1,2,4]:
+                group=[self.train_case(f'f5-jobs{jobs}-r{rep}-{i}','S',1) for i in range(jobs)]
+                # Match the four-card allocation's 700G exactly (175G per GPU).
+                for c in group: c.update(comparison_group=f'jobs{jobs}-r{rep}',mem_mib=179200)
+                self.execute_group(group)
+            c=self.train_case(f'f5-one-four-r{rep}','S',1)
+            c.update(gpus=4,cpus=56,mem_mib=716800,comparison_group=f'one-four-r{rep}')
+            self.execute(c)
+
+    def followup_pipelines(self,io_ok):
+        self.state.setdefault('four_gpu_candidates',{})
+        for model,picks in self.state.get('candidates',{}).items():
+            pick=picks.get('throughput',{})
+            if not pick.get('long_pass'): continue
+            tested=[]
+            # Per-card progression was already gated in stage 5. Now change GPU count.
+            for n in list(dict.fromkeys([1,pick['n']])):
+                group=[]
+                for rep in range(1,self.cfg['repeats']+1):
+                    c=self.train_case(f'f6-{model}-four-n{n}-r{rep}',model,n,pick['mps'],threads=pick['threads'],workers=pick['workers'],stage=6)
+                    c.update(gpus=4,cpus=56,mem_mib=716800,storage='local'); group.append(c)
+                    self.execute(c)
+                measured=self.measure(group)
+                if len(measured)!=len(group) or not all(x['safe'] for x in measured): break
+                tested.append((n,group,measured))
+            if not tested: continue
+            n,_,measurements=max(tested,key=lambda g:min(x['throughput'] for x in g[2]))
+            self.state['four_gpu_candidates'][model]={'n':n,'short':measurements,'long':{}}
+            for storage in ['local','cat']:
+                if storage=='cat' and not io_ok:
+                    self.state['four_gpu_candidates'][model]['long'][storage]={'verified':False,'reason':'IO_GATE'}; continue
+                c=self.train_case(f'f6-{model}-{storage}-pipeline',model,n,pick['mps'],seconds=self.cfg['long_seconds'],
+                    threads=pick['threads'],workers=pick['workers'],stage=6)
+                c.update(kind='pipeline',gpus=4,cpus=56,mem_mib=716800,storage=storage)
+                passed=self.execute(c); long=self.measure([c])
+                self.state['four_gpu_candidates'][model]['long'][storage]={'case':c['id'],
+                    'verified':passed and bool(long) and long[0]['safe'],'measurements':long}
+                self.save()
+
+    def memory_pressure(self):
+        tested=[]
+        # Independent fixed-per-process pressure axis, not a claim about real large models.
+        for mib in self.cfg['ballast_mib']:
+            for n in [1,2,3,4,8,12]:
+                group=[]
+                for rep in range(1,self.cfg['repeats']+1):
+                    c=self.train_case(f'f5-ballast{mib}-n{n}-r{rep}','S',n)
+                    c['ballast_mib']=mib; group.append(c); tested.append(c); self.execute(c)
+                data=self.measure(group)
+                if len(data)!=len(group) or not all(x['safe'] for x in data):
+                    self.note(f'ballast={mib}MiB: stop at n={n}; failure, telemetry or margin gate'); break
+        atomic(self.root/'memory-pressure.json',self.measure(tested))
+
     def report(self):
-        # Bring bounded logs from this tool's exact cat directory into the HOME evidence bundle.
-        cat=self.cfg.get('cat_dir')
-        if cat:
-            packaged=self.root/'cat-evidence'; packaged.mkdir(exist_ok=True)
-            for id,s in self.state['cases'].items():
-                c=read(self.root/'cases'/f'{id}.json',{})
-                if c.get('log')=='cat' and s.get('job_id'):
-                    for p in (pathlib.Path(cat)/'slurm').glob(id+'-'+str(s['job_id'])+'*'):
-                        bounded_excerpt(p,packaged/p.name)
-                if c.get('kind')=='io':
-                    for result in (self.root/'jobs'/id).glob('*_*/io.json'):
-                        base=pathlib.Path(cat)/'io'/id/result.parent.name
-                        for relative in ['shared.jsonl']+[f'task-{i}/{name}' for i in range(8) for name in ['own.jsonl','checkpoint.json','done.json','exit.json']]:
-                            dest=packaged/'io'/result.parent.name/relative; dest.parent.mkdir(parents=True,exist_ok=True)
-                            bounded_excerpt(base/relative,dest)
-            atomic(packaged/'location.json',{'cat_dir':cat,'note':'Model checkpoints, input data and caches remain on cat; only bounded diagnostic files are bundled.'})
         rows=[]; intervals=[]
         for id,s in self.state['cases'].items():
             c=read(self.root/'cases'/f'{id}.json',{})
@@ -1081,26 +1370,70 @@ class Controller:
         findings={'confirmed':[],'clues':[],'unverified':[]}
         for id,s in self.state['cases'].items():
             d=self.root/'jobs'/id
+            for p in d.glob('*_*/launcher.error.json'):
+                r=read(p,{}); text=json.dumps(r,ensure_ascii=False)
+                reason='FILESYSTEM_PREFLIGHT' if r.get('type')=='FILESYSTEM_PREFLIGHT' else 'CAT_PATH_UNUSABLE' if '/data/cat/' in text and ('PermissionError' in text or 'FileNotFoundError' in text) else 'LAUNCHER_EXCEPTION'
+                target='clues' if reason=='LAUNCHER_EXCEPTION' and 'warmup barrier' in text else 'confirmed'
+                findings[target].append({'case':id,'type':reason,'detail':r,'evidence':str(p.relative_to(self.root))})
+            for p in d.glob('*_*/g*-p*.log'):
+                if 'AF_UNIX path too long' in p.read_text(errors='replace'):
+                    findings['confirmed'].append({'case':id,'type':'IPC_TEMP_PATH_TOO_LONG','evidence':str(p.relative_to(self.root))})
             for p in d.glob('*_*/*.cat.json'):
                 r=read(p,{})
                 if r.get('rw')=='FAIL': findings['confirmed'].append({'case':id,'type':'cat_rw_failed','evidence':str(p.relative_to(self.root)),'error':r.get('error')})
+                if r.get('rw')=='FAIL' and read(p.with_name(p.name.replace('.cat.json','-retry.cat.json')),{}).get('rw')=='PASS':
+                    findings['clues'].append({'case':id,'type':'CAT_RECOVERED_ON_RECHECK','evidence':str(p.relative_to(self.root))})
             for p in d.glob('*_*/child-*/result.json'):
                 r=read(p,{})
                 if r.get('error'):
                     reason='CUDA_OOM' if 'out of memory' in r['error'].lower() and ('cuda' in r['error'].lower() or r.get('error_type')=='OutOfMemoryError') else 'APPLICATION_EXCEPTION'
                     findings['confirmed'].append({'case':id,'type':reason,'error_type':r.get('error_type'),'error':r['error'],'evidence':str(p.relative_to(self.root))})
+            for p in d.glob('*_*/events.jsonl'):
+                for index,line in enumerate(p.read_text().splitlines(),1):
+                    try: record=json.loads(line)
+                    except ValueError: continue
+                    if record.get('kind')=='sample' and memory_evidence(record.get('data',{}).get('cgroup',{}))[1]:
+                        findings['confirmed'].append({'case':id,'type':'CGROUP_MEMORY_PRESSURE','evidence':str(p.relative_to(self.root)),'line':index})
+                        break
             if s.get('status') in ['SKIPPED','SUBMISSION_UNCERTAIN','ACTIVE_UNRESOLVED']:
                 findings['unverified'].append({'case':id,'status':s['status'],'reason':s.get('reason',s.get('outcome'))})
+            if s.get('outcome')=='NO_RESOURCES':
+                findings['unverified'].append({'case':id,'status':'NO_RESOURCES','reason':'queue limit expired before allocation'})
         for r in rows:
             if r.get('state')=='OUT_OF_MEMORY': findings['confirmed'].append({'case':r['case'],'job':r['job'],'type':'SLURM_HOST_OOM'})
             if r.get('layer')=='allocated_batch_first_missing' and '.' not in r.get('job',''):
                 findings['clues'].append({'case':r['case'],'job':r['job'],'type':'ALLOCATED_BEFORE_BATCH_MARKER','node':r.get('node'),'start':r.get('start')})
         atomic(self.root/'findings.json',findings)
+        comparisons={}
+        for cid,case_state in self.state['cases'].items():
+            c=read(self.root/'cases'/f'{cid}.json',{}); group=c.get('comparison_group')
+            if not group: continue
+            g=comparisons.setdefault(group,dict(cases=[],all_pass=True,total_items=0,allocations=[],training=[]))
+            g['cases'].append(cid); g['all_pass'] &= bool(case_state.get('pass'))
+            g['allocations'] += [dict(job=j,start=a,end=b,gpus=gpus) for k,j,a,b,gpus in intervals if k==cid]
+            for p in (self.root/'jobs'/cid).glob('*_*/launcher.result.json'): g['total_items']+=read(p,{}).get('total_items',0)
+            for p in (self.root/'jobs'/cid).glob('*_*/child-*/result.json'):
+                r=read(p,{})
+                if r.get('stable_end_epoch'): g['training'].append([r['stable_start_epoch'],r['stable_end_epoch']])
+        for group,g in comparisons.items():
+            alloc=g['allocations']; ev=sorted([(x['start'],1) for x in alloc]+[(x['end'],-1) for x in alloc]); active=peakjobs=0
+            for _,delta in ev: active+=delta; peakjobs=max(active,peakjobs)
+            g['actual_peak_jobs']=peakjobs
+            g['requested_jobs']=len(g['cases'])
+            g['common_training_overlap_seconds']=max(0,min(b for a,b in g['training'])-max(a for a,b in g['training'])) if g['training'] else 0
+            span=max(x['end'] for x in alloc)-min(x['start'] for x in alloc) if alloc else 0
+            g['aggregate_items_per_wall_second']=g['total_items']/span if span else None
+            g['observed_gpu_hours']=sum((x['end']-x['start'])*x['gpus']/3600 for x in alloc)
+            g['items_per_gpu_hour']=g['total_items']/g['observed_gpu_hours'] if g['observed_gpu_hours'] else None
+            g['concurrency_verified']=peakjobs==len(g['cases']) and g['common_training_overlap_seconds']>=self.cfg['short_seconds']*.90
+            g['per_case_measurements']=self.measure([read(self.root/'cases'/f'{cid}.json') for cid in g['cases']])
+        atomic(self.root/'job-concurrency.json',comparisons)
         atomic(self.root/'results.json',{'experiments':rows,'overlap':overlap,'global_actual_peak_gpus':peak,
             'allocation_gpu_count_missing':sum(1 for r in rows if r.get('start') and '.' not in r.get('job','') and r.get('actual_gpus') is None),
             'gpu_hours_observed':sum(x.get('gpu_hours') or 0 for x in rows),
             'reserved_gpu_hour_upper_bound':self.state['reserved_gpu_hours'],'candidates':self.state.get('candidates',{}),
             'stage_results':self.state.get('stage_results',{}),
+            'four_gpu_candidates':self.state.get('four_gpu_candidates',{}),'job_concurrency':comparisons,
             'repeat_summary':dict(collections.Counter(re.sub(r'-r\d+(?=-|$)','-r*',id) for id in self.state['cases']))})
         columns=['case','stage','job','kind','submit','eligible','start','end','queue_seconds','node','state','exit_code','outcome','layer','batch_first','requested_gpus','requested_cpus','requested_mem_mib','actual_gpus','req_tres','alloc_tres','max_rss','total_cpu','elapsed','gpu_hours','reason']
         with (self.root/'results.csv').open('w') as f:
@@ -1119,10 +1452,17 @@ class Controller:
             '', '## 推荐配置','','只输出重复短测、至少一小时持续测试且保留配置余量的候选。吞吐最高指已测试配置中的结果。']
         for model,picks in self.state.get('candidates',{}).items():
             for label,p in picks.items():
-                lines.append(f"- {model}/{label}: n={p['n']}, MPS={p['mps']}, threads={p['threads']}, workers={p['workers']}; "
+                long=p.get('long_measurement') or {}
+                lines.append(f"- 单卡 {model}/{label}: n={p['n']}, MPS={p['mps']}, threads={p['threads']}, workers={p['workers']}; "
                     f"short throughput={p['throughput']:.3f} items/s; GPU peak fraction={p['gpu_fraction']:.3f}; host={p['host_fraction']:.3f}; long_pass={p['long_pass']}")
+                lines.append('  一小时实测（含启动开销的总吞吐、采样和余量）：'+json.dumps(long,ensure_ascii=False))
                 if p['long_pass']: self.template(model,label,p)
         if not self.state.get('candidates'): lines.append('无已验证训练推荐；保持原因未定。')
+        lines+=['','## 四卡与存储对照','',json.dumps(self.state.get('four_gpu_candidates',{}),ensure_ascii=False,indent=2),
+            '', '## Slurm 作业并发对照','',json.dumps(comparisons,ensure_ascii=False,indent=2),
+            '', '各分配的节点、UUID、存储路径可能不同；跨节点差异不能仅归因于 MPS、许可或 Slurm 参数。',
+            '本地临时存储仅用于分离 GPU/CPU 与 cat 因素；本地 checkpoint 随任务清理，验证结果和日志保存在 HOME。',
+            '显存压力组只增加固定大小的已写入 CUDA 张量，不能代替真实大模型或所有显存峰值阶段。']
         lines+=['','完整数据见 results.csv、results.json、training-measurements.json、jobs/ 和 evidence/。',
             f"Observed GPU hours={sum(x.get('gpu_hours') or 0 for x in rows):.4f}; reservation upper bound={self.state['reserved_gpu_hours']:.4f}.",
             f'Actual global GPU overlap={peak}; configured cap={self.cfg["max_gpus"]}.']
@@ -1133,16 +1473,14 @@ class Controller:
             'Exact reproduction: jobs/<case>/submission.json; absolute HOME logs and /tmp baseline.',
             'Job/time/node records:']
         for r in rows:
-            if r.get('layer')=='allocated_batch_first_missing' or ('p2-' in r['case'] and r.get('outcome')!='PASS'):
+            if r.get('layer')=='allocated_batch_first_missing' or (r.get('outcome') not in ['PASS','NO_RESOURCES'] and r.get('start')):
                 support.append(json.dumps(r,ensure_ascii=False))
                 submission=read(self.root/'jobs'/r['case']/'submission.json',{})
                 if submission.get('shell'): support.append('Reproduce: '+submission['shell'])
         (self.root/'SUPPORT.txt').write_text('\n'.join(support)+'\n')
         self.save()
-        archive=self.root.with_suffix('.tar.gz')
-        with tarfile.open(archive,'w:gz') as tar:
-            tar.add(self.root,arcname=self.root.name,filter=lambda info: None if '/.venv' in info.name or '/cache/' in info.name or info.name.endswith(('.pt','.pth')) else info)
-        print('REPORT:',self.root/'REPORT.md','ARCHIVE:',archive,flush=True)
+        manifest=export_run(self.root,controller_owned=getattr(self,'_owns_controller_lock',False))
+        print('REPORT:',self.root/'REPORT.md','COMPLETE_LOGS:',manifest['complete_logs'],flush=True)
 
     def template(self,model,label,p):
         # Reproduce this run's own built-in synthetic workload.
@@ -1168,22 +1506,41 @@ class Controller:
         with (self.root/'controller.lock').open('w') as lock:
             try: fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             except BlockingIOError: raise SystemExit('Controller already running')
+            self._owns_controller_lock=True
             signal.signal(signal.SIGTERM,lambda *_:setattr(self,'stop',True))
             signal.signal(signal.SIGINT,lambda *_:setattr(self,'stop',True))
             try:
+                if self.cfg.get('script_sha256') and sha256_file(SELF)!=self.cfg['script_sha256']:
+                    raise RuntimeError('Controller source differs from this run; resume with its saved original script')
+                if self.state.get('finished'):
+                    self.note('Run already finished; rebuilding report/export only'); return
+                # A controller crash must not leave a later-stage allocation running
+                # while resumed node sampling submits fresh work in an earlier stage.
+                pending=[read(self.root/'cases'/f'{cid}.json') for cid,s in self.state['cases'].items()
+                    if s.get('status') in ['ACTIVE','ACTIVE_UNRESOLVED','SUBMIT_INTENT','SUBMISSION_UNCERTAIN']]
+                if pending:
+                    if any(not c for c in pending): raise RuntimeError('Recovery requires every registered case configuration')
+                    if sum(min(c['array'],c['throttle'])*c['gpus'] for c in pending)>self.cfg['max_gpus']:
+                        raise RuntimeError('Recovery registry exceeds GPU cap; no new work submitted')
+                    self.note('Recovering registered allocations before any new work')
+                    self.execute_group(pending)
+                    if self.stop: raise RuntimeError('Unresolved recovery; no new work submitted')
                 stages=self.cfg['stages']
                 self.state['stage_results']={str(s):'PENDING' if s in stages else 'NOT_REQUESTED' for s in range(1,7)}
                 if not self.state.get('evidence_complete'): self.snapshot()
                 self.state['stage_results']['1']='EVIDENCE_COLLECTED_WITH_RECORDED_GAPS'; self.save()
                 if 2 in stages:
-                    paths_ok=self.fs_matrix(); self.state['paths_ok']=paths_ok; self.save()
+                    paths_ok=self.followup_paths() if self.cfg['profile']=='followup' else self.fs_matrix()
+                    self.state['paths_ok']=paths_ok; self.save()
                     self.state['stage_results']['2']='PASS' if paths_ok else 'NOT_PROVEN_RELIABLE'
                 else: paths_ok=self.state.get('paths_ok',False)
-                if 3 in stages and paths_ok:
-                    self.resource_matrix(); self.state['stage_results']['3']='MATRIX_ATTEMPTED_SEE_CASE_OUTCOMES'
+                if 3 in stages and (paths_ok or self.cfg['profile']=='followup' and self.state.get('local_startup_ok')):
+                    if self.cfg['profile']=='followup': self.followup_resources()
+                    else: self.resource_matrix()
+                    self.state['stage_results']['3']='MATRIX_ATTEMPTED_SEE_CASE_OUTCOMES'
                 elif 3 in stages:
                     self.state['stage_results']['3']='UNVERIFIED_STARTUP_GATE'; self.note('Resource matrix skipped because minimal path/startup gate did not pass')
-                if not paths_ok and any(s in stages for s in [4,5,6]):
+                if not (paths_ok or self.cfg['profile']=='followup' and self.state.get('local_startup_ok')) and any(s in stages for s in [4,5,6]):
                     for s in [4,5,6]:
                         if s in stages: self.state['stage_results'][str(s)]='UNVERIFIED_STARTUP_GATE'
                     self.note('Path/startup gate not passed. Training and I/O stages not executed; support evidence prepared.')
@@ -1192,12 +1549,15 @@ class Controller:
                     if 4 in stages: self.state['stage_results']['4']=envs
                     if 5 in stages:
                         if envs.get('standalone'):
+                            if self.cfg['profile']=='followup': self.job_concurrency()
                             self.stress_matrix(); self.state['stage_results']['5']='ATTEMPTED_SEE_LONG_PASS_AND_CASE_OUTCOMES'
+                            if self.cfg['profile']=='followup': self.memory_pressure()
                         else:
                             self.state['stage_results']['5']='UNVERIFIED_OWN_ENVIRONMENT'
                             self.note('Own environment did not pass: synthetic training unverified')
                     if 6 in stages:
-                        self.final_stage(); self.state['stage_results']['6']='SEE_OWN_IO_AND_SYNTHETIC_PIPELINE_OUTCOMES'
+                        if envs.get('standalone'): self.final_stage(); self.state['stage_results']['6']='SEE_OWN_IO_AND_SYNTHETIC_PIPELINE_OUTCOMES'
+                        else: self.state['stage_results']['6']='UNVERIFIED_OWN_ENVIRONMENT'
                 self.state['finished']=now(); self.save()
             except BaseException:
                 (self.root/'controller-error.txt').write_text(traceback.format_exc())
@@ -1217,12 +1577,19 @@ def validate(cfg):
     if cfg['max_job_seconds']%60: raise ValueError('max_job_seconds must be a whole number of minutes')
     if cfg['repeats']<2: raise ValueError('repeats must be >=2')
     if cfg['threads']!=1 or cfg['workers']!=0: raise ValueError('baseline must use threads=1, workers=0; tune_* vary these later')
-    for k in ['min_gpu_headroom','min_host_headroom']:
+    for k in ['min_gpu_headroom','min_host_headroom','min_cpu_headroom']:
         if not .1<=cfg[k]<.9: raise ValueError(k+' must be 0.1..0.9')
     if not cfg['stages'] or any(s not in range(1,7) for s in cfg['stages']): raise ValueError('stages must be a subset of 1..6')
     if any(m not in ['S','M','L'] for m in cfg['models']): raise ValueError('models must be S, M, L')
     if not 2<=cfg['workspace_days']<=7: raise ValueError('workspace_days must be 2..7')
     if cfg['workspace_days']*86400<cfg['total_seconds']+3600: raise ValueError('workspace must outlive the test budget')
+    if cfg['profile'] not in ['followup','full']: raise ValueError('profile must be followup or full')
+    if not 1<=cfg['node_samples']<=cfg['max_diagnostic_nodes']<=12: raise ValueError('node sample/diagnostic limit must be 1..12')
+    if any(not re.fullmatch(r'c\d+',n) for n in cfg['paired_nodes']): raise ValueError('paired_nodes must be Capella cNN node names')
+    if len(cfg['paired_nodes'])>cfg['node_samples']: raise ValueError('paired_nodes exceeds node_samples')
+    if not 60<=cfg['targeted_queue_timeout']<=cfg['queue_timeout']: raise ValueError('targeted_queue_timeout must be 60..queue_timeout')
+    for key,maximum in [('tune_threads',14),('tune_workers',4),('ballast_mib',4096)]:
+        if any(not isinstance(x,int) or not 1<=x<=maximum for x in cfg[key]): raise ValueError('Invalid '+key)
 
 def start(config,foreground):
     supplied=read(config) if config else {}
@@ -1251,7 +1618,8 @@ def start(config,foreground):
         rc,txt=command(['findmnt','-n','-T',str(catdir),'-o','TARGET,FSTYPE'],10)
         if rc or not txt.strip() or txt.split()[0]=='/': raise SystemExit('New workspace is not backed by a verified cat mount')
         (catdir/'slurm').mkdir(); atomic(catdir/'audit-owner.json',{'run_id':run_id,'uid':os.getuid()})
-    cfg.update(schema_version=2,run_id=run_id,cat_dir=str(catdir) if catdir else '',home_dir=str(root),
+        (root/'cat-link').symlink_to(catdir,target_is_directory=True)
+    cfg.update(schema_version=3,run_id=run_id,cat_dir=str(catdir) if catdir else '',home_dir=str(root),
                launch_time=now(),script_sha256=hashlib.sha256(SELF.read_bytes()).hexdigest())
     shutil.copyfile(SELF,root/'capella_audit.sh')
     source=SELF.read_text().split("<<'CAPELLA_PY'\n",1)[1].rsplit('\nCAPELLA_PY',1)[0]
@@ -1263,7 +1631,7 @@ def start(config,foreground):
 
 def launch(root,foreground=False):
     root=pathlib.Path(root).resolve()
-    if read(root/'config.json',{}).get('schema_version')!=2: raise SystemExit('Only standalone v2 runs can be resumed')
+    if read(root/'config.json',{}).get('schema_version')!=3: raise SystemExit('Resume old runs with their saved original script; this controller requires v3')
     if foreground: Controller(root).run(); return
     with (root/'controller.log').open('a') as log:
         p=sp.Popen(['bash',str(root/'capella_audit.sh'),'_controller',str(root)],
@@ -1284,22 +1652,34 @@ def main():
     if argv and argv[0]=='--torch-child': return torch_child(*argv[1:])
     if argv and argv[0]=='--payload':
         root,cid=argv[1:]; kind=read(pathlib.Path(root)/'cases'/f'{cid}.json')['kind']
+        if kind=='io':
+            rc=fs_probe(root,cid,'payload-preflight')
+            return rc if rc else io_test(root,cid)
         return io_test(root,cid) if kind=='io' else pipeline(root,cid) if kind=='pipeline' else run_training(root,cid)
     parser=argparse.ArgumentParser(description='Independent, resumable ZIH Capella audit. See README.md.')
     sub=parser.add_subparsers(dest='action',required=True)
     p=sub.add_parser('init-config'); p.add_argument('path')
     p=sub.add_parser('start'); p.add_argument('--config'); p.add_argument('--foreground',action='store_true')
+    p=sub.add_parser('export'); p.add_argument('run_dir'); p.add_argument('--include-checkpoints',action='store_true')
+    p=sub.add_parser('verify-export'); p.add_argument('archive')
     for a in ['resume','report','status','stop','_controller']:
         p=sub.add_parser(a); p.add_argument('run_dir'); p.add_argument('--foreground',action='store_true')
     args=parser.parse_args(argv)
     if args.action in ['resume','report','status','stop','_controller']:
-        if read(pathlib.Path(args.run_dir)/'config.json',{}).get('schema_version')!=2:
-            raise SystemExit('Only standalone v2 run directories are supported')
+        if read(pathlib.Path(args.run_dir)/'config.json',{}).get('schema_version')!=3:
+            raise SystemExit('This controller requires v3. Use export for existing v2 results; resume v2 only with its original saved script.')
     if args.action=='init-config':
         p=pathlib.Path(args.path)
         if p.exists(): raise SystemExit('Refusing to overwrite '+str(p))
         atomic(p,DEFAULT); print('Edit '+str(p)+' before start.'); return 0
     if args.action=='start': start(args.config,args.foreground)
+    elif args.action=='export':
+        manifest=export_run(args.run_dir,args.include_checkpoints)
+        return 0 if manifest['complete_logs'] else 2
+    elif args.action=='verify-export':
+        manifest=verify_export(args.archive)
+        print(json.dumps({'integrity':'PASS','complete_logs':manifest['complete_logs'],'files':len(manifest['files']),'gaps':manifest['gaps']},ensure_ascii=False,indent=2))
+        return 0 if manifest['complete_logs'] else 2
     elif args.action=='resume': launch(args.run_dir,args.foreground)
     elif args.action=='report': Controller(args.run_dir).report()
     elif args.action=='status':

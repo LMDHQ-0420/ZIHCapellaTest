@@ -1,0 +1,69 @@
+{
+  "account": "swtest",
+  "partition": "capella",
+  "expected_user": "chwu350f",
+  "workspace_days": 3,
+  "max_gpus": 4,
+  "queue_timeout": 1800,
+  "max_job_seconds": 4500,
+  "total_seconds": 129600,
+  "gpu_hour_budget": 64,
+  "poll_seconds": 15,
+  "sample_seconds": 5,
+  "short_seconds": 90,
+  "long_seconds": 3600,
+  "repeats": 2,
+  "models": [
+    "S",
+    "M",
+    "L"
+  ],
+  "threads": 1,
+  "workers": 0,
+  "tune_threads": [
+    2
+  ],
+  "tune_workers": [
+    2
+  ],
+  "paired_nodes": [],
+  "min_gpu_headroom": 0.2,
+  "min_host_headroom": 0.2,
+  "stages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "documented_cpus_per_gpu": 14,
+  "documented_mem_mib_per_gpu": 193250,
+  "schema_version": 2,
+  "run_id": "20261022T151236Z-24023185",
+  "cat_dir": "/data/cat/ws/chwu350f-ca-20261022T151236Z-24023185",
+  "home_dir": "/home/chwu350f/capella-audit/20261022T151236Z-24023185",
+  "launch_time": "2026-10-22T15:12:36.902783+00:00",
+  "script_sha256": "c8bfe87216d086affadf0dc03d56f343beef9009696f9d1cf827810ae114aaa1",
+  "sacct_fields": [
+    "JobIDRaw",
+    "JobID",
+    "JobName",
+    "State",
+    "ExitCode",
+    "Submit",
+    "Eligible",
+    "Start",
+    "End",
+    "ElapsedRaw",
+    "NodeList",
+    "ReqCPUS",
+    "AllocCPUS",
+    "ReqMem",
+    "ReqTRES",
+    "AllocTRES",
+    "MaxRSS",
+    "TotalCPU",
+    "Reason"
+  ]
+}

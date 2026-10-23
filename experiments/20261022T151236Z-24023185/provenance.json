@@ -1,0 +1,32 @@
+{
+  "run_id": "20261022T151236Z-24023185",
+  "archive_name": "20261022T151236Z-24023185.tar.gz",
+  "archive_bytes": 3275645,
+  "archive_sha256": "718735d933644d9ba00c6e18375a7df50d1b57d0cc615248c204b49a81216c77",
+  "archive_regular_files": 7104,
+  "script_sha256": "c8bfe87216d086affadf0dc03d56f343beef9009696f9d1cf827810ae114aaa1",
+  "source_revision": "dfefda2532bab859ff861461250ca0f75ada27e9",
+  "config_script_sha256": "c8bfe87216d086affadf0dc03d56f343beef9009696f9d1cf827810ae114aaa1",
+  "start_utc": "2026-10-22T15:12:36.902783+00:00",
+  "end_utc": "2026-10-23T03:19:13.093501+00:00",
+  "case_outcomes": {
+    "PASS": 138,
+    "INCONCLUSIVE_OR_FAILED": 12,
+    "NO_RESOURCES": 2
+  },
+  "reviewed_classification": {
+    "PASS": 138,
+    "CAT_MOUNT_NOT_VISIBLE": 2,
+    "IPC_TEMP_PATH_TOO_LONG": 6,
+    "NO_RESOURCES": 2,
+    "CAT_PATH_UNUSABLE": 4
+  },
+  "accounting_rows": 629,
+  "allocation_rows": 161,
+  "allocated_parent_elements": 159,
+  "gpu_hours_observed": 9.26833333333334,
+  "reserved_gpu_hour_upper_bound": 53.13333333333338,
+  "maximum_actual_gpu_overlap": 4,
+  "archive_scope": "Original v2 HOME archive with bounded cat excerpts; not a complete raw cat export.",
+  "evidence_scope": "selected-evidence.json preserves selected raw content and explicitly marked excerpts with original file hashes; original-results.csv preserves all accounting rows."
+}
