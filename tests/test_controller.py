@@ -305,6 +305,119 @@ if name=='sacct' and '--helpformat' in sys.argv:
         with patch.object(m,'command',return_value=(0,output)): m.capture(self.root/'big.log',['fake'])
         self.assertIn('TAIL',(self.root/'big.log').read_text())
 
+    def test_report_lock_precedes_every_write(self):
+        self.own_cat()
+        m.atomic(self.root/'state.json',self.c.state)
+        before=(self.root/'state.json').read_bytes()
+        self.c.state['notes'].append({'text':'must never overwrite live state'})
+        with (self.root/'controller.lock').open('a') as lock:
+            m.fcntl.flock(lock,m.fcntl.LOCK_EX|m.fcntl.LOCK_NB)
+            with self.assertRaisesRegex(RuntimeError,'active'): self.c.report()
+        self.assertEqual((self.root/'state.json').read_bytes(),before)
+        self.assertFalse((self.root/'REPORT.md').exists())
+
+    def test_export_marks_unreadable_subtrees_as_incomplete(self):
+        self.own_cat(); walk=m.os.walk
+        def denied(base,**kw):
+            if Path(base).resolve()==self.root.resolve():
+                if kw.get('onerror'): kw['onerror'](PermissionError(13,'Permission denied',str(self.root/'unreadable')))
+                yield str(base),[],['config.json']
+            else: yield from walk(base,**kw)
+        with patch.object(m.os,'walk',denied): manifest=m.export_run(self.root)
+        self.assertFalse(manifest['complete_logs'])
+        self.assertIn('unreadable',str(manifest['gaps']))
+        self.assertEqual(m.verify_export(self.root.with_suffix('.full.tar.gz')),manifest)
+
+    def test_export_of_registered_active_jobs_is_only_a_snapshot(self):
+        self.own_cat()
+        self.c.state['cases']['running']={'status':'ACTIVE','job_id':'123'}; self.c.save()
+        manifest=m.export_run(self.root)
+        self.assertFalse(manifest['complete_logs'])
+        self.assertIn('123',str(manifest['gaps']))
+
+    def test_all_array_queue_timeouts_are_no_resources(self):
+        c=self.c.case('queue-array',array=2,throttle=2)
+        self.c.state['cases'][c['id']]={'status':'ACTIVE','job_id':'901','submit_epoch':time.time()-4000}
+        pending=[dict(JobIDRaw=str(902+i),JobID=f'901_{i}',State='PENDING',Start='Unknown') for i in range(2)]
+        done=[dict(r,State='CANCELLED',ExitCode='0:0') for r in pending]
+        def fake(args,timeout=30,cwd=None):
+            if args[0]=='scontrol': return 0,f'UserId=test({os.getuid()}) Comment={c["comment"]}'
+            if args[0]=='squeue': return 0,'901_0|PENDING|N/A\n901_1|PENDING|N/A\n'
+            return 0,''
+        with patch.object(m,'command',fake),patch.object(self.c,'query',side_effect=[pending,done]),patch.object(m.time,'sleep'):
+            self.assertFalse(self.c.execute(c))
+        self.assertEqual(self.c.state['cases'][c['id']]['outcome'],'NO_RESOURCES')
+
+    def test_timeout_terminates_own_process_tree(self):
+        marker=self.root/'orphan-ran.txt'
+        child='import time,pathlib; time.sleep(1); pathlib.Path('+repr(str(marker))+').write_text("orphan")'
+        parent='import subprocess,sys,time; subprocess.Popen([sys.executable,"-c",'+repr(child)+']); print("launched",flush=True); time.sleep(10)'
+        rc,output=m.command([sys.executable,'-I','-c',parent],.3)
+        self.assertEqual(rc,124); self.assertIn('COMMAND_TIMEOUT',output)
+        time.sleep(1.1)
+        self.assertFalse(marker.exists(),'timed out command left a descendant running')
+
+    def test_invalid_configuration_fails_before_cluster_commands(self):
+        for key,value in [('repeats',2.5),('max_gpus',True),('gpu_hour_budget',float('nan')),
+                          ('gpu_hour_budget',float('inf')),('node_samples',2.5),('short_seconds',4500),
+                          ('models',[]),('stages',[True]),('tune_workers',[True])]:
+            with self.subTest(key=key,value=value):
+                cfg=copy.deepcopy(m.DEFAULT); cfg[key]=value
+                with self.assertRaises(ValueError): m.validate(cfg)
+
+    def test_mps_failure_stops_only_its_own_escalation(self):
+        self.c.cfg.update(models=['S'],tune_threads=[],tune_workers=[])
+        executed=[]
+        def execute(c):
+            executed.append(c)
+            return not (c['mps'] and c['concurrency']==2)
+        def measure(cases):
+            return [dict(case=c['id'],n=c['concurrency'],mps=c['mps'],threads=c['threads'],workers=c['workers'],
+                         safe=True,throughput=c['concurrency']) for c in cases if not (c['mps'] and c['concurrency']==2)]
+        with patch.object(self.c,'execute',execute),patch.object(self.c,'measure',measure): self.c.stress_matrix()
+        self.assertTrue(any(not c['mps'] and c['concurrency']==12 for c in executed))
+        self.assertFalse(any(c['mps'] and c['concurrency']>2 for c in executed))
+
+    def test_measure_requires_valid_gpu_and_cpu_samples(self):
+        c=self.c.train_case('telemetry','S',1); self.c.state['cases'][c['id']]={'pass':True}
+        d=self.root/'jobs'/c['id']/'123_0'; d.mkdir(parents=True)
+        m.atomic(d/'launcher.result.json',{'total_items_per_second':100,'total_items':6000,'devices':['GPU-0']})
+        m.atomic(d/'launcher.context.json',{'affinity':list(range(14))})
+        m.atomic(d/'child-g0-p0'/'result.json',dict(ok=True,binding_verified=True,observed_uuid='GPU-0',
+            torch_peak_reserved=50,gpu_total_bytes=1000,workload={'fixed':True}))
+        sample=dict(cgroup={'effective_memory':{'memory.peak':'10','memory.max':'100'}},
+                    gpu={'exit':0,'output':'GPU-0, 100, 10, 50, 70'},cpu_total_percent=10,
+                    thread_total=1,rss_sum_kib=100)
+        for fault in ['none','gpu_error','gpu_missing','cpu_missing','cpu_nan']:
+            with self.subTest(fault=fault):
+                snap=copy.deepcopy(sample)
+                if fault=='gpu_error': snap['gpu']={'exit':1,'output':'GPU-0, 100, 10, 50, 70'}
+                if fault=='gpu_missing': snap['gpu']['output']='N/A'
+                if fault=='cpu_missing': snap.pop('cpu_total_percent')
+                if fault=='cpu_nan': snap['cpu_total_percent']=float('nan')
+                (d/'events.jsonl').write_text('')
+                for _ in range(2): m.event(d,'sample',data=snap)
+                measured=self.c.measure([c])
+                self.assertEqual(len(measured),1 if fault=='none' else 0)
+
+    def test_io_integrity_failure_in_retry_is_not_retried_away(self):
+        executed=[]
+        def execute(c):
+            executed.append(c['id'])
+            if c['id']=='f6-io-retry-r1':
+                m.atomic(self.root/'jobs'/c['id']/'123_0'/'io.json',[{'filesystem':'home','ok':False}])
+            return False
+        with patch.object(self.c,'execute',execute),patch.object(self.c,'followup_pipelines') as pipeline:
+            self.c.final_stage()
+        self.assertEqual(executed,['p6-io','f6-io-retry-r1'])
+        pipeline.assert_called_once_with(False)
+
+    def test_report_refreshes_state_after_acquiring_lock(self):
+        state=copy.deepcopy(self.c.state); state['notes']=[{'text':'newer saved state'}]
+        m.atomic(self.root/'state.json',state)
+        self.c.report()
+        self.assertEqual(m.read(self.root/'state.json')['notes'],state['notes'])
+
     def test_node_pairing_changes_one_factor_and_counterbalances(self):
         cases=[]
         with patch.object(self.c,'node_available',return_value=True),patch.object(self.c,'execute',side_effect=lambda c:cases.append(c)):

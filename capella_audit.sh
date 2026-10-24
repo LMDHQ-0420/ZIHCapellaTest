@@ -35,12 +35,29 @@ def command(argv, timeout=30, cwd=None):
         if str(argv[0])=='sbatch':
             # Inherited SBATCH_* could silently invalidate a one-factor comparison.
             env={k:v for k,v in os.environ.items() if not k.startswith(('SBATCH_','SLURM_'))}
-        r = sp.run([str(a) for a in argv], cwd=cwd, text=True, stdout=sp.PIPE,
-                   stderr=sp.STDOUT, timeout=timeout,env=env)
-        return r.returncode, r.stdout
-    except sp.TimeoutExpired as e:
-        out=e.stdout or b''
-        return 124, (out.decode(errors='replace') if isinstance(out,bytes) else out)+'\nCOMMAND_TIMEOUT\n'
+        # A timeout must also stop descendants (including direct payload workers).
+        # A private session confines signals to this invocation, never the controller.
+        p = sp.Popen([str(a) for a in argv], cwd=cwd, text=True, stdout=sp.PIPE,
+                     stderr=sp.STDOUT,env=env,start_new_session=True)
+        try:
+            out,_=p.communicate(timeout=timeout)
+            return p.returncode,out
+        except sp.TimeoutExpired as e:
+            out=e.stdout or b''
+            with contextlib.suppress(ProcessLookupError): os.killpg(p.pid,signal.SIGTERM)
+            try: out,_=p.communicate(timeout=5)
+            except sp.TimeoutExpired as expired:
+                out=expired.stdout or out
+                with contextlib.suppress(ProcessLookupError): os.killpg(p.pid,signal.SIGKILL)
+                try: out,_=p.communicate(timeout=5)
+                except sp.TimeoutExpired:
+                    # A process outside this session may have inherited the pipe.
+                    # Do not wait indefinitely for that unrelated descriptor.
+                    p.stdout.close(); p.wait(timeout=5)
+            finally:
+                # Also stop descendants which closed stdout but ignored TERM.
+                with contextlib.suppress(ProcessLookupError): os.killpg(p.pid,signal.SIGKILL)
+            return 124,(out.decode(errors='replace') if isinstance(out,bytes) else out)+'\nCOMMAND_TIMEOUT\n'
     except OSError as e: return 127, str(e)+'\n'
 def capture(path, argv, timeout=30):
     rc, out = command(argv, timeout)
@@ -250,6 +267,11 @@ def export_run(root,include_checkpoints=False,controller_owned=False):
         manifest=dict(format_version=1,run_id=cfg['run_id'],time=now(),exporter_sha256=sha256_file(SELF),
             include_checkpoints=include_checkpoints,files=[],excluded=[],gaps=[],
             policy='All regular HOME/cat logs and results; no symlink following; software/cache excluded; checkpoint option explicit.')
+        active={cid:s.get('job_id') for cid,s in read(root/'state.json',{}).get('cases',{}).items()
+            if s.get('status') in ['ACTIVE','ACTIVE_UNRESOLVED','SUBMIT_INTENT','SUBMISSION_UNCERTAIN']}
+        if active:
+            manifest['gaps'].append({'source':'jobs','jobs':active,
+                'reason':'Registered jobs may still be active; this is a snapshot, not final logs. Resume/stop the controller before final export.'})
         sources=[('home',root)]; cat=cfg.get('cat_dir')
         if cat:
             catpath=pathlib.Path(cat)
@@ -262,7 +284,10 @@ def export_run(root,include_checkpoints=False,controller_owned=False):
         try:
             with tarfile.open(partial,'w:gz',dereference=False) as tar:
                 for label,base in sources:
-                    for directory,dirs,files in os.walk(base,followlinks=False):
+                    def walk_error(error):
+                        manifest['gaps'].append({'source':label,'path':str(error.filename or base),
+                            'reason':'Cannot enumerate directory: '+str(error)})
+                    for directory,dirs,files in os.walk(base,followlinks=False,onerror=walk_error):
                         directory=pathlib.Path(directory)
                         for name in list(dirs):
                             p=directory/name
@@ -977,7 +1002,9 @@ class Controller:
                         # Accounting success alone never proves payload success.
                         payload=list(d.glob('*_*/batch.result.json'))
                         s['pass']=s['pass_slurm'] and len(payload)==c['array'] and all(read(p,{}).get('exit_code')==0 for p in payload)
-                        s['outcome']='NO_RESOURCES' if s.get('cancel_reason')=='QUEUE_TIMEOUT' and not any(stamp(r.get('Start')) for r in alloc) else ('PASS' if s['pass'] else 'INCONCLUSIVE_OR_FAILED')
+                        queue_cancelled=(s.get('cancel_reason')=='QUEUE_TIMEOUT' or
+                            all(r.get('JobID') in s.get('queue_timed_out_elements',[]) for r in alloc))
+                        s['outcome']='NO_RESOURCES' if queue_cancelled and not any(stamp(r.get('Start')) for r in alloc) else ('PASS' if s['pass'] else 'INCONCLUSIVE_OR_FAILED')
                         self.save(); results.append(s['pass']); continue
                     started=[stamp(r.get('Start')) for r in alloc]; started=[x for x in started if x]
                 else: started=[]; alloc=[]
@@ -1239,17 +1266,26 @@ class Controller:
             d=ds[0].parent; lr=read(ds[0],{}); rr=[read(p,{}) for p in d.glob('child-*/result.json')]
             if len(rr)!=c['gpus']*c['concurrency'] or not all(r.get('ok') and r.get('binding_verified') for r in rr): continue
             gpu_fraction=0.; host_fraction=0.; samples=0; oom=False; cpu=[]; threads=[]; rss=[]; utilization=[]; power=[]; quotas=[]
+            gpu_samples=collections.Counter(); expected_devices=set(lr.get('devices',[]))
             for line in (d/'events.jsonl').read_text().splitlines():
                 r=json.loads(line)
                 if r.get('kind')!='sample': continue
                 samples+=1; snap=r['data']; cg=snap['cgroup']
-                cpu.append(snap.get('cgroup_cpu_interval_percent',snap.get('cpu_total_percent',0))); threads.append(snap.get('thread_total',0)); rss.append(snap.get('rss_sum_kib',0))
-                for row in csv.reader(snap['gpu']['output'].splitlines()):
-                    if len(row)>=3 and row[0].strip() in lr.get('devices',[]):
+                usage=snap.get('cgroup_cpu_interval_percent',snap.get('cpu_total_percent'))
+                if (type(usage) in [int,float] and math.isfinite(usage) and usage>=0 and
+                    ('cgroup_cpu_interval_percent' in snap or snap.get('cpu',{}).get('exit',0)==0)):
+                    cpu.append(usage)
+                threads.append(snap.get('thread_total',0)); rss.append(snap.get('rss_sum_kib',0))
+                seen_devices=set()
+                for row in csv.reader(snap.get('gpu',{}).get('output','').splitlines()):
+                    if snap.get('gpu',{}).get('exit',0)==0 and len(row)>=3 and row[0].strip() in expected_devices:
                         try:
-                            gpu_fraction=max(gpu_fraction,float(row[2])/float(row[1]))
+                            total,used=float(row[1]),float(row[2])
+                            if not (math.isfinite(total) and math.isfinite(used) and total>0 and used>=0): continue
+                            gpu_fraction=max(gpu_fraction,used/total); seen_devices.add(row[0].strip())
                             if len(row)>=5: utilization.append(float(row[3])); power.append(float(row[4]))
                         except ValueError: pass
+                gpu_samples.update(seen_devices)
                 fraction,seen_oom=memory_evidence(cg); host_fraction=max(host_fraction,fraction); oom |= seen_oom
                 for scope in cg.get('cpu.scopes',[cg]):
                     limits=scope.get('cpu.max','').split()
@@ -1263,7 +1299,8 @@ class Controller:
             for r in rr: by_gpu[r.get('observed_uuid')]+=r.get('torch_peak_reserved',0)/max(1,r.get('gpu_total_bytes',0))
             peak_fraction=max(by_gpu.values(),default=0)
             gpu_fraction=max(gpu_fraction,peak_fraction)
-            if samples<2 or gpu_fraction<=0 or host_fraction<=0: continue
+            if (samples<2 or len(cpu)<2 or len(expected_devices)!=c['gpus'] or
+                any(gpu_samples[device]<2 for device in expected_devices) or gpu_fraction<=0 or host_fraction<=0): continue
             workload=json.dumps(rr[0].get('workload'),sort_keys=True)
             baseline=self.state.setdefault('workload_fingerprints',{}).setdefault(c['model'],workload)
             if workload!=baseline:
@@ -1299,7 +1336,7 @@ class Controller:
     def stress_matrix(self):
         candidates={}; observed=[]
         for model in self.cfg['models']:
-            tested=[]
+            tested=[]; mps_escalate=True
             for n in [1,2,3,4,8,12]:
                 passed=True
                 group=[]
@@ -1310,8 +1347,15 @@ class Controller:
                 if not passed or len(measures)!=len(group) or not all(x['safe'] for x in measures):
                     self.note(f'{model}: stop escalation at n={n}; failure, insufficient telemetry, or headroom gate.'); break
                 # Isolate MPS as a single factor at exactly the same concurrency/model/thread/worker.
-                for rep in range(1,self.cfg['repeats']+1):
-                    c=self.train_case(f'p5-{model}-n{n}-on-r{rep}',model,n,True); tested.append(c); self.execute(c)
+                if mps_escalate:
+                    mps_group=[]; mps_passed=True
+                    for rep in range(1,self.cfg['repeats']+1):
+                        c=self.train_case(f'p5-{model}-n{n}-on-r{rep}',model,n,True)
+                        tested.append(c); mps_group.append(c); mps_passed=self.execute(c) and mps_passed
+                    mps_measures=self.measure(mps_group)
+                    mps_escalate=mps_passed and len(mps_measures)==len(mps_group) and all(x['safe'] for x in mps_measures)
+                    if not mps_escalate:
+                        self.note(f'{model}: stop MPS escalation at n={n}; independent MPS-off progression retains its own gate.')
             measures=self.measure(tested); observed+=measures
             # Require every repetition of a configuration to pass the margin gate.
             grouped=collections.defaultdict(list)
@@ -1346,10 +1390,14 @@ class Controller:
         io_ok=self.execute(self.case('p6-io',stage=6,kind='io',mode='step',storage='cat',cpus=14,mem_mib=8192))
         if self.cfg['profile']=='followup':
             # A failed mount on one allocation must not veto all cat comparisons.
+            last_io='p6-io'
             for rep in range(1,self.cfg['repeats']+1):
                 if io_ok: break
-                if list((self.root/'jobs'/'p6-io').glob('*_*/io.json')): break  # actual I/O integrity failure
-                io_ok=self.execute(self.case(f'f6-io-retry-r{rep}',stage=6,kind='io',mode='step',storage='cat',cpus=14,mem_mib=8192))
+                reports=[r for p in (self.root/'jobs'/last_io).glob('*_*/io.json') for r in read(p,[])]
+                if any(r.get('ok') is False for r in reports):
+                    self.note(last_io+': observed I/O integrity failure; no further retry can clear this gate'); break
+                last_io=f'f6-io-retry-r{rep}'
+                io_ok=self.execute(self.case(last_io,stage=6,kind='io',mode='step',storage='cat',cpus=14,mem_mib=8192))
             self.followup_pipelines(io_ok); return
         if not io_ok: self.note('Own I/O checks did not pass; synthetic pipeline blocked'); return
         if not self.four_gpu_ready(): self.note('Four-GPU environment unverified; I/O result retained'); return
@@ -1429,6 +1477,17 @@ class Controller:
         atomic(self.root/'memory-pressure.json',self.measure(tested))
 
     def report(self):
+        if getattr(self,'_owns_controller_lock',False): return self._report()
+        # Acquire before writing ANY report or state, not only before export.
+        with (self.root/'controller.lock').open('a') as lock:
+            try: fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+            except BlockingIOError: raise RuntimeError('Controller is active; report after it exits')
+            self.state=read(self.root/'state.json',self.state)
+            self._owns_controller_lock=True
+            try: return self._report()
+            finally: self._owns_controller_lock=False
+
+    def _report(self):
         rows=[]; intervals=[]
         for id,s in self.state['cases'].items():
             c=read(self.root/'cases'/f'{id}.json',{})
@@ -1628,6 +1687,7 @@ class Controller:
             try: fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
             except BlockingIOError: raise SystemExit('Controller already running')
             self._owns_controller_lock=True
+            self.state=read(self.root/'state.json',self.state)
             signal.signal(signal.SIGTERM,lambda *_:setattr(self,'stop',True))
             signal.signal(signal.SIGINT,lambda *_:setattr(self,'stop',True))
             try:
@@ -1685,34 +1745,45 @@ class Controller:
                 (self.root/'controller-error.txt').write_text(traceback.format_exc())
                 self.note('Controller interrupted/error. Registered jobs preserved for resume; inspect controller-error.txt.')
                 raise
-            finally: self.report()
+            finally:
+                try: self.report()
+                finally: self._owns_controller_lock=False
 
 def validate(cfg):
-    for k in ['max_gpus','queue_timeout','max_job_seconds','total_seconds','gpu_hour_budget','poll_seconds',
-              'sample_seconds','short_seconds','long_seconds','repeats']:
-        if not isinstance(cfg[k],(int,float)) or cfg[k]<=0: raise ValueError(k+' must be positive')
+    for k in ['max_gpus','queue_timeout','max_job_seconds','total_seconds','poll_seconds','sample_seconds',
+              'short_seconds','long_seconds','repeats','workspace_days','node_samples','max_diagnostic_nodes',
+              'targeted_queue_timeout','four_gpu_probe_queue_timeout','documented_cpus_per_gpu','documented_mem_mib_per_gpu']:
+        if type(cfg[k]) is not int or cfg[k]<=0: raise ValueError(k+' must be a positive integer')
+    for k in ['gpu_hour_budget','min_gpu_headroom','min_host_headroom','min_cpu_headroom']:
+        if type(cfg[k]) not in [int,float] or not math.isfinite(cfg[k]) or cfg[k]<=0: raise ValueError(k+' must be positive and finite')
+    for k in ['stages','models','paired_nodes','tune_threads','tune_workers','ballast_mib']:
+        if not isinstance(cfg[k],list): raise ValueError(k+' must be a JSON array')
+    if type(cfg['threads']) is not int or type(cfg['workers']) is not int: raise ValueError('threads/workers must be integers')
     if not 1<=cfg['max_gpus']<=4: raise ValueError('max_gpus must be 1..4')
     if not 5<=cfg['sample_seconds']<=10: raise ValueError('sample_seconds must be 5..10')
     if cfg['poll_seconds']<10: raise ValueError('poll_seconds must be >=10')
     if cfg['long_seconds']<3600: raise ValueError('long_seconds must be >=3600; shorter runs cannot validate candidates')
     if cfg['max_job_seconds']<cfg['long_seconds']+600: raise ValueError('max_job_seconds must cover long_seconds + 600')
+    if cfg['max_job_seconds']<cfg['short_seconds']+300: raise ValueError('max_job_seconds must cover short_seconds + 300')
     if cfg['max_job_seconds']%60: raise ValueError('max_job_seconds must be a whole number of minutes')
     if cfg['repeats']<2: raise ValueError('repeats must be >=2')
     if cfg['threads']!=1 or cfg['workers']!=0: raise ValueError('baseline must use threads=1, workers=0; tune_* vary these later')
     for k in ['min_gpu_headroom','min_host_headroom','min_cpu_headroom']:
         if not .1<=cfg[k]<.9: raise ValueError(k+' must be 0.1..0.9')
-    if not cfg['stages'] or any(s not in range(1,7) for s in cfg['stages']): raise ValueError('stages must be a subset of 1..6')
-    if any(m not in ['S','M','L'] for m in cfg['models']): raise ValueError('models must be S, M, L')
+    if not cfg['stages'] or any(type(s) is not int or s not in range(1,7) for s in cfg['stages']): raise ValueError('stages must be a subset of 1..6')
+    if not cfg['models'] or any(m not in ['S','M','L'] for m in cfg['models']): raise ValueError('models must be a nonempty array of S, M, L')
+    for k in ['stages','models','paired_nodes','tune_threads','tune_workers','ballast_mib']:
+        if any(x in cfg[k][:i] for i,x in enumerate(cfg[k])): raise ValueError('Duplicate entries in '+k)
     if not 2<=cfg['workspace_days']<=7: raise ValueError('workspace_days must be 2..7')
     if cfg['workspace_days']*86400<cfg['total_seconds']+3600: raise ValueError('workspace must outlive the test budget')
     if cfg['profile'] not in ['followup','full']: raise ValueError('profile must be followup or full')
     if not 1<=cfg['node_samples']<=cfg['max_diagnostic_nodes']<=12: raise ValueError('node sample/diagnostic limit must be 1..12')
-    if any(not re.fullmatch(r'c\d+',n) for n in cfg['paired_nodes']): raise ValueError('paired_nodes must be Capella cNN node names')
+    if any(not isinstance(n,str) or not re.fullmatch(r'c\d+',n) for n in cfg['paired_nodes']): raise ValueError('paired_nodes must be Capella cNN node names')
     if len(cfg['paired_nodes'])>cfg['node_samples']: raise ValueError('paired_nodes exceeds node_samples')
     if not 60<=cfg['targeted_queue_timeout']<=cfg['queue_timeout']: raise ValueError('targeted_queue_timeout must be 60..queue_timeout')
     if not 60<=cfg['four_gpu_probe_queue_timeout']<=cfg['queue_timeout']: raise ValueError('four_gpu_probe_queue_timeout must be 60..queue_timeout')
     for key,maximum in [('tune_threads',14),('tune_workers',4),('ballast_mib',4096)]:
-        if any(not isinstance(x,int) or not 1<=x<=maximum for x in cfg[key]): raise ValueError('Invalid '+key)
+        if any(type(x) is not int or not 1<=x<=maximum for x in cfg[key]): raise ValueError('Invalid '+key)
 
 def start(config,foreground):
     supplied=read(config) if config else {}
