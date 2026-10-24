@@ -1,0 +1,60 @@
+case,stage,job,kind,submit,eligible,start,end,queue_seconds,node,state,exit_code,outcome,layer,batch_first,requested_gpus,requested_cpus,requested_mem_mib,actual_gpus,req_tres,alloc_tres,max_rss,total_cpu,elapsed,gpu_hours,reason
+f2-auto-baseline-r1,2,4456507,fs,2026-10-23T15:43:09,2026-10-23T15:43:09,2026-10-23T15:43:11,2026-10-23T15:43:18,2.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1","billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,00:00.642,7,0.0019444444444444444,
+f2-auto-baseline-r1,2,4456507.batch,fs,2026-10-23T15:43:11,2026-10-23T15:43:11,2026-10-23T15:43:11,2026-10-23T15:43:18,0.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"cpu=1,gres/gpu=1,mem=1G,node=1",15624K,00:00.416,7,,
+f2-auto-baseline-r1,2,4456507.extern,fs,2026-10-23T15:43:11,2026-10-23T15:43:11,2026-10-23T15:43:11,2026-10-23T15:43:20,0.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,00:00:00,9,,
+f2-auto-baseline-r1,2,4456507.0,fs,2026-10-23T15:43:17,2026-10-23T15:43:17,2026-10-23T15:43:17,2026-10-23T15:43:19,0.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"cpu=1,gres/gpu=1,mem=1G,node=1",16432K,00:00.226,2,,
+f2-auto-baseline-r2,2,4456512,fs,2026-10-23T15:43:25,2026-10-23T15:43:25,2026-10-23T15:43:33,2026-10-23T15:43:37,8.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1","billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,00:00.627,4,0.0011111111111111111,
+f2-auto-baseline-r2,2,4456512.batch,fs,2026-10-23T15:43:33,2026-10-23T15:43:33,2026-10-23T15:43:33,2026-10-23T15:43:37,0.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"cpu=1,gres/gpu=1,mem=1G,node=1",15656K,00:00.399,4,,
+f2-auto-baseline-r2,2,4456512.extern,fs,2026-10-23T15:43:33,2026-10-23T15:43:33,2026-10-23T15:43:33,2026-10-23T15:43:38,0.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,00:00:00,5,,
+f2-auto-baseline-r2,2,4456512.0,fs,2026-10-23T15:43:35,2026-10-23T15:43:35,2026-10-23T15:43:35,2026-10-23T15:43:37,0.0,c153,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"cpu=1,gres/gpu=1,mem=1G,node=1",7368K,00:00.228,2,,
+f2-auto-baseline-r3,2,4456514,fs,2026-10-23T15:43:41,2026-10-23T15:43:41,2026-10-23T15:43:43,2026-10-23T15:43:48,2.0,c155,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1","billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,00:00.420,5,0.001388888888888889,
+f2-auto-baseline-r3,2,4456514.batch,fs,2026-10-23T15:43:43,2026-10-23T15:43:43,2026-10-23T15:43:43,2026-10-23T15:43:48,0.0,c155,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"cpu=1,gres/gpu=1,mem=1G,node=1",5256K,00:00.267,5,,
+f2-auto-baseline-r3,2,4456514.extern,fs,2026-10-23T15:43:43,2026-10-23T15:43:43,2026-10-23T15:43:43,2026-10-23T15:43:48,0.0,c155,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,00:00:00,5,,
+f2-auto-baseline-r3,2,4456514.0,fs,2026-10-23T15:43:47,2026-10-23T15:43:47,2026-10-23T15:43:47,2026-10-23T15:43:48,0.0,c155,COMPLETED,0:0,PASS,exit,True,1,1,1024,1,,"cpu=1,gres/gpu=1,mem=1G,node=1",15888K,00:00.152,1,,
+f2-c148-default-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-cat-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-all-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-touch-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-cat-cwd-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-alias-cwd-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-cat-log-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-ntpn-r1,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-ntpn-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-cat-log-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-alias-cwd-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-cat-cwd-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-touch-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-all-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-cat-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c148-default-r2,2,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f2-c113-default-r1,2,4456538,fs,2026-10-23T15:44:03,2026-10-23T15:44:03,None,2026-10-23T15:49:13,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-cat-r1,2,4456563,fs,2026-10-23T15:49:29,2026-10-23T15:49:29,None,2026-10-23T15:54:31,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-all-r1,2,4456576,fs,2026-10-23T15:54:46,2026-10-23T15:54:46,None,2026-10-23T15:59:54,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-touch-r1,2,4456596,fs,2026-10-23T16:00:12,2026-10-23T16:00:12,None,2026-10-23T16:05:24,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-cat-cwd-r1,2,4456612,fs,2026-10-23T16:05:40,2026-10-23T16:05:40,None,2026-10-23T16:10:53,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-alias-cwd-r1,2,4456629,fs,2026-10-23T16:11:08,2026-10-23T16:11:08,None,2026-10-23T16:16:09,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-cat-log-r1,2,4456655,fs,2026-10-23T16:16:24,2026-10-23T16:16:24,None,2026-10-23T16:21:37,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-ntpn-r1,2,4456681,fs,2026-10-23T16:21:54,2026-10-23T16:21:54,None,2026-10-23T16:27:05,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-ntpn-r2,2,4456707,fs,2026-10-23T16:27:22,2026-10-23T16:27:22,None,2026-10-23T16:32:34,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-cat-log-r2,2,4456777,fs,2026-10-23T16:32:50,2026-10-23T16:32:50,None,2026-10-23T16:38:04,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-alias-cwd-r2,2,4456796,fs,2026-10-23T16:38:20,2026-10-23T16:38:20,None,2026-10-23T16:43:33,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-cat-cwd-r2,2,4456819,fs,2026-10-23T16:43:49,2026-10-23T16:43:49,None,2026-10-23T16:49:00,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-touch-r2,2,4456853,fs,2026-10-23T16:49:15,2026-10-23T16:49:15,None,2026-10-23T16:54:17,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-all-r2,2,4456867,fs,2026-10-23T16:54:32,2026-10-23T16:54:32,None,2026-10-23T16:59:45,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-cat-r2,2,4456904,fs,2026-10-23T17:00:01,2026-10-23T17:00:01,None,2026-10-23T17:05:16,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f2-c113-default-r2,2,4456931,fs,2026-10-23T17:05:32,2026-10-23T17:05:32,None,2026-10-23T17:10:39,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,1,1,1024,,"billing=1000000,cpu=1,gres/gpu=1,mem=1G,node=1",,,00:00:00,0,,
+f3-c148-base-r1,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-ntpn-r1,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-exclusive-r1,3,4456962,fs,2026-10-23T17:10:55,2026-10-23T17:10:55,None,2026-10-23T17:16:03,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,4,56,716800,,"billing=4000000,cpu=56,gres/gpu=4,mem=700G,node=1",,,00:00:00,0,,
+f3-c148-gpt-r1,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-direct-r1,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-direct-r2,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-gpt-r2,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-exclusive-r2,3,4456994,fs,2026-10-23T17:16:18,2026-10-23T17:16:18,None,2026-10-23T17:21:30,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,4,56,716800,,"billing=4000000,cpu=56,gres/gpu=4,mem=700G,node=1",,,00:00:00,0,,
+f3-c148-ntpn-r2,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+f3-c148-base-r2,3,,,,,,,,,,,REJECTED,,,,,,,,,,,,,SITE_TEST_ONLY_REJECTED
+p4-own-1gpu,4,4457110,smoke,2026-10-23T17:30:11,2026-10-23T17:30:11,2026-10-23T17:30:31,2026-10-23T17:31:23,20.0,c68,COMPLETED,0:0,PASS,exit,True,1,14,184320,1,"billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1","billing=1000000,cpu=14,energy=100832,gres/gpu=1,mem=180G,node=1",,00:27.453,52,0.014444444444444444,
+p4-own-1gpu,4,4457110.batch,smoke,2026-10-23T17:30:31,2026-10-23T17:30:31,2026-10-23T17:30:31,2026-10-23T17:31:23,0.0,c68,COMPLETED,0:0,PASS,exit,True,1,14,184320,1,,"cpu=14,gres/gpu=1,mem=180G,node=1",5692K,00:00.324,52,,
+p4-own-1gpu,4,4457110.extern,smoke,2026-10-23T17:30:31,2026-10-23T17:30:31,2026-10-23T17:30:31,2026-10-23T17:31:23,0.0,c68,COMPLETED,0:0,PASS,exit,True,1,14,184320,1,,"billing=1000000,cpu=14,gres/gpu=1,mem=180G,node=1",,00:00:00,52,,
+p4-own-1gpu,4,4457110.0,smoke,2026-10-23T17:30:33,2026-10-23T17:30:33,2026-10-23T17:30:33,2026-10-23T17:31:20,0.0,c68,COMPLETED,0:0,PASS,exit,True,1,14,184320,1,,"cpu=14,gres/gpu=1,mem=180G,node=1",6900K,00:27.128,47,,
+p4-own-4gpu,4,4457120,smoke,2026-10-23T17:31:28,2026-10-23T17:31:28,None,2026-10-23T18:01:36,,None assigned,CANCELLED by 2197964,0:0,NO_RESOURCES,queue,False,4,56,716800,,"billing=4000000,cpu=56,gres/gpu=4,mem=700G,node=1",,,00:00:00,0,,

@@ -404,4 +404,98 @@ if name=='sacct' and '--helpformat' in sys.argv:
         self.assertEqual({c['cpus']/c['gpus'] for c in cases},{14})
         self.assertEqual({(c['concurrency'],c['threads'],c['workers'],c['mps']) for c in cases},{(1,1,0,False)})
 
+    def test_sinfo_flags_do_not_hide_planned_mixed_nodes(self):
+        for raw in ['mixed','mixed-','MIXED-','idle-','allocated+']:
+            self.assertTrue(m.node_state(raw)['candidate'],raw)
+        for raw in ['mixed*','mixed@','draining@','drained*','reserved','inval','mixed+maint','unknown']:
+            self.assertFalse(m.node_state(raw)['candidate'],raw)
+
+    def test_node_admission_uses_public_gpu_tres(self):
+        def capture(path,args,timeout=30):
+            if args[0]=='sinfo': return 0,'c59|mixed-|none\n'
+            return 0,'NodeName=c59 CfgTRES=cpu=56,gres/gpu=4 AllocTRES=cpu=14,gres/gpu=1\n'
+        with patch.object(m,'capture',capture):
+            self.assertTrue(self.c.node_available('c59'))
+            self.assertFalse(self.c.node_available('c59',gpus=4))
+        self.assertEqual(self.c.state['node_snapshots']['c59']['free_gpus'],3)
+
+    def test_queue_timeout_defers_remaining_node_variants(self):
+        calls=[]
+        def execute(c):
+            calls.append(c); self.c.state['cases'][c['id']]={'status':'DONE','outcome':'NO_RESOURCES'}
+            return False
+        with patch.object(self.c,'node_available',return_value=True),patch.object(self.c,'execute',execute):
+            self.assertFalse(self.c.node_paths('c113'))
+        self.assertEqual(len(calls),1)
+        self.assertEqual(sum(s['status']=='SKIPPED' for s in self.c.state['cases'].values()),15)
+        self.assertEqual(self.c.state['node_coverage']['c113']['status'],'UNVERIFIED_ADMISSION')
+
+    def test_testonly_rejection_allows_one_cat_check_then_defers(self):
+        calls=[]
+        def execute(c):
+            calls.append(c); self.c.state['cases'][c['id']]={'status':'REJECTED','reason':'SITE_TEST_ONLY_REJECTED'}
+            return False
+        with patch.object(self.c,'node_available',return_value=True),patch.object(self.c,'execute',execute): self.c.node_paths('c148')
+        self.assertEqual([c['license'] for c in calls],['default','cat'])
+        self.assertEqual(sum(s['status']=='SKIPPED' for s in self.c.state['cases'].values()),14)
+
+    def test_single_gpu_environment_survives_four_gpu_queue_timeout(self):
+        def execute(c):
+            passed=c['gpus']==1
+            self.c.state['cases'][c['id']]={'status':'DONE','outcome':'PASS' if passed else 'NO_RESOURCES','pass':passed}
+            return passed
+        with patch.object(m,'prepare_runtime',return_value=True),patch.object(self.c,'execute',execute):
+            env=self.c.environment_matrix()
+        self.assertTrue(env['standalone']); self.assertTrue(env['by_gpu_count']['1']['passed'])
+        self.assertFalse(env['by_gpu_count']['4']['passed']); self.assertEqual(env['by_gpu_count']['4']['status'],'NO_RESOURCES')
+
+    def test_run_continues_single_card_work_when_node_coverage_and_four_cards_are_unverified(self):
+        self.c.cfg['stages']=[1,2,4,5,6]; self.c.state['evidence_complete']=True
+        def paths():
+            self.c.state.update(local_startup_ok=True,paths_baseline_ok=True); return False
+        def execute(c):
+            passed=c['gpus']==1
+            self.c.state['cases'][c['id']]={'status':'DONE','outcome':'PASS' if passed else 'NO_RESOURCES','pass':passed}
+            return passed
+        order=[]
+        with patch.object(self.c,'followup_paths',paths),patch.object(m,'prepare_runtime',return_value=True),patch.object(self.c,'execute',execute),\
+             patch.object(self.c,'worker_preflight',side_effect=lambda:order.append('workers')),\
+             patch.object(self.c,'job_concurrency',side_effect=lambda:order.append('jobs')),\
+             patch.object(self.c,'stress_matrix',side_effect=lambda:order.append('stress')),\
+             patch.object(self.c,'memory_pressure',side_effect=lambda:order.append('memory')),\
+             patch.object(self.c,'final_stage',side_effect=lambda:order.append('final')),patch.object(self.c,'report'):
+            self.c.run()
+        self.assertEqual(order,['workers','jobs','stress','memory','final'])
+        self.assertEqual(self.c.state['stage_results']['2'],'BASELINE_PASS_NODE_MATRIX_UNVERIFIED')
+        self.assertEqual(self.c.state['stage_results']['5'],'ATTEMPTED_SEE_LONG_PASS_AND_CASE_OUTCOMES')
+
+    def test_report_counts_rejected_as_unverified(self):
+        c=self.c.case('reject'); m.atomic(self.root/'cases'/'reject.json',c)
+        self.c.state['cases']['reject']={'status':'REJECTED','reason':'SITE_TEST_ONLY_REJECTED'}
+        self.c.report()
+        self.assertEqual(m.read(self.root/'findings.json')['unverified'][0]['status'],'REJECTED')
+        self.assertEqual(m.read(self.root/'coverage.json')['allocated_cases'],0)
+
+    def test_parameter_specific_rejection_does_not_suppress_other_controls(self):
+        calls=[]
+        def execute(c):
+            calls.append(c)
+            self.c.state['cases'][c['id']]={'status':'REJECTED'} if c['ntpn'] else {'status':'DONE','pass':True,'outcome':'PASS'}
+            return not c['ntpn']
+        with patch.object(self.c,'node_available',return_value=True),patch.object(self.c,'execute',execute):
+            self.assertFalse(self.c.node_paths('c59'))
+        self.assertEqual(len(calls),16)
+        self.assertEqual(sum(s['status']=='SKIPPED' for s in self.c.state['cases'].values()),0)
+        self.assertEqual(self.c.state['node_coverage']['c59']['status'],'PARTIAL')
+
+    def test_late_four_card_queue_timeout_keeps_single_card_evidence(self):
+        self.c.state['environments']={'standalone':True,'by_gpu_count':{'1':{'passed':True},'4':{'passed':False,'status':'NO_RESOURCES'}}}
+        self.c.state['candidates']={'S':{'throughput':{'long_pass':True}}}
+        with patch.object(self.c,'environment_probe',return_value={'passed':False,'status':'NO_RESOURCES'}) as probe,patch.object(self.c,'execute') as execute:
+            self.c.followup_pipelines(True)
+        probe.assert_called_once_with(4,'f6-own-4gpu-recheck'); execute.assert_not_called()
+        self.assertTrue(self.c.state['environments']['standalone'])
+        self.assertTrue(self.c.state['candidates']['S']['throughput']['long_pass'])
+        self.assertFalse(self.c.state['four_gpu_candidates']['S']['verified'])
+
 if __name__=='__main__': unittest.main()

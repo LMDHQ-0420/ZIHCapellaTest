@@ -57,11 +57,20 @@ def number(x, default=0):
     try: return int(x)
     except (ValueError,TypeError): return default
 
+def node_state(raw):
+    # sinfo '-' is a backfill planning flag, not a DOWN/DRAIN state.
+    m=re.fullmatch(r'([a-z_]+)([-+*~#!%$@^]*)',raw.strip().lower())
+    if not m: return {'raw':raw,'base':'unknown','candidate':False}
+    base,flags=m.groups(); base={'mix':'mixed','alloc':'allocated'}.get(base,base)
+    return dict(raw=raw,base=base,flags=flags,
+        candidate=base in ['idle','mixed','allocated'] and not any(c in flags for c in '*~#!%$@^'))
+
 DEFAULT = dict(account='swtest', partition='capella', expected_user='chwu350f',
     workspace_days=3, max_gpus=4, queue_timeout=1800, max_job_seconds=4500, total_seconds=129600,
     gpu_hour_budget=80, poll_seconds=15, sample_seconds=5, short_seconds=90, long_seconds=3600,
     repeats=2, models=['S','M','L'], threads=1, workers=0, tune_threads=[2], tune_workers=[1,2],
     profile='followup', paired_nodes=['c59','c23'], node_samples=6, max_diagnostic_nodes=8, targeted_queue_timeout=300,
+    four_gpu_probe_queue_timeout=300,
     ballast_mib=[1024,4096], min_gpu_headroom=.20, min_host_headroom=.20, min_cpu_headroom=.10, stages=[1,2,3,4,5,6],
     documented_cpus_per_gpu=14, documented_mem_mib_per_gpu=193250)
 
@@ -1011,28 +1020,75 @@ class Controller:
             self.diagnose_new_nodes(cases)
         return [self.state['cases'].get(c['id'],{}).get('pass',False) for c in cases]
 
-    def node_available(self,node):
+    def node_available(self,node,gpus=1):
         rc,txt=capture(self.root/'evidence'/('node-'+node+'.txt'),
             ['sinfo','-N','-h','-n',node,'-p',self.cfg['partition'],'-o','%N|%T|%E'])
         event(self.root,'node_state',node=node,exit_code=rc,output=txt)
-        return rc==0 and any(len(parts)>=2 and parts[1].lower() in ['idle','mixed','allocated']
-            for parts in [line.strip().split('|') for line in txt.splitlines()])
+        states=[node_state(p[1]) for p in [line.strip().split('|') for line in txt.splitlines()] if len(p)>=2]
+        candidate=rc==0 and any(s['candidate'] for s in states)
+        nr,details=capture(self.root/'evidence'/('node-'+node+'-resources.txt'),['scontrol','show','node',node,'-o'])
+        def count_gpu(key):
+            value=field(details,key); m=re.search(r'(?:^|,)gres/gpu=(\d+)(?:,|$)',value)
+            if m: return int(m.group(1))
+            typed=re.findall(r'(?:^|,)gres/gpu:[^,=]+=(\d+)',value)
+            if typed: return sum(map(int,typed))
+            return 0 if re.search(r'(?:^|\s)'+key+'=',details) else None
+        configured=count_gpu('CfgTRES') if nr==0 else None
+        allocated=count_gpu('AllocTRES') if nr==0 else None
+        free=max(0,configured-allocated) if configured is not None and allocated is not None else None
+        snapshot=dict(time=now(),states=states,configured_gpus=configured,allocated_gpus=allocated,
+            free_gpus=free,requested_gpus=gpus,candidate=candidate and (free is None or free>=gpus))
+        self.state.setdefault('node_snapshots',{})[node]=snapshot; self.save()
+        event(self.root,'node_resources',node=node,data=snapshot)
+        return snapshot['candidate']
+
+    def skip_case(self,c,reason,reference=None):
+        atomic(self.root/'cases'/f'{c["id"]}.json',c)
+        self.state['cases'].setdefault(c['id'],{'status':'SKIPPED','reason':reason,'reference':reference})
+        self.save()
+
+    def node_case_unallocated(self,c):
+        s=self.state['cases'].get(c['id'],{})
+        return s.get('outcome')=='NO_RESOURCES' or s.get('status') in ['REJECTED','SKIPPED']
 
     def node_paths(self,node,full=True):
-        if not self.node_available(node):
-            self.note(node+': not currently eligible; node pairing unverified'); return
-        done=self.state.setdefault('diagnosed_nodes',[])
-        if node not in done: done.append(node); self.save()
+        attempts=self.state.setdefault('diagnostic_attempts',[])
+        if node not in attempts:
+            if len(attempts)>=self.cfg['max_diagnostic_nodes']: return False
+            attempts.append(node); self.save()
         variants=[('default',{}),('cat',{'license':'cat'})]
         if full:
             variants += [('all',{'license':'cat,horse,narwhal,walrus'}),('touch',{'access':'pre-touch'}),
                          ('cat-cwd',{'chdir':self.cfg['cat_dir']}),('alias-cwd',{'chdir':str(self.root/'cat-link')}),
                          ('cat-log',{'log':'cat'}),('ntpn',{'ntpn':True})]
+        plan=[]
         for rep in range(1,self.cfg['repeats']+1):
             # Counterbalance order so one parameter is not always tested later.
             for label,kw in (variants if rep%2 else list(reversed(variants))):
-                self.execute(self.case(f'f2-{node}-{label}-r{rep}',node=node,retry_probe=True,
+                plan.append(self.case(f'f2-{node}-{label}-r{rep}',node=node,retry_probe=True,
                     queue_timeout=self.cfg['targeted_queue_timeout'],**kw))
+        coverage=self.state.setdefault('node_coverage',{}).setdefault(node,{'full_matrix':full})
+        coverage['cases']=[c['id'] for c in plan]
+        if not self.node_available(node):
+            coverage['status']='UNVERIFIED_CURRENT_NODE_RESOURCES'
+            for c in plan: self.skip_case(c,coverage['status'])
+            self.note(node+': state/resource snapshot does not admit this request; node pairing unverified'); return False
+        done=self.state.setdefault('diagnosed_nodes',[])
+        if node not in done: done.append(node); self.save()
+        for index,c in enumerate(plan):
+            self.execute(c)
+            if self.node_case_unallocated(c):
+                # One cat-only admission check may distinguish license eligibility.
+                if self.state['cases'][c['id']].get('status')=='REJECTED':
+                    if index==0: continue
+                    if index>1 or self.state['cases'].get(plan[0]['id'],{}).get('status')!='REJECTED': continue
+                for remaining in plan[index+1:]: self.skip_case(remaining,'NODE_ADMISSION_UNAVAILABLE',c['id'])
+                coverage.update(status='UNVERIFIED_ADMISSION',reference=c['id']); self.save(); return False
+        unavailable=any(self.node_case_unallocated(c) for c in plan)
+        observed=all(self.state['cases'].get(c['id'],{}).get('pass') or any(
+            stamp(r.get('Start')) for r in read(self.root/'jobs'/c['id']/'sacct.json',[]) if '.' not in r.get('JobID','')) for c in plan)
+        coverage['status']='COMPLETE' if not unavailable and observed else 'PARTIAL'
+        self.save(); return coverage['status']=='COMPLETE'
 
     def diagnose_new_nodes(self,cases):
         self._pairing=True
@@ -1042,7 +1098,7 @@ class Controller:
                     if read(p,{}).get('rw')!='FAIL': continue
                     node=read(p.with_name(p.name[:-len('.cat.json')]+'.context.json'),{}).get('hostname','').split('.')[0]
                     if not re.fullmatch(r'c\d+',node) or node in self.state.get('diagnosed_nodes',[]): continue
-                    if len(self.state.get('diagnosed_nodes',[]))>=self.cfg['max_diagnostic_nodes']:
+                    if node not in self.state.get('diagnostic_attempts',[]) and len(self.state.get('diagnostic_attempts',[]))>=self.cfg['max_diagnostic_nodes']:
                         self.note('New cat failure on '+node+': node pairing budget exhausted; raw evidence retained'); continue
                     self.node_paths(node,full=False)
         finally: self._pairing=False
@@ -1051,32 +1107,49 @@ class Controller:
         baseline=[self.execute(self.case(f'f2-auto-baseline-r{i+1}')) for i in range(3)]
         rc,txt=capture(self.root/'evidence'/'node-sample.txt',
             ['sinfo','-N','-h','-p',self.cfg['partition'],'-o','%N|%T|%E'])
-        eligible=sorted({p[0] for p in [s.strip().split('|') for s in txt.splitlines()]
-            if len(p)>=2 and re.fullmatch(r'c\d+',p[0]) and p[1].lower() in ['idle','mixed','allocated']},
-            key=lambda n:hashlib.sha256((self.cfg['run_id']+n).encode()).hexdigest()) if rc==0 else []
-        nodes=self.state.get('sample_nodes')
-        if nodes is None: nodes=list(dict.fromkeys(self.cfg['paired_nodes']+eligible))[:self.cfg['node_samples']]
-        self.state['sample_nodes']=nodes; self.save()
+        inventory={p[0]:node_state(p[1]) for p in [s.strip().split('|') for s in txt.splitlines()]
+            if len(p)>=2 and re.fullmatch(r'c\d+',p[0])} if rc==0 else {}
+        eligible=sorted([n for n,s in inventory.items() if s['candidate']],key=lambda n:(
+            {'idle':0,'mixed':1,'allocated':2}[inventory[n]['base']],hashlib.sha256((self.cfg['run_id']+n).encode()).hexdigest()))
+        observed=sorted({read(p,{}).get('hostname','').split('.')[0] for p in (self.root/'jobs').glob('f2-auto-*/*_*/*.context.json')}
+            -{''})
+        candidates=self.state.get('node_candidates')
+        if candidates is None:
+            candidates=list(dict.fromkeys(self.cfg['paired_nodes']+observed+eligible))[:self.cfg['max_diagnostic_nodes']]
+            self.state['node_candidates']=candidates; self.save()
+        nodes=self.state.setdefault('sample_nodes',[])
         self._pairing=True
         try:
-            for node in nodes: self.node_paths(node)
+            completed=0
+            for node in candidates:
+                if completed>=self.cfg['node_samples']: break
+                if node not in nodes: nodes.append(node); self.save()
+                completed+=bool(self.node_paths(node))
         finally: self._pairing=False
         # Local GPU tests may proceed if HOME/batch/step works; cat failures remain failures.
         homes=list((self.root/'jobs').glob('f2-auto-*/*_*/*.home.json'))
         local_ok=len(homes)>=6 and all(read(p,{}).get('rw')=='PASS' for p in homes)
-        self.state['local_startup_ok']=local_ok; self.save()
-        return all(baseline)
+        self.state['local_startup_ok']=local_ok; self.state['paths_baseline_ok']=all(baseline); self.save()
+        self.state['node_matrix_complete']=completed>=self.cfg['node_samples']; self.save()
+        matrix=[self.state['cases'].get(cid,{}) for n in nodes for cid in self.state.get('node_coverage',{}).get(n,{}).get('cases',[])]
+        return all(baseline) and self.state['node_matrix_complete'] and bool(matrix) and all(s.get('pass') for s in matrix)
 
     def followup_resources(self):
-        nodes=list(dict.fromkeys(self.cfg['paired_nodes']+self.state.get('sample_nodes',[])))[:3]
+        nodes=list(dict.fromkeys(self.cfg['paired_nodes']+self.state.get('sample_nodes',[])))
+        attempted=0
         for node in nodes:
-            if not self.node_available(node): continue
+            if attempted>=3: break
+            if not self.node_available(node,gpus=4): continue
+            attempted+=1; deferred=None
             for rep in range(1,self.cfg['repeats']+1):
                 variants=[('base',{}),('ntpn',{'ntpn':True}),('exclusive',{'exclusive':True}),('gpt',{'gpt':True}),('direct',{'mode':'direct'})]
                 for label,kw in (variants if rep%2 else list(reversed(variants))):
                     base=dict(stage=3,node=node,gpus=4,cpus=56,mem_mib=716800,mode='both',
                         wall_seconds=180,queue_timeout=self.cfg['targeted_queue_timeout'])
-                    self.execute(self.case(f'f3-{node}-{label}-r{rep}',**dict(base,**kw)))
+                    c=self.case(f'f3-{node}-{label}-r{rep}',**dict(base,**kw))
+                    if deferred: self.skip_case(c,'NODE_RESOURCE_ADMISSION_UNAVAILABLE',deferred); continue
+                    self.execute(c)
+                    if self.node_case_unallocated(c) and self.state['cases'][c['id']].get('status')!='REJECTED': deferred=c['id']
 
     def fs_matrix(self):
         baseline=[]
@@ -1097,7 +1170,7 @@ class Controller:
             nodes=self.cfg['paired_nodes'] or sorted({n.split('.')[0] for r,n in reports if n})[:2]
             for node in nodes:
                 rc,txt=command(['sinfo','-N','-h','-n',node,'-p',self.cfg['partition'],'-o','%T'])
-                if rc==0 and any(x.strip() in ['idle','mixed','allocated'] for x in txt.splitlines()):
+                if rc==0 and any(node_state(x.strip())['candidate'] for x in txt.splitlines()):
                     for rep in [1,2]:
                         for lic in ['default','cat']:
                             self.execute(self.case(f'p2-pair-{node}-{lic}-r{rep}',node=node,license=lic))
@@ -1119,13 +1192,34 @@ class Controller:
     def environment_matrix(self):
         if not prepare_runtime(self.root):
             self.note('Own virtual environment setup failed; GPU training skipped; see venv-create.log/pip-install.log')
-            self.state['environments']={'standalone':False}; self.save(); return self.state['environments']
-        ok=True
+            self.state['environments']={'standalone':False,'runtime_ready':False,'by_gpu_count':{}}; self.save(); return self.state['environments']
+        environments={'standalone':False,'runtime_ready':True,'by_gpu_count':{}}
         for gpu in [1,4]:
-            ok=self.execute(self.case(f'p4-own-{gpu}gpu',stage=4,kind='smoke',environment='standalone',
-                gpus=gpu,cpus=14*gpu,mem_mib=184320*gpu if gpu<4 else 716800,mode='step',gpt=True,
-                concurrency=1,wall_seconds=300)) and ok
-        self.state['environments']={'standalone':ok}; self.save(); return self.state['environments']
+            environments['by_gpu_count'][str(gpu)]=self.environment_probe(gpu,f'p4-own-{gpu}gpu')
+            environments['standalone']=environments['by_gpu_count'].get('1',{}).get('passed',False)
+            self.state['environments']=environments; self.save()
+        return environments
+
+    def environment_probe(self,gpu,id):
+        c=self.case(id,stage=4,kind='smoke',environment='standalone',
+            gpus=gpu,cpus=14*gpu,mem_mib=184320*gpu if gpu<4 else 716800,mode='step',gpt=True,
+            concurrency=1,wall_seconds=300)
+        if gpu==4: c['queue_timeout']=self.cfg['four_gpu_probe_queue_timeout']
+        passed=self.execute(c); s=self.state['cases'].get(c['id'],{})
+        return dict(case=id,passed=passed,status=s.get('outcome',s.get('status','UNKNOWN')))
+
+    def four_gpu_ready(self):
+        return self.state.get('environments',{}).get('by_gpu_count',{}).get('4',{}).get('passed',False)
+
+    def worker_preflight(self):
+        checks={}
+        for workers in [0,1,2]:
+            passed=[]
+            for rep in range(1,self.cfg['repeats']+1):
+                c=self.train_case(f'f4-workers{workers}-r{rep}','S',1,workers=workers,seconds=30,stage=4)
+                passed.append(self.execute(c))
+            checks[str(workers)]={'passed':all(passed),'repetitions':len(passed)}
+        self.state['worker_preflight']=checks; self.save()
 
     def train_case(self,id,model,n,mps=False,seconds=None,threads=None,workers=None,stage=5):
         sec=seconds or self.cfg['short_seconds']
@@ -1258,6 +1352,7 @@ class Controller:
                 io_ok=self.execute(self.case(f'f6-io-retry-r{rep}',stage=6,kind='io',mode='step',storage='cat',cpus=14,mem_mib=8192))
             self.followup_pipelines(io_ok); return
         if not io_ok: self.note('Own I/O checks did not pass; synthetic pipeline blocked'); return
+        if not self.four_gpu_ready(): self.note('Four-GPU environment unverified; I/O result retained'); return
         for model,picks in self.state.get('candidates',{}).items():
             for label,pick in picks.items():
                 if not pick['long_pass']: continue
@@ -1276,10 +1371,21 @@ class Controller:
                 self.execute_group(group)
             c=self.train_case(f'f5-one-four-r{rep}','S',1)
             c.update(gpus=4,cpus=56,mem_mib=716800,comparison_group=f'one-four-r{rep}')
-            self.execute(c)
+            if self.four_gpu_ready(): self.execute(c)
+            else: self.skip_case(c,'FOUR_GPU_ENVIRONMENT_UNVERIFIED','p4-own-4gpu')
 
     def followup_pipelines(self,io_ok):
         self.state.setdefault('four_gpu_candidates',{})
+        if not self.four_gpu_ready():
+            status=self.state.get('environments',{}).get('by_gpu_count',{}).get('4',{}).get('status')
+            if status in ['NO_RESOURCES','REJECTED']:
+                probe=self.environment_probe(4,'f6-own-4gpu-recheck')
+                self.state['environments']['by_gpu_count']['4']=probe; self.save()
+            if not self.four_gpu_ready():
+                for model in self.state.get('candidates',{}):
+                    self.state['four_gpu_candidates'][model]={'verified':False,'reason':'FOUR_GPU_ENVIRONMENT_UNVERIFIED'}
+                self.note('Four-card environment unavailable/unverified; single-card tests and I/O retain their own results')
+                self.save(); return
         for model,picks in self.state.get('candidates',{}).items():
             pick=picks.get('throughput',{})
             if not pick.get('long_pass'): continue
@@ -1395,7 +1501,7 @@ class Controller:
                     if record.get('kind')=='sample' and memory_evidence(record.get('data',{}).get('cgroup',{}))[1]:
                         findings['confirmed'].append({'case':id,'type':'CGROUP_MEMORY_PRESSURE','evidence':str(p.relative_to(self.root)),'line':index})
                         break
-            if s.get('status') in ['SKIPPED','SUBMISSION_UNCERTAIN','ACTIVE_UNRESOLVED']:
+            if s.get('status') in ['SKIPPED','REJECTED','SUBMISSION_UNCERTAIN','ACTIVE_UNRESOLVED']:
                 findings['unverified'].append({'case':id,'status':s['status'],'reason':s.get('reason',s.get('outcome'))})
             if s.get('outcome')=='NO_RESOURCES':
                 findings['unverified'].append({'case':id,'status':'NO_RESOURCES','reason':'queue limit expired before allocation'})
@@ -1428,17 +1534,32 @@ class Controller:
             g['concurrency_verified']=peakjobs==len(g['cases']) and g['common_training_overlap_seconds']>=self.cfg['short_seconds']*.90
             g['per_case_measurements']=self.measure([read(self.root/'cases'/f'{cid}.json') for cid in g['cases']])
         atomic(self.root/'job-concurrency.json',comparisons)
+        allocations=[r for r in rows if '.' not in r.get('job','') and stamp(r.get('start'))]
+        coverage=dict(case_outcomes=dict(collections.Counter(s.get('outcome',s.get('status')) for s in self.state['cases'].values())),
+            submitted_cases=sum(bool(s.get('job_id')) for s in self.state['cases'].values()),
+            allocated_cases=len(allocations),actual_nodes=sorted({r['node'] for r in allocations if r.get('node')}),
+            allocated_kinds=dict(collections.Counter(r.get('kind') for r in allocations)),
+            targeted_nodes=self.state.get('sample_nodes',[]),node_matrix_complete=self.state.get('node_matrix_complete'),
+            node_matrix=self.state.get('node_coverage',{}),environments=self.state.get('environments',{}),
+            worker_preflight=self.state.get('worker_preflight',{}))
+        atomic(self.root/'coverage.json',coverage)
         atomic(self.root/'results.json',{'experiments':rows,'overlap':overlap,'global_actual_peak_gpus':peak,
             'allocation_gpu_count_missing':sum(1 for r in rows if r.get('start') and '.' not in r.get('job','') and r.get('actual_gpus') is None),
             'gpu_hours_observed':sum(x.get('gpu_hours') or 0 for x in rows),
             'reserved_gpu_hour_upper_bound':self.state['reserved_gpu_hours'],'candidates':self.state.get('candidates',{}),
             'stage_results':self.state.get('stage_results',{}),
+            'coverage':coverage,
             'four_gpu_candidates':self.state.get('four_gpu_candidates',{}),'job_concurrency':comparisons,
             'repeat_summary':dict(collections.Counter(re.sub(r'-r\d+(?=-|$)','-r*',id) for id in self.state['cases']))})
         columns=['case','stage','job','kind','submit','eligible','start','end','queue_seconds','node','state','exit_code','outcome','layer','batch_first','requested_gpus','requested_cpus','requested_mem_mib','actual_gpus','req_tres','alloc_tres','max_rss','total_cpu','elapsed','gpu_hours','reason']
         with (self.root/'results.csv').open('w') as f:
             w=csv.DictWriter(f,columns,extrasaction='ignore'); w.writeheader(); w.writerows(rows)
         lines=['# Capella audit '+self.cfg['run_id'],'',f'Generated {now()} (all raw times UTC).',
+            '', '## 实际覆盖范围','',
+            f"Cases={dict(coverage['case_outcomes'])}; allocated={coverage['allocated_cases']}; nodes={coverage['actual_nodes']}; kinds={coverage['allocated_kinds']}.",
+            '完整日志包不等于所有计划测试通过；排队超时、提交前拒绝和未执行配置均保持未验证。',
+            '单卡与四卡环境分别判断；单卡通过足以继续每卡进程数和 worker 测试。',
+            '完整覆盖和节点缺项见 coverage.json；实际请求、分配与阶段见 results.csv。',
             '', '## 已证实原因', '', '以下只证明对应测试的失败事件，底层根因需结合对照和服务端日志。']
         lines.extend('- '+json.dumps(x,ensure_ascii=False) for x in findings['confirmed'])
         if not findings['confirmed']: lines.append('无已证实失败原因；未执行不等于通过。')
@@ -1532,7 +1653,7 @@ class Controller:
                 if 2 in stages:
                     paths_ok=self.followup_paths() if self.cfg['profile']=='followup' else self.fs_matrix()
                     self.state['paths_ok']=paths_ok; self.save()
-                    self.state['stage_results']['2']='PASS' if paths_ok else 'NOT_PROVEN_RELIABLE'
+                    self.state['stage_results']['2']='PASS' if paths_ok else ('BASELINE_PASS_NODE_MATRIX_UNVERIFIED' if self.state.get('paths_baseline_ok') else 'NOT_PROVEN_RELIABLE')
                 else: paths_ok=self.state.get('paths_ok',False)
                 if 3 in stages and (paths_ok or self.cfg['profile']=='followup' and self.state.get('local_startup_ok')):
                     if self.cfg['profile']=='followup': self.followup_resources()
@@ -1547,14 +1668,15 @@ class Controller:
                 else:
                     envs=self.environment_matrix() if 4 in stages else self.state.get('environments',{})
                     if 4 in stages: self.state['stage_results']['4']=envs
+                    if 4 in stages and envs.get('standalone') and self.cfg['profile']=='followup': self.worker_preflight()
                     if 5 in stages:
                         if envs.get('standalone'):
                             if self.cfg['profile']=='followup': self.job_concurrency()
                             self.stress_matrix(); self.state['stage_results']['5']='ATTEMPTED_SEE_LONG_PASS_AND_CASE_OUTCOMES'
                             if self.cfg['profile']=='followup': self.memory_pressure()
                         else:
-                            self.state['stage_results']['5']='UNVERIFIED_OWN_ENVIRONMENT'
-                            self.note('Own environment did not pass: synthetic training unverified')
+                            self.state['stage_results']['5']='UNVERIFIED_SINGLE_GPU_ENVIRONMENT'
+                            self.note('Single-card environment unverified; see queue, eligibility and runtime outcomes separately')
                     if 6 in stages:
                         if envs.get('standalone'): self.final_stage(); self.state['stage_results']['6']='SEE_OWN_IO_AND_SYNTHETIC_PIPELINE_OUTCOMES'
                         else: self.state['stage_results']['6']='UNVERIFIED_OWN_ENVIRONMENT'
@@ -1588,6 +1710,7 @@ def validate(cfg):
     if any(not re.fullmatch(r'c\d+',n) for n in cfg['paired_nodes']): raise ValueError('paired_nodes must be Capella cNN node names')
     if len(cfg['paired_nodes'])>cfg['node_samples']: raise ValueError('paired_nodes exceeds node_samples')
     if not 60<=cfg['targeted_queue_timeout']<=cfg['queue_timeout']: raise ValueError('targeted_queue_timeout must be 60..queue_timeout')
+    if not 60<=cfg['four_gpu_probe_queue_timeout']<=cfg['queue_timeout']: raise ValueError('four_gpu_probe_queue_timeout must be 60..queue_timeout')
     for key,maximum in [('tune_threads',14),('tune_workers',4),('ballast_mib',4096)]:
         if any(not isinstance(x,int) or not 1<=x<=maximum for x in cfg[key]): raise ValueError('Invalid '+key)
 

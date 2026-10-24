@@ -1,0 +1,587 @@
+{
+  "created": 1792770189.260276,
+  "reserved_gpu_hours": 2.3999999999999995,
+  "cases": {
+    "f2-auto-baseline-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792770189.6103952,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456507",
+      "last_squeue": [
+        "4456507|PENDING|N/A"
+      ],
+      "pass_slurm": true,
+      "end_epoch": 1792770204.956948,
+      "pass": true,
+      "outcome": "PASS"
+    },
+    "f2-auto-baseline-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792770205.3311458,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456512",
+      "last_squeue": [
+        "4456512|PENDING|N/A"
+      ],
+      "pass_slurm": true,
+      "end_epoch": 1792770221.6935782,
+      "pass": true,
+      "outcome": "PASS"
+    },
+    "f2-auto-baseline-r3": {
+      "status": "DONE",
+      "submit_epoch": 1792770221.8278205,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456514",
+      "last_squeue": [
+        "4456514|PENDING|N/A"
+      ],
+      "pass_slurm": true,
+      "end_epoch": 1792770237.130808,
+      "pass": true,
+      "outcome": "PASS"
+    },
+    "f2-c148-default-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-cat-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-all-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-touch-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-cat-cwd-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-alias-cwd-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-cat-log-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-ntpn-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-ntpn-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-cat-log-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-alias-cwd-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-cat-cwd-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-touch-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-all-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-cat-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c148-default-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f2-c113-default-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792770243.4128752,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456538",
+      "last_squeue": [
+        "4456538|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792770569.0247164,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-cat-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792770569.1268659,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456563",
+      "last_squeue": [
+        "4456563|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792770886.142002,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-all-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792770886.2294242,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456576",
+      "last_squeue": [
+        "4456576|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792771211.0264056,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-touch-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792771212.1701245,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456596",
+      "last_squeue": [
+        "4456596|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792771540.2615004,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-cat-cwd-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792771540.360797,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456612",
+      "last_squeue": [
+        "4456612|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792771868.8084724,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-alias-cwd-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792771868.925412,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456629",
+      "last_squeue": [
+        "4456629|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792772184.1994286,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-cat-log-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792772184.3254879,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456655",
+      "last_squeue": [
+        "4456655|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792772514.7572992,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-ntpn-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792772514.849402,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456681",
+      "last_squeue": [
+        "4456681|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792772841.2089117,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-ntpn-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792772841.3004656,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456707",
+      "last_squeue": [
+        "4456707|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792773170.4268124,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-cat-log-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792773170.548418,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456777",
+      "last_squeue": [
+        "4456777|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792773500.0742657,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-alias-cwd-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792773500.193929,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456796",
+      "last_squeue": [
+        "4456796|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792773829.108831,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-cat-cwd-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792773829.217516,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456819",
+      "last_squeue": [
+        "4456819|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792774155.7014587,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-touch-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792774155.8035753,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456853",
+      "last_squeue": [
+        "4456853|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792774472.4146996,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-all-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792774472.5144334,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456867",
+      "last_squeue": [
+        "4456867|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792774801.7715833,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-cat-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792774801.8966975,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456904",
+      "last_squeue": [
+        "4456904|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792775132.04557,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f2-c113-default-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792775132.1594536,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4456931",
+      "last_squeue": [
+        "4456931|PENDING|2026-10-24T09:23:55"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792775454.6213424,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f3-c148-base-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-ntpn-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-exclusive-r1": {
+      "status": "DONE",
+      "submit_epoch": 1792775455.3057518,
+      "reserved_gpu_hours": 0.2,
+      "job_id": "4456962",
+      "last_squeue": [
+        "4456962|PENDING|N/A"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792775778.4471803,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f3-c148-gpt-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-direct-r1": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-direct-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-gpt-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-exclusive-r2": {
+      "status": "DONE",
+      "submit_epoch": 1792775778.9360282,
+      "reserved_gpu_hours": 0.2,
+      "job_id": "4456994",
+      "last_squeue": [
+        "4456994|PENDING|N/A"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792776106.0831695,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    },
+    "f3-c148-ntpn-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "f3-c148-base-r2": {
+      "status": "REJECTED",
+      "reason": "SITE_TEST_ONLY_REJECTED",
+      "output": "allocation failure: Requested node configuration is not available\n"
+    },
+    "p4-own-1gpu": {
+      "status": "DONE",
+      "submit_epoch": 1792776611.875838,
+      "reserved_gpu_hours": 0.08333333333333333,
+      "job_id": "4457110",
+      "last_squeue": [
+        "4457110|RUNNING|2026-10-23T17:30:31"
+      ],
+      "pass_slurm": true,
+      "end_epoch": 1792776687.8720455,
+      "pass": true,
+      "outcome": "PASS"
+    },
+    "p4-own-4gpu": {
+      "status": "DONE",
+      "submit_epoch": 1792776687.9953904,
+      "reserved_gpu_hours": 0.3333333333333333,
+      "job_id": "4457120",
+      "last_squeue": [
+        "4457120|PENDING|2026-10-23T21:48:42"
+      ],
+      "cancel_reason": "QUEUE_TIMEOUT",
+      "pass_slurm": false,
+      "end_epoch": 1792778512.00871,
+      "pass": false,
+      "outcome": "NO_RESOURCES"
+    }
+  },
+  "notes": [
+    {
+      "time": "2026-10-23T15:43:09.683626+00:00",
+      "text": "f2-auto-baseline-r1 submitted 4456507"
+    },
+    {
+      "time": "2026-10-23T15:43:25.426093+00:00",
+      "text": "f2-auto-baseline-r2 submitted 4456512"
+    },
+    {
+      "time": "2026-10-23T15:43:41.918847+00:00",
+      "text": "f2-auto-baseline-r3 submitted 4456514"
+    },
+    {
+      "time": "2026-10-23T15:43:57.247161+00:00",
+      "text": "c59: not currently eligible; node pairing unverified"
+    },
+    {
+      "time": "2026-10-23T15:43:57.300729+00:00",
+      "text": "c23: not currently eligible; node pairing unverified"
+    },
+    {
+      "time": "2026-10-23T15:44:03.483083+00:00",
+      "text": "f2-c113-default-r1 submitted 4456538"
+    },
+    {
+      "time": "2026-10-23T15:49:29.205007+00:00",
+      "text": "f2-c113-cat-r1 submitted 4456563"
+    },
+    {
+      "time": "2026-10-23T15:54:46.293119+00:00",
+      "text": "f2-c113-all-r1 submitted 4456576"
+    },
+    {
+      "time": "2026-10-23T16:00:12.246371+00:00",
+      "text": "f2-c113-touch-r1 submitted 4456596"
+    },
+    {
+      "time": "2026-10-23T16:05:40.431684+00:00",
+      "text": "f2-c113-cat-cwd-r1 submitted 4456612"
+    },
+    {
+      "time": "2026-10-23T16:11:09.014855+00:00",
+      "text": "f2-c113-alias-cwd-r1 submitted 4456629"
+    },
+    {
+      "time": "2026-10-23T16:16:24.403836+00:00",
+      "text": "f2-c113-cat-log-r1 submitted 4456655"
+    },
+    {
+      "time": "2026-10-23T16:21:54.908143+00:00",
+      "text": "f2-c113-ntpn-r1 submitted 4456681"
+    },
+    {
+      "time": "2026-10-23T16:27:22.394274+00:00",
+      "text": "f2-c113-ntpn-r2 submitted 4456707"
+    },
+    {
+      "time": "2026-10-23T16:32:50.625696+00:00",
+      "text": "f2-c113-cat-log-r2 submitted 4456777"
+    },
+    {
+      "time": "2026-10-23T16:38:20.279804+00:00",
+      "text": "f2-c113-alias-cwd-r2 submitted 4456796"
+    },
+    {
+      "time": "2026-10-23T16:43:49.292113+00:00",
+      "text": "f2-c113-cat-cwd-r2 submitted 4456819"
+    },
+    {
+      "time": "2026-10-23T16:49:15.879905+00:00",
+      "text": "f2-c113-touch-r2 submitted 4456853"
+    },
+    {
+      "time": "2026-10-23T16:54:32.592970+00:00",
+      "text": "f2-c113-all-r2 submitted 4456867"
+    },
+    {
+      "time": "2026-10-23T17:00:01.978158+00:00",
+      "text": "f2-c113-cat-r2 submitted 4456904"
+    },
+    {
+      "time": "2026-10-23T17:05:32.240875+00:00",
+      "text": "f2-c113-default-r2 submitted 4456931"
+    },
+    {
+      "time": "2026-10-23T17:10:54.685566+00:00",
+      "text": "c119: not currently eligible; node pairing unverified"
+    },
+    {
+      "time": "2026-10-23T17:10:54.756316+00:00",
+      "text": "c6: not currently eligible; node pairing unverified"
+    },
+    {
+      "time": "2026-10-23T17:10:55.385239+00:00",
+      "text": "f3-c148-exclusive-r1 submitted 4456962"
+    },
+    {
+      "time": "2026-10-23T17:16:19.006198+00:00",
+      "text": "f3-c148-exclusive-r2 submitted 4456994"
+    },
+    {
+      "time": "2026-10-23T17:30:11.953064+00:00",
+      "text": "p4-own-1gpu submitted 4457110"
+    },
+    {
+      "time": "2026-10-23T17:31:28.119851+00:00",
+      "text": "p4-own-4gpu submitted 4457120"
+    },
+    {
+      "time": "2026-10-23T18:01:52.056894+00:00",
+      "text": "Own environment did not pass: synthetic training unverified"
+    }
+  ],
+  "stage_results": {
+    "1": "EVIDENCE_COLLECTED_WITH_RECORDED_GAPS",
+    "2": "PASS",
+    "3": "MATRIX_ATTEMPTED_SEE_CASE_OUTCOMES",
+    "4": {
+      "standalone": false
+    },
+    "5": "UNVERIFIED_OWN_ENVIRONMENT",
+    "6": "UNVERIFIED_OWN_ENVIRONMENT"
+  },
+  "evidence_complete": true,
+  "sample_nodes": [
+    "c59",
+    "c23",
+    "c148",
+    "c113",
+    "c119",
+    "c6"
+  ],
+  "diagnosed_nodes": [
+    "c148",
+    "c113"
+  ],
+  "local_startup_ok": true,
+  "paths_ok": true,
+  "environments": {
+    "standalone": false
+  },
+  "finished": "2026-10-23T18:01:52.080141+00:00"
+}
