@@ -1,0 +1,270 @@
+{
+  "case_outcomes": {
+    "PASS": 174,
+    "SKIPPED": 112,
+    "NO_RESOURCES": 2
+  },
+  "submitted_cases": 176,
+  "allocated_cases": 174,
+  "actual_nodes": [
+    "c10",
+    "c100",
+    "c102",
+    "c104",
+    "c105",
+    "c112",
+    "c126",
+    "c129",
+    "c131",
+    "c136",
+    "c15",
+    "c153",
+    "c155",
+    "c156",
+    "c16",
+    "c19",
+    "c20",
+    "c22",
+    "c28",
+    "c31",
+    "c34",
+    "c35",
+    "c44",
+    "c46",
+    "c5",
+    "c51",
+    "c61",
+    "c65",
+    "c73",
+    "c75",
+    "c84",
+    "c95",
+    "c96"
+  ],
+  "allocated_kinds": {
+    "fs": 19,
+    "smoke": 2,
+    "train": 149,
+    "io": 1,
+    "pipeline": 3
+  },
+  "targeted_nodes": [
+    "c59",
+    "c23",
+    "c104",
+    "c34",
+    "c5",
+    "c134",
+    "c130",
+    "c81"
+  ],
+  "node_matrix_complete": false,
+  "node_matrix": {
+    "c59": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c59-default-r1",
+        "f2-c59-cat-r1",
+        "f2-c59-all-r1",
+        "f2-c59-touch-r1",
+        "f2-c59-cat-cwd-r1",
+        "f2-c59-alias-cwd-r1",
+        "f2-c59-cat-log-r1",
+        "f2-c59-ntpn-r1",
+        "f2-c59-ntpn-r2",
+        "f2-c59-cat-log-r2",
+        "f2-c59-alias-cwd-r2",
+        "f2-c59-cat-cwd-r2",
+        "f2-c59-touch-r2",
+        "f2-c59-all-r2",
+        "f2-c59-cat-r2",
+        "f2-c59-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    "c23": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c23-default-r1",
+        "f2-c23-cat-r1",
+        "f2-c23-all-r1",
+        "f2-c23-touch-r1",
+        "f2-c23-cat-cwd-r1",
+        "f2-c23-alias-cwd-r1",
+        "f2-c23-cat-log-r1",
+        "f2-c23-ntpn-r1",
+        "f2-c23-ntpn-r2",
+        "f2-c23-cat-log-r2",
+        "f2-c23-alias-cwd-r2",
+        "f2-c23-cat-cwd-r2",
+        "f2-c23-touch-r2",
+        "f2-c23-all-r2",
+        "f2-c23-cat-r2",
+        "f2-c23-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    "c104": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c104-default-r1",
+        "f2-c104-cat-r1",
+        "f2-c104-all-r1",
+        "f2-c104-touch-r1",
+        "f2-c104-cat-cwd-r1",
+        "f2-c104-alias-cwd-r1",
+        "f2-c104-cat-log-r1",
+        "f2-c104-ntpn-r1",
+        "f2-c104-ntpn-r2",
+        "f2-c104-cat-log-r2",
+        "f2-c104-alias-cwd-r2",
+        "f2-c104-cat-cwd-r2",
+        "f2-c104-touch-r2",
+        "f2-c104-all-r2",
+        "f2-c104-cat-r2",
+        "f2-c104-default-r2"
+      ],
+      "status": "COMPLETE"
+    },
+    "c34": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c34-default-r1",
+        "f2-c34-cat-r1",
+        "f2-c34-all-r1",
+        "f2-c34-touch-r1",
+        "f2-c34-cat-cwd-r1",
+        "f2-c34-alias-cwd-r1",
+        "f2-c34-cat-log-r1",
+        "f2-c34-ntpn-r1",
+        "f2-c34-ntpn-r2",
+        "f2-c34-cat-log-r2",
+        "f2-c34-alias-cwd-r2",
+        "f2-c34-cat-cwd-r2",
+        "f2-c34-touch-r2",
+        "f2-c34-all-r2",
+        "f2-c34-cat-r2",
+        "f2-c34-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    "c5": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c5-default-r1",
+        "f2-c5-cat-r1",
+        "f2-c5-all-r1",
+        "f2-c5-touch-r1",
+        "f2-c5-cat-cwd-r1",
+        "f2-c5-alias-cwd-r1",
+        "f2-c5-cat-log-r1",
+        "f2-c5-ntpn-r1",
+        "f2-c5-ntpn-r2",
+        "f2-c5-cat-log-r2",
+        "f2-c5-alias-cwd-r2",
+        "f2-c5-cat-cwd-r2",
+        "f2-c5-touch-r2",
+        "f2-c5-all-r2",
+        "f2-c5-cat-r2",
+        "f2-c5-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    "c134": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c134-default-r1",
+        "f2-c134-cat-r1",
+        "f2-c134-all-r1",
+        "f2-c134-touch-r1",
+        "f2-c134-cat-cwd-r1",
+        "f2-c134-alias-cwd-r1",
+        "f2-c134-cat-log-r1",
+        "f2-c134-ntpn-r1",
+        "f2-c134-ntpn-r2",
+        "f2-c134-cat-log-r2",
+        "f2-c134-alias-cwd-r2",
+        "f2-c134-cat-cwd-r2",
+        "f2-c134-touch-r2",
+        "f2-c134-all-r2",
+        "f2-c134-cat-r2",
+        "f2-c134-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    "c130": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c130-default-r1",
+        "f2-c130-cat-r1",
+        "f2-c130-all-r1",
+        "f2-c130-touch-r1",
+        "f2-c130-cat-cwd-r1",
+        "f2-c130-alias-cwd-r1",
+        "f2-c130-cat-log-r1",
+        "f2-c130-ntpn-r1",
+        "f2-c130-ntpn-r2",
+        "f2-c130-cat-log-r2",
+        "f2-c130-alias-cwd-r2",
+        "f2-c130-cat-cwd-r2",
+        "f2-c130-touch-r2",
+        "f2-c130-all-r2",
+        "f2-c130-cat-r2",
+        "f2-c130-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    "c81": {
+      "full_matrix": true,
+      "cases": [
+        "f2-c81-default-r1",
+        "f2-c81-cat-r1",
+        "f2-c81-all-r1",
+        "f2-c81-touch-r1",
+        "f2-c81-cat-cwd-r1",
+        "f2-c81-alias-cwd-r1",
+        "f2-c81-cat-log-r1",
+        "f2-c81-ntpn-r1",
+        "f2-c81-ntpn-r2",
+        "f2-c81-cat-log-r2",
+        "f2-c81-alias-cwd-r2",
+        "f2-c81-cat-cwd-r2",
+        "f2-c81-touch-r2",
+        "f2-c81-all-r2",
+        "f2-c81-cat-r2",
+        "f2-c81-default-r2"
+      ],
+      "status": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    }
+  },
+  "environments": {
+    "standalone": true,
+    "runtime_ready": true,
+    "by_gpu_count": {
+      "1": {
+        "case": "p4-own-1gpu",
+        "passed": true,
+        "status": "PASS"
+      },
+      "4": {
+        "case": "p4-own-4gpu",
+        "passed": true,
+        "status": "PASS"
+      }
+    }
+  },
+  "worker_preflight": {
+    "0": {
+      "passed": true,
+      "repetitions": 2
+    },
+    "1": {
+      "passed": true,
+      "repetitions": 2
+    },
+    "2": {
+      "passed": true,
+      "repetitions": 2
+    }
+  }
+}

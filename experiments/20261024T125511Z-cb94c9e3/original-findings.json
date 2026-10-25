@@ -1,0 +1,576 @@
+{
+  "confirmed": [],
+  "clues": [],
+  "unverified": [
+    {
+      "case": "f2-c59-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c59-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c23-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c34-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c5-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c134-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c130-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-default-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-cat-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-all-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-touch-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-cat-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-alias-cwd-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-cat-log-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-ntpn-r1",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-ntpn-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-cat-log-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-alias-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-cat-cwd-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-touch-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-all-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-cat-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f2-c81-default-r2",
+      "status": "SKIPPED",
+      "reason": "UNVERIFIED_CURRENT_NODE_RESOURCES"
+    },
+    {
+      "case": "f6-S-four-n12-r1",
+      "status": "NO_RESOURCES",
+      "reason": "queue limit expired before allocation"
+    },
+    {
+      "case": "f6-S-cat-pipeline",
+      "status": "NO_RESOURCES",
+      "reason": "queue limit expired before allocation"
+    }
+  ]
+}

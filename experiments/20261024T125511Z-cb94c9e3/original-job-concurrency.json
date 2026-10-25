@@ -1,0 +1,1032 @@
+{
+  "jobs1-r1": {
+    "cases": [
+      "f5-jobs1-r1-0"
+    ],
+    "all_pass": true,
+    "total_items": 4214464,
+    "allocations": [
+      {
+        "job": "4462259",
+        "start": 1792848363.0,
+        "end": 1792848472.0,
+        "gpus": 1
+      }
+    ],
+    "training": [
+      [
+        1792848379.1861367,
+        1792848469.187486
+      ]
+    ],
+    "actual_peak_jobs": 1,
+    "requested_jobs": 1,
+    "common_training_overlap_seconds": 90.00134921073914,
+    "aggregate_items_per_wall_second": 38664.807339449544,
+    "observed_gpu_hours": 0.03027777777777778,
+    "items_per_gpu_hour": 139193306.42201835,
+    "concurrency_verified": true,
+    "per_case_measurements": [
+      {
+        "case": "f5-jobs1-r1-0",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 42933.49570258537,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.006736864362444197,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c105"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03027777777777778,
+        "queue_seconds": 10.0,
+        "items_per_gpu_hour": 139193306.42201835,
+        "mean_cpu_percent": 92.12506107292548,
+        "cpu_fraction": 0.06580361505208962,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1133884,
+        "mean_gpu_utilization": 22.2,
+        "mean_gpu_power_watts": 137.925,
+        "child_speeds": [
+          46826.67540003963
+        ]
+      }
+    ]
+  },
+  "jobs2-r1": {
+    "cases": [
+      "f5-jobs2-r1-0",
+      "f5-jobs2-r1-1"
+    ],
+    "all_pass": true,
+    "total_items": 7641984,
+    "allocations": [
+      {
+        "job": "4462268",
+        "start": 1792848483.0,
+        "end": 1792848589.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462270",
+        "start": 1792848503.0,
+        "end": 1792848614.0,
+        "gpus": 1
+      }
+    ],
+    "training": [
+      [
+        1792848493.4567814,
+        1792848583.4576437
+      ],
+      [
+        1792848521.665663,
+        1792848611.6666317
+      ]
+    ],
+    "actual_peak_jobs": 2,
+    "requested_jobs": 2,
+    "common_training_overlap_seconds": 61.7919807434082,
+    "aggregate_items_per_wall_second": 58335.75572519084,
+    "observed_gpu_hours": 0.06027777777777778,
+    "items_per_gpu_hour": 126779458.06451613,
+    "concurrency_verified": false,
+    "per_case_measurements": [
+      {
+        "case": "f5-jobs2-r1-0",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 44473.961477829085,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.00434295654296875,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c105"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.029444444444444443,
+        "queue_seconds": 8.0,
+        "items_per_gpu_hour": 143967396.2264151,
+        "mean_cpu_percent": 94.08815397489431,
+        "cpu_fraction": 0.06720582426778166,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1137080,
+        "mean_gpu_utilization": 22.35,
+        "mean_gpu_power_watts": 137.605,
+        "child_speeds": [
+          47099.993191972164
+        ]
+      },
+      {
+        "case": "f5-jobs2-r1-1",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 34643.366532002874,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.006747807094029018,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c10"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.030833333333333334,
+        "queue_seconds": 28.0,
+        "items_per_gpu_hour": 110365751.35135135,
+        "mean_cpu_percent": 91.62141304133038,
+        "cpu_fraction": 0.06544386645809314,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1136124,
+        "mean_gpu_utilization": 17.95,
+        "mean_gpu_power_watts": 141.4335,
+        "child_speeds": [
+          37810.08141887315
+        ]
+      }
+    ]
+  },
+  "jobs4-r1": {
+    "cases": [
+      "f5-jobs4-r1-0",
+      "f5-jobs4-r1-1",
+      "f5-jobs4-r1-2",
+      "f5-jobs4-r1-3"
+    ],
+    "all_pass": true,
+    "total_items": 14730304,
+    "allocations": [
+      {
+        "job": "4462282",
+        "start": 1792848623.0,
+        "end": 1792848732.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462284",
+        "start": 1792848623.0,
+        "end": 1792848733.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462286",
+        "start": 1792848623.0,
+        "end": 1792848730.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462288",
+        "start": 1792848623.0,
+        "end": 1792848732.0,
+        "gpus": 1
+      }
+    ],
+    "training": [
+      [
+        1792848638.8834372,
+        1792848728.8851566
+      ],
+      [
+        1792848641.2389865,
+        1792848731.239859
+      ],
+      [
+        1792848634.8077772,
+        1792848724.8094406
+      ],
+      [
+        1792848638.4313269,
+        1792848728.4327035
+      ]
+    ],
+    "actual_peak_jobs": 4,
+    "requested_jobs": 4,
+    "common_training_overlap_seconds": 83.57045412063599,
+    "aggregate_items_per_wall_second": 133911.85454545455,
+    "observed_gpu_hours": 0.12083333333333333,
+    "items_per_gpu_hour": 121905964.13793103,
+    "concurrency_verified": true,
+    "per_case_measurements": [
+      {
+        "case": "f5-jobs4-r1-0",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 43570.873267970535,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.00687652587890625,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c105"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03027777777777778,
+        "queue_seconds": 6.0,
+        "items_per_gpu_hour": 140057834.86238533,
+        "mean_cpu_percent": 91.86249037238316,
+        "cpu_fraction": 0.06561606455170226,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1136300,
+        "mean_gpu_utilization": 22.05,
+        "mean_gpu_power_watts": 137.5635,
+        "child_speeds": [
+          47117.32131965433
+        ]
+      },
+      {
+        "case": "f5-jobs4-r1-1",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 29743.682170392418,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.0067415727887834825,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c153"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.030555555555555555,
+        "queue_seconds": 6.0,
+        "items_per_gpu_hour": 96380509.0909091,
+        "mean_cpu_percent": 91.80420792095474,
+        "cpu_fraction": 0.06557443422925338,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1134884,
+        "mean_gpu_utilization": 15.9,
+        "mean_gpu_power_watts": 134.05400000000003,
+        "child_speeds": [
+          32721.45987570854
+        ]
+      },
+      {
+        "case": "f5-jobs4-r1-2",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 33551.978427621165,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.004342912946428572,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c10"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.029722222222222223,
+        "queue_seconds": 6.0,
+        "items_per_gpu_hour": 108128657.94392523,
+        "mean_cpu_percent": 93.78941073902584,
+        "cpu_fraction": 0.06699243624216131,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1154008,
+        "mean_gpu_utilization": 16.85,
+        "mean_gpu_power_watts": 140.363,
+        "child_speeds": [
+          35708.4943338231
+        ]
+      },
+      {
+        "case": "f5-jobs4-r1-3",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 44429.20293007615,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.0067333984375,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c100"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03027777777777778,
+        "queue_seconds": 6.0,
+        "items_per_gpu_hour": 143038238.5321101,
+        "mean_cpu_percent": 91.72372485204622,
+        "cpu_fraction": 0.06551694632289015,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1135652,
+        "mean_gpu_utilization": 22.65,
+        "mean_gpu_power_watts": 138.125,
+        "child_speeds": [
+          48120.15233510349
+        ]
+      }
+    ]
+  },
+  "one-four-r1": {
+    "cases": [
+      "f5-one-four-r1"
+    ],
+    "all_pass": true,
+    "total_items": 16768768,
+    "allocations": [
+      {
+        "job": "4462294",
+        "start": 1792848853.0,
+        "end": 1792848972.0,
+        "gpus": 4
+      }
+    ],
+    "training": [
+      [
+        1792848878.735134,
+        1792848968.7363489
+      ],
+      [
+        1792848878.735081,
+        1792848968.7360241
+      ],
+      [
+        1792848878.735116,
+        1792848968.735524
+      ],
+      [
+        1792848878.7350707,
+        1792848968.7356899
+      ]
+    ],
+    "actual_peak_jobs": 1,
+    "requested_jobs": 1,
+    "common_training_overlap_seconds": 90.00039005279541,
+    "aggregate_items_per_wall_second": 140914.01680672268,
+    "observed_gpu_hours": 0.1322222222222222,
+    "items_per_gpu_hour": 126822615.12605043,
+    "concurrency_verified": true,
+    "per_case_measurements": [
+      {
+        "case": "f5-one-four-r1",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 162358.98512774435,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.0047021702357700895,
+        "samples": 21,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.4666666666666667,
+        "gpus": 4,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c105"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.1322222222222222,
+        "queue_seconds": 109.0,
+        "items_per_gpu_hour": 126822615.12605043,
+        "mean_cpu_percent": 356.2420990876492,
+        "cpu_fraction": 0.06361466055136593,
+        "affinity_cpus": 56,
+        "effective_cpu_capacity": 56,
+        "max_threads": 18,
+        "max_rss_sum_kib": 4379256,
+        "mean_gpu_utilization": 20.928571428571427,
+        "mean_gpu_power_watts": 133.72535714285715,
+        "child_speeds": [
+          45920.090497520665,
+          46116.49385384712,
+          47506.98360779041,
+          46774.43347927409
+        ]
+      }
+    ]
+  },
+  "jobs1-r2": {
+    "cases": [
+      "f5-jobs1-r2-0"
+    ],
+    "all_pass": true,
+    "total_items": 4336448,
+    "allocations": [
+      {
+        "job": "4462310",
+        "start": 1792849010.0,
+        "end": 1792849119.0,
+        "gpus": 1
+      }
+    ],
+    "training": [
+      [
+        1792849023.6868157,
+        1792849113.6875052
+      ]
+    ],
+    "actual_peak_jobs": 1,
+    "requested_jobs": 1,
+    "common_training_overlap_seconds": 90.00068950653076,
+    "aggregate_items_per_wall_second": 39783.92660550459,
+    "observed_gpu_hours": 0.03027777777777778,
+    "items_per_gpu_hour": 143222135.7798165,
+    "concurrency_verified": true,
+    "per_case_measurements": [
+      {
+        "case": "f5-jobs1-r2-0",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 45415.18924631593,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.004342150006975447,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c20"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03027777777777778,
+        "queue_seconds": 28.0,
+        "items_per_gpu_hour": 143222135.7798165,
+        "mean_cpu_percent": 93.4573471602751,
+        "cpu_fraction": 0.06675524797162508,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1147268,
+        "mean_gpu_utilization": 21.25,
+        "mean_gpu_power_watts": 145.37949999999998,
+        "child_speeds": [
+          48182.38585157176
+        ]
+      }
+    ]
+  },
+  "jobs2-r2": {
+    "cases": [
+      "f5-jobs2-r2-0",
+      "f5-jobs2-r2-1"
+    ],
+    "all_pass": true,
+    "total_items": 8386816,
+    "allocations": [
+      {
+        "job": "4462318",
+        "start": 1792849137.0,
+        "end": 1792849245.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462320",
+        "start": 1792849137.0,
+        "end": 1792849247.0,
+        "gpus": 1
+      }
+    ],
+    "training": [
+      [
+        1792849150.2082138,
+        1792849240.2083244
+      ],
+      [
+        1792849154.859266,
+        1792849244.859749
+      ]
+    ],
+    "actual_peak_jobs": 2,
+    "requested_jobs": 2,
+    "common_training_overlap_seconds": 85.3490583896637,
+    "aggregate_items_per_wall_second": 76243.78181818181,
+    "observed_gpu_hours": 0.06055555555555556,
+    "items_per_gpu_hour": 138497878.89908257,
+    "concurrency_verified": true,
+    "per_case_measurements": [
+      {
+        "case": "f5-jobs2-r2-0",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 43638.790333495876,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.00434539794921875,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c20"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03,
+        "queue_seconds": 15.0,
+        "items_per_gpu_hour": 138606933.33333334,
+        "mean_cpu_percent": 93.9621587675964,
+        "cpu_fraction": 0.06711582769114029,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1138604,
+        "mean_gpu_utilization": 21.05,
+        "mean_gpu_power_watts": 145.9525,
+        "child_speeds": [
+          46202.25374073937
+        ]
+      },
+      {
+        "case": "f5-jobs2-r2-1",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 43070.32403549986,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.006723894391741071,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c104"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.030555555555555555,
+        "queue_seconds": 15.0,
+        "items_per_gpu_hour": 138390807.27272728,
+        "mean_cpu_percent": 91.13078159168619,
+        "cpu_fraction": 0.06509341542263299,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1137848,
+        "mean_gpu_utilization": 22.05,
+        "mean_gpu_power_watts": 137.63400000000001,
+        "child_speeds": [
+          46984.280652393354
+        ]
+      }
+    ]
+  },
+  "jobs4-r2": {
+    "cases": [
+      "f5-jobs4-r2-0",
+      "f5-jobs4-r2-1",
+      "f5-jobs4-r2-2",
+      "f5-jobs4-r2-3"
+    ],
+    "all_pass": true,
+    "total_items": 17375680,
+    "allocations": [
+      {
+        "job": "4462329",
+        "start": 1792849262.0,
+        "end": 1792849370.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462331",
+        "start": 1792849262.0,
+        "end": 1792849370.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462333",
+        "start": 1792849262.0,
+        "end": 1792849364.0,
+        "gpus": 1
+      },
+      {
+        "job": "4462335",
+        "start": 1792849282.0,
+        "end": 1792849382.0,
+        "gpus": 1
+      }
+    ],
+    "training": [
+      [
+        1792849275.9178522,
+        1792849365.9188058
+      ],
+      [
+        1792849275.9096029,
+        1792849365.910987
+      ],
+      [
+        1792849273.0421078,
+        1792849363.0424917
+      ],
+      [
+        1792849291.1738598,
+        1792849381.1753466
+      ]
+    ],
+    "actual_peak_jobs": 4,
+    "requested_jobs": 4,
+    "common_training_overlap_seconds": 71.8686318397522,
+    "aggregate_items_per_wall_second": 144797.33333333334,
+    "observed_gpu_hours": 0.11611111111111111,
+    "items_per_gpu_hour": 149647004.784689,
+    "concurrency_verified": false,
+    "per_case_measurements": [
+      {
+        "case": "f5-jobs4-r2-0",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 45453.53759309408,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.004346749441964286,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c20"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03,
+        "queue_seconds": 13.0,
+        "items_per_gpu_hour": 145597866.6666667,
+        "mean_cpu_percent": 93.26106743350644,
+        "cpu_fraction": 0.06661504816679031,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1138880,
+        "mean_gpu_utilization": 22.55,
+        "mean_gpu_power_watts": 146.836,
+        "child_speeds": [
+          48532.10739848293
+        ]
+      },
+      {
+        "case": "f5-jobs4-r2-1",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 44962.0731906849,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.004342803955078125,
+        "samples": 20,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c20"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.03,
+        "queue_seconds": 13.0,
+        "items_per_gpu_hour": 144484266.6666667,
+        "mean_cpu_percent": 92.93295768390716,
+        "cpu_fraction": 0.06638068405993369,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1138884,
+        "mean_gpu_utilization": 22.6,
+        "mean_gpu_power_watts": 138.47549999999998,
+        "child_speeds": [
+          48160.680917515536
+        ]
+      },
+      {
+        "case": "f5-jobs4-r2-2",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 45541.6280122642,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.0043724496023995535,
+        "samples": 19,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c104"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.028333333333333332,
+        "queue_seconds": 13.0,
+        "items_per_gpu_hour": 152201788.23529413,
+        "mean_cpu_percent": 94.07588164068079,
+        "cpu_fraction": 0.06719705831477199,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1144632,
+        "mean_gpu_utilization": 23.842105263157894,
+        "mean_gpu_power_watts": 137.8136842105263,
+        "child_speeds": [
+          47915.17278335822
+        ]
+      },
+      {
+        "case": "f5-jobs4-r2-3",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 46017.30501849774,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.004331338065011161,
+        "samples": 19,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.11666666666666667,
+        "gpus": 1,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c104"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.027777777777777776,
+        "queue_seconds": 33.0,
+        "items_per_gpu_hour": 156989952.0,
+        "mean_cpu_percent": 93.73989733328705,
+        "cpu_fraction": 0.06695706952377646,
+        "affinity_cpus": 14,
+        "effective_cpu_capacity": 14,
+        "max_threads": 6,
+        "max_rss_sum_kib": 1135812,
+        "mean_gpu_utilization": 24.31578947368421,
+        "mean_gpu_power_watts": 135.6536842105263,
+        "child_speeds": [
+          48452.88817530441
+        ]
+      }
+    ]
+  },
+  "one-four-r2": {
+    "cases": [
+      "f5-one-four-r2"
+    ],
+    "all_pass": true,
+    "total_items": 16729984,
+    "allocations": [
+      {
+        "job": "4462341",
+        "start": 1792849454.0,
+        "end": 1792849574.0,
+        "gpus": 4
+      }
+    ],
+    "training": [
+      [
+        1792849481.1380239,
+        1792849571.1391463
+      ],
+      [
+        1792849481.1380117,
+        1792849571.1395352
+      ],
+      [
+        1792849481.1380363,
+        1792849571.1385846
+      ],
+      [
+        1792849481.1380146,
+        1792849571.1392524
+      ]
+    ],
+    "actual_peak_jobs": 1,
+    "requested_jobs": 1,
+    "common_training_overlap_seconds": 90.00054836273193,
+    "aggregate_items_per_wall_second": 139416.53333333333,
+    "observed_gpu_hours": 0.13333333333333333,
+    "items_per_gpu_hour": 125474880.0,
+    "concurrency_verified": true,
+    "per_case_measurements": [
+      {
+        "case": "f5-one-four-r2",
+        "model": "S",
+        "n": 1,
+        "mps": false,
+        "threads": 1,
+        "workers": 0,
+        "seconds": 90,
+        "throughput": 162145.8303504754,
+        "gpu_fraction": 0.008942919753730565,
+        "host_fraction": 0.004704649788992745,
+        "samples": 21,
+        "safe": true,
+        "host_oom_observed": false,
+        "requested_gpu_hours": 0.4666666666666667,
+        "gpus": 4,
+        "storage": "local",
+        "ballast_mib": 0,
+        "nodes": [
+          "c105"
+        ],
+        "workload": {
+          "model_id": "cnn-8x2-v1",
+          "data_id": "random512x3x32x32-seed20261022-v1",
+          "batch_size": 64,
+          "precision": "fp32"
+        },
+        "observed_gpu_hours": 0.13333333333333333,
+        "queue_seconds": 61.0,
+        "items_per_gpu_hour": 125474880.0,
+        "mean_cpu_percent": 351.06476740795324,
+        "cpu_fraction": 0.06269013703713451,
+        "affinity_cpus": 56,
+        "effective_cpu_capacity": 56,
+        "max_threads": 18,
+        "max_rss_sum_kib": 4380252,
+        "mean_gpu_utilization": 21.071428571428573,
+        "mean_gpu_power_watts": 134.83476190476193,
+        "child_speeds": [
+          47039.41316187656,
+          46005.26512443407,
+          46251.09522468831,
+          46590.64736104274
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,354 @@
+[
+  {
+    "time": "2026-10-24T12:55:57.745373+00:00",
+    "epoch": 1792846557.745385,
+    "kind": "node_resources",
+    "node": "c59",
+    "data": {
+      "time": "2026-10-24T12:55:57.732071+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T12:55:58.243569+00:00",
+    "epoch": 1792846558.2435777,
+    "kind": "node_resources",
+    "node": "c23",
+    "data": {
+      "time": "2026-10-24T12:55:58.229820+00:00",
+      "states": [
+        {
+          "raw": "mixed",
+          "base": "mixed",
+          "flags": "",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T12:55:58.751786+00:00",
+    "epoch": 1792846558.751796,
+    "kind": "node_resources",
+    "node": "c104",
+    "data": {
+      "time": "2026-10-24T12:55:58.737939+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 2,
+      "free_gpus": 2,
+      "requested_gpus": 1,
+      "candidate": true
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:50.974688+00:00",
+    "epoch": 1792847270.9746969,
+    "kind": "node_resources",
+    "node": "c34",
+    "data": {
+      "time": "2026-10-24T13:07:50.960408+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:51.503930+00:00",
+    "epoch": 1792847271.5039377,
+    "kind": "node_resources",
+    "node": "c5",
+    "data": {
+      "time": "2026-10-24T13:07:51.489289+00:00",
+      "states": [
+        {
+          "raw": "mixed",
+          "base": "mixed",
+          "flags": "",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:52.044161+00:00",
+    "epoch": 1792847272.0441718,
+    "kind": "node_resources",
+    "node": "c134",
+    "data": {
+      "time": "2026-10-24T13:07:52.027056+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:52.607555+00:00",
+    "epoch": 1792847272.6075652,
+    "kind": "node_resources",
+    "node": "c130",
+    "data": {
+      "time": "2026-10-24T13:07:52.590617+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:53.469900+00:00",
+    "epoch": 1792847273.4699109,
+    "kind": "node_resources",
+    "node": "c81",
+    "data": {
+      "time": "2026-10-24T13:07:53.447077+00:00",
+      "states": [
+        {
+          "raw": "mixed",
+          "base": "mixed",
+          "flags": "",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 1,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.217104+00:00",
+    "epoch": 1792847274.2171135,
+    "kind": "node_resources",
+    "node": "c59",
+    "data": {
+      "time": "2026-10-24T13:07:54.201900+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.289566+00:00",
+    "epoch": 1792847274.2895763,
+    "kind": "node_resources",
+    "node": "c23",
+    "data": {
+      "time": "2026-10-24T13:07:54.266700+00:00",
+      "states": [
+        {
+          "raw": "mixed",
+          "base": "mixed",
+          "flags": "",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.370306+00:00",
+    "epoch": 1792847274.370316,
+    "kind": "node_resources",
+    "node": "c104",
+    "data": {
+      "time": "2026-10-24T13:07:54.344729+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.447591+00:00",
+    "epoch": 1792847274.4476006,
+    "kind": "node_resources",
+    "node": "c34",
+    "data": {
+      "time": "2026-10-24T13:07:54.427027+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.524859+00:00",
+    "epoch": 1792847274.5248666,
+    "kind": "node_resources",
+    "node": "c5",
+    "data": {
+      "time": "2026-10-24T13:07:54.507368+00:00",
+      "states": [
+        {
+          "raw": "mixed",
+          "base": "mixed",
+          "flags": "",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.588593+00:00",
+    "epoch": 1792847274.5886016,
+    "kind": "node_resources",
+    "node": "c134",
+    "data": {
+      "time": "2026-10-24T13:07:54.573617+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.649229+00:00",
+    "epoch": 1792847274.6492388,
+    "kind": "node_resources",
+    "node": "c130",
+    "data": {
+      "time": "2026-10-24T13:07:54.633846+00:00",
+      "states": [
+        {
+          "raw": "mixed-",
+          "base": "mixed",
+          "flags": "-",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  },
+  {
+    "time": "2026-10-24T13:07:54.711060+00:00",
+    "epoch": 1792847274.711071,
+    "kind": "node_resources",
+    "node": "c81",
+    "data": {
+      "time": "2026-10-24T13:07:54.695879+00:00",
+      "states": [
+        {
+          "raw": "mixed",
+          "base": "mixed",
+          "flags": "",
+          "candidate": true
+        }
+      ],
+      "configured_gpus": 4,
+      "allocated_gpus": 4,
+      "free_gpus": 0,
+      "requested_gpus": 4,
+      "candidate": false
+    }
+  }
+]

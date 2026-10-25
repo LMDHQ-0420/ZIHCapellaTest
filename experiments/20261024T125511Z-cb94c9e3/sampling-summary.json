@@ -1,0 +1,2571 @@
+{
+  "jobs/f6-L-four-n1-r2/4464787_0/events.jsonl": {
+    "sha256": "71a8c25d2113d62ac919dcdabe9fda11ea300689eca16c9c2402fae7070bf2db",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 370.27171310615086,
+    "p95_cgroup_cpu_percent": 401.9765726184138,
+    "peak_host_bytes": 3663650816,
+    "peak_sampled_gpu_used_mib": 1111.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-218ff5d3-c4b8-9879-7e6b-94afba8f2ba9",
+      "GPU-59c53e50-f29a-cb69-4e80-b09b2783efcc",
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c",
+      "GPU-cfe87215-4e22-8392-2a0e-39eaf274980e"
+    ]
+  },
+  "jobs/f2-c104-cat-r2/4462101_0/events.jsonl": {
+    "sha256": "890f9121530675507dc9b221f9023f1c92e76086c714f939eda125cc4034b128",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-L-tune-workers1-r2/4464053_0/events.jsonl": {
+    "sha256": "e21ef8c953262aef7aae5d50283520010806495f63683553a7a612c80d122911",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 481.3300474130364,
+    "p95_cgroup_cpu_percent": 542.7345404052579,
+    "peak_host_bytes": 4065431552,
+    "peak_sampled_gpu_used_mib": 4217.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-41fd4d44-4545-7ab4-c830-115be64d8dd8"
+    ]
+  },
+  "jobs/p5-M-n2-off-r1/4462919_0/events.jsonl": {
+    "sha256": "d0dc0d878d0060161f54c2f3a8c68e4ce435f7b5ea82bb7cfe32bfcf262a977e",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 194.96316338815885,
+    "p95_cgroup_cpu_percent": 198.6055833171961,
+    "peak_host_bytes": 1544110080,
+    "peak_sampled_gpu_used_mib": 1817.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/f5-ballast4096-n4-r2/4464283_0/events.jsonl": {
+    "sha256": "7ef2cd757c5765592c9c919434128f635ba9d4ee27c8dba4d1d9fcc45b3995fc",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 384.00360165773617,
+    "p95_cgroup_cpu_percent": 395.05628958309046,
+    "peak_host_bytes": 3013586944,
+    "peak_sampled_gpu_used_mib": 19797.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c"
+    ]
+  },
+  "jobs/p5-S-tune-workers1-r2/4462616_0/events.jsonl": {
+    "sha256": "eb37b1addf125aa88c1253488044a0f2589f4701c8807337bea3a6ebc0071988",
+    "samples": 24,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 989.1709055733639,
+    "p95_cgroup_cpu_percent": 1209.0501830980297,
+    "peak_host_bytes": 11799617536,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-50ec3688-7b0a-8e45-08b1-e1f1ea567db8"
+    ]
+  },
+  "jobs/p5-L-n2-off-r1/4463877_0/events.jsonl": {
+    "sha256": "e303b03fba73a4975156951f356a18d8124cd94d41b8c6f8c90e938b07f86ac0",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 193.6532941380354,
+    "p95_cgroup_cpu_percent": 198.05311449838123,
+    "peak_host_bytes": 1582223360,
+    "peak_sampled_gpu_used_mib": 2081.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/f5-ballast4096-n2-r1/4464269_0/events.jsonl": {
+    "sha256": "c5679a7e7a5e27739c80efab9c23cf6c51121507c385251caef92fa1ed89cb0d",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 185.53270493877878,
+    "p95_cgroup_cpu_percent": 198.23087228718123,
+    "peak_host_bytes": 2016948224,
+    "peak_sampled_gpu_used_mib": 9901.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-e1cdd88e-b138-ff27-e79f-d6cb858faf94"
+    ]
+  },
+  "jobs/f5-ballast4096-n3-r1/4464276_0/events.jsonl": {
+    "sha256": "1bcf2fc87b7ea99144a4adea7f6cf4f01efce376b4fb50262a7de528d9623df3",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 284.1366687851012,
+    "p95_cgroup_cpu_percent": 297.0031929437171,
+    "peak_host_bytes": 2728042496,
+    "peak_sampled_gpu_used_mib": 14849.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-28cd6e98-cdd7-b484-50d1-895650831a0b"
+    ]
+  },
+  "jobs/p5-M-tune-workers1-r2/4463160_0/events.jsonl": {
+    "sha256": "7f5f62b559b405bf52f18256cd347b42451057f63d0718086c54e7f0bb8d740b",
+    "samples": 23,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 909.1943199712907,
+    "p95_cgroup_cpu_percent": 1075.743747896127,
+    "peak_host_bytes": 8271613952,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-5226dbea-3da0-8244-9df2-62463a76bdc0"
+    ]
+  },
+  "jobs/p5-M-n12-on-r2/4463126_0/events.jsonl": {
+    "sha256": "b476f951a7b4ac679fdce47c012d3f5d55746d72355eea34bbf48d5a625794cf",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 987.5108203875902,
+    "p95_cgroup_cpu_percent": 1179.6207652874227,
+    "peak_host_bytes": 8786366464,
+    "peak_sampled_gpu_used_mib": 10895.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-3433fdc4-e5dd-c2ea-c466-adae3be7b76f"
+    ]
+  },
+  "jobs/f6-L-local-pipeline/4464805_0/events.jsonl": {
+    "sha256": "0553a71530d36776ad4e98e261735d25af8ae5fc60690ce621028d0111e61890",
+    "samples": 726,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1575.5187934043954,
+    "p95_cgroup_cpu_percent": 1587.9021399433611,
+    "peak_host_bytes": 13018710016,
+    "peak_sampled_gpu_used_mib": 4219.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-17c30358-4f70-4636-8400-01ef1e7ba20a",
+      "GPU-71e4967a-fcd6-8a35-3d03-fcdc5615a1f6",
+      "GPU-afd50fa6-bd82-fb87-ccf1-4e930f545212",
+      "GPU-b2424ee1-b93a-67a9-b1b7-53074fa75d40"
+    ]
+  },
+  "jobs/f5-jobs2-r1-0/4462268_0/events.jsonl": {
+    "sha256": "2c1ab3bfd92f45c5f9d589bd7e5ad1573d4ff102f79c421bc115ec717ca723e7",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.88226734199401,
+    "p95_cgroup_cpu_percent": 100.0253932247216,
+    "peak_host_bytes": 816062464,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-95b00562-52e1-e641-8eb5-b5a039e30ee6"
+    ]
+  },
+  "jobs/p5-L-n12-on-r2/4464035_0/events.jsonl": {
+    "sha256": "4dbb855c2010a997b53768ed612f0d938e0cf56bde404f29d4c365333d4ffa6d",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1011.7822138567634,
+    "p95_cgroup_cpu_percent": 1182.2824618963236,
+    "peak_host_bytes": 9116459008,
+    "peak_sampled_gpu_used_mib": 12479.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0d84e3bd-79b2-b3a8-ecc7-055ae813dbd7"
+    ]
+  },
+  "jobs/f6-L-cat-pipeline/4464854_0/events.jsonl": {
+    "sha256": "6a9e7ebd8a69ae779473479344363d967a651ff0c0cd5556269f8109222d7497",
+    "samples": 726,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1575.6466105958348,
+    "p95_cgroup_cpu_percent": 1587.7607711827118,
+    "peak_host_bytes": 13545283584,
+    "peak_sampled_gpu_used_mib": 4219.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-17c30358-4f70-4636-8400-01ef1e7ba20a",
+      "GPU-71e4967a-fcd6-8a35-3d03-fcdc5615a1f6",
+      "GPU-afd50fa6-bd82-fb87-ccf1-4e930f545212",
+      "GPU-b2424ee1-b93a-67a9-b1b7-53074fa75d40"
+    ]
+  },
+  "jobs/p5-S-n8-off-r2/4462516_0/events.jsonl": {
+    "sha256": "ef96532c575e9b67e2a2786174c9b7a74f64c97febc3c5f144632da5d17ed509",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 743.7753270805539,
+    "p95_cgroup_cpu_percent": 789.3609175917251,
+    "peak_host_bytes": 5940305920,
+    "peak_sampled_gpu_used_mib": 6823.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-S-n1-off-r1/4462391_0/events.jsonl": {
+    "sha256": "bdfe99b3dd74c8042e4f5562f1f8a7753ae81defb91b2025c6b3a54dc453567f",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.76029615202121,
+    "p95_cgroup_cpu_percent": 99.96343055340695,
+    "peak_host_bytes": 817725440,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/p5-M-n12-off-r2/4463095_0/events.jsonl": {
+    "sha256": "0a5251841d69d7dd6aecd7509cd95c2b9dcc3ca90b49b4f0a33aa553bd58a4e1",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1066.3921012833314,
+    "p95_cgroup_cpu_percent": 1190.7547326757913,
+    "peak_host_bytes": 8769179648,
+    "peak_sampled_gpu_used_mib": 10879.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-08b7c894-4d01-a9b9-0e10-69d0b966fc28"
+    ]
+  },
+  "jobs/p5-L-tune-workers2-r2/4464084_0/events.jsonl": {
+    "sha256": "19f1db26c537f9acf5176a793958885133bb601715ab74bb697858cb78c890bb",
+    "samples": 23,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 459.77499092592916,
+    "p95_cgroup_cpu_percent": 535.7213096372869,
+    "peak_host_bytes": 4988854272,
+    "peak_sampled_gpu_used_mib": 4217.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-8b4985b1-6292-1e8c-1ed9-2e2d4690a0b0"
+    ]
+  },
+  "jobs/p5-L-n4-off-r2/4463959_0/events.jsonl": {
+    "sha256": "6d23e8c674c81ec8a0697ce9438257de316ee5b46119b39664ff4e92026d696d",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 380.0603455242391,
+    "p95_cgroup_cpu_percent": 396.2584630733379,
+    "peak_host_bytes": 3091275776,
+    "peak_sampled_gpu_used_mib": 4157.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-124de4d9-3dcb-c5dc-fe88-fef2626a7486"
+    ]
+  },
+  "jobs/p5-M-n8-on-r2/4463064_0/events.jsonl": {
+    "sha256": "2069b365678033a3e2df000619ce6dee14edca4071bfc64549cfb83bfe800f69",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 733.8620980911012,
+    "p95_cgroup_cpu_percent": 787.5562189370985,
+    "peak_host_bytes": 6489579520,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-S-n8-on-r2/4462521_0/events.jsonl": {
+    "sha256": "bead30439fc241800da50d129775e0e351cfc0933d0e2e2dcf13a4bee69ac794",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 730.6141195468972,
+    "p95_cgroup_cpu_percent": 785.5145757144887,
+    "peak_host_bytes": 6061195264,
+    "peak_sampled_gpu_used_mib": 6857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-S-n4-on-r2/4462506_0/events.jsonl": {
+    "sha256": "fa994595b71fecfcc99d643b4ad45fd02284b6347a1be92ff8f823bd2b2ec417",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 381.6876762495967,
+    "p95_cgroup_cpu_percent": 394.04851146133046,
+    "peak_host_bytes": 3036991488,
+    "peak_sampled_gpu_used_mib": 3465.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-M-n4-off-r2/4462979_0/events.jsonl": {
+    "sha256": "ee26ee32cbbd4711f037508830acac23c667202ea79a8e9c74dffb8a1df7740e",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 383.44052148257424,
+    "p95_cgroup_cpu_percent": 395.85985111083886,
+    "peak_host_bytes": 2968330240,
+    "peak_sampled_gpu_used_mib": 3629.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0097da29-7da9-b974-b9b2-0c54845f4b5a"
+    ]
+  },
+  "jobs/p5-M-n4-on-r2/4463010_0/events.jsonl": {
+    "sha256": "3625aec1e62d2bb1984d013214157efeef287e27a0e61c130b4919e2b0525e66",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 378.48004861298955,
+    "p95_cgroup_cpu_percent": 395.89988892447025,
+    "peak_host_bytes": 3000631296,
+    "peak_sampled_gpu_used_mib": 3681.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-64c1f879-8805-42db-4c68-e286c41519a9"
+    ]
+  },
+  "jobs/f5-ballast4096-n1-r1/4464257_0/events.jsonl": {
+    "sha256": "99235d633891f546d37e06c6499a820c3c5257d13986293035c91f65e8f63f0d",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.83880821532219,
+    "p95_cgroup_cpu_percent": 99.9148219778206,
+    "peak_host_bytes": 815841280,
+    "peak_sampled_gpu_used_mib": 4953.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/f6-L-four-n4-r1/4464792_0/events.jsonl": {
+    "sha256": "693bf4310a0c7cb8d2b935bef4736398a1a943654a5f66a037ae3842b84491a4",
+    "samples": 24,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1271.3239245823386,
+    "p95_cgroup_cpu_percent": 1587.5342471933382,
+    "peak_host_bytes": 12664004608,
+    "peak_sampled_gpu_used_mib": 4211.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-218ff5d3-c4b8-9879-7e6b-94afba8f2ba9",
+      "GPU-59c53e50-f29a-cb69-4e80-b09b2783efcc",
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c",
+      "GPU-cfe87215-4e22-8392-2a0e-39eaf274980e"
+    ]
+  },
+  "jobs/p5-S-tune-workers2-r2/4462624_0/events.jsonl": {
+    "sha256": "2049653f48c617bf7bd80fbbc0404e82e4c277f6ef4c27f335e2009cd7f3f459",
+    "samples": 26,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 930.4820481610777,
+    "p95_cgroup_cpu_percent": 1198.340380487051,
+    "peak_host_bytes": 14737186816,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-b381dc27-908a-f633-e8aa-5d2414668fd0"
+    ]
+  },
+  "jobs/f6-S-four-n1-r1/4464331_0/events.jsonl": {
+    "sha256": "562aa8630fbea739550d3e7789b4455559c3c0e1ca77b9c35e8f5a00cbf1f10a",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 359.36695281394304,
+    "p95_cgroup_cpu_percent": 398.72458129911195,
+    "peak_host_bytes": 3622199296,
+    "peak_sampled_gpu_used_mib": 925.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470",
+      "GPU-74adb515-de5c-729a-4ce8-159499e8aefa",
+      "GPU-d5145873-1b0d-f61e-9ab1-b5bddd4324bc",
+      "GPU-df860086-0a24-a590-71ee-74614a7f5a4d"
+    ]
+  },
+  "jobs/p5-L-n8-on-r1/4464011_0/events.jsonl": {
+    "sha256": "2cf4a04944f996e48a556626557f5ad7db8a2f38de19b2b2ac73cbb6cc145b94",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 723.53787791147,
+    "p95_cgroup_cpu_percent": 789.040764976354,
+    "peak_host_bytes": 6128914432,
+    "peak_sampled_gpu_used_mib": 8345.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-3755b1b9-b092-20c1-b1fb-d9bdcb385cef"
+    ]
+  },
+  "jobs/f2-auto-baseline-r3/4461976_0/events.jsonl": {
+    "sha256": "850828088c7309625598a715d28bec5b8d42892cc33246de31d28767771cbfbd",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-L-stable-long/4464086_0/events.jsonl": {
+    "sha256": "8ab1af13ea24ca8cba84b1caf74af5530adc9a38cb392d7a9c9cf54ef3b66e4c",
+    "samples": 721,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 99.91574348821965,
+    "p95_cgroup_cpu_percent": 100.15706611034543,
+    "peak_host_bytes": 1309569024,
+    "peak_sampled_gpu_used_mib": 1045.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-e7c0f38f-2ce2-f382-a82f-14a5d4cf27a1"
+    ]
+  },
+  "jobs/f5-ballast4096-n12-r2/4464315_0/events.jsonl": {
+    "sha256": "e4615553c90217cf6d13c087760645a73b110c973d1c959ebd4dc306f0454834",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1064.7443459782644,
+    "p95_cgroup_cpu_percent": 1189.1005122871666,
+    "peak_host_bytes": 8865423360,
+    "peak_sampled_gpu_used_mib": 59383.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/f5-ballast1024-n8-r2/4464238_0/events.jsonl": {
+    "sha256": "ec49f0000e9e7dd7308801bb5c4c7a8e1ad2c2a2e579b6ab49fa67d34a4d1540",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 739.8259127180925,
+    "p95_cgroup_cpu_percent": 790.4817023552285,
+    "peak_host_bytes": 6039879680,
+    "peak_sampled_gpu_used_mib": 15015.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-M-tune-workers2-r2/4463189_0/events.jsonl": {
+    "sha256": "848f37980c2aa12b7df2c25e60d4a80ce3f9d86f2e34ea069356c73891646f77",
+    "samples": 24,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 865.0191004779499,
+    "p95_cgroup_cpu_percent": 1054.3551694279633,
+    "peak_host_bytes": 9380843520,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0e4168dc-8bf9-c396-7850-7cdddb6cc06e"
+    ]
+  },
+  "jobs/f5-jobs4-r1-2/4462286_0/events.jsonl": {
+    "sha256": "45afd7fef6e3d04b58ea60614582b486402e527fdd97bcbc76d0b1afaa120c3a",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.56780077792193,
+    "p95_cgroup_cpu_percent": 99.89449892049294,
+    "peak_host_bytes": 816054272,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-db03d358-7194-1592-afd0-029f070f8e7a"
+    ]
+  },
+  "jobs/f5-jobs4-r2-1/4462331_0/events.jsonl": {
+    "sha256": "b11a75c87ef78597c81463f8f90a84d9cc247f4b9b6303d23aa0447db1008ecf",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 97.70837650937594,
+    "p95_cgroup_cpu_percent": 100.04625742900058,
+    "peak_host_bytes": 816005120,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-009c0e5a-cf63-2256-6971-9473f1c18000"
+    ]
+  },
+  "jobs/p5-S-n3-off-r1/4462460_0/events.jsonl": {
+    "sha256": "b58e40ae9267921e2fc3a13e99bd4a6d0123c616390814814b3c8594542646a7",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 289.33447174531784,
+    "p95_cgroup_cpu_percent": 296.60782955242985,
+    "peak_host_bytes": 2276888576,
+    "peak_sampled_gpu_used_mib": 2561.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-L-n4-on-r1/4463966_0/events.jsonl": {
+    "sha256": "ce1df00c01987cc4284399ca0a4183c70cb53394bae55343653e3550ecf4c43c",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 379.130699586479,
+    "p95_cgroup_cpu_percent": 396.1480449737145,
+    "peak_host_bytes": 3117727744,
+    "peak_sampled_gpu_used_mib": 4209.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-124de4d9-3dcb-c5dc-fe88-fef2626a7486"
+    ]
+  },
+  "jobs/f5-ballast4096-n4-r1/4464281_0/events.jsonl": {
+    "sha256": "56831f3da558d7a5adc914e0238adede23f5805372b7947f814a28f958699a66",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 383.8730150009009,
+    "p95_cgroup_cpu_percent": 395.01947827997424,
+    "peak_host_bytes": 3016126464,
+    "peak_sampled_gpu_used_mib": 19797.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c"
+    ]
+  },
+  "jobs/p5-M-n2-off-r2/4462922_0/events.jsonl": {
+    "sha256": "2362c9e41ef4302ed2c5d425213e8f16568be62ccde184d837e5f5703f87ed5e",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 195.07125414954638,
+    "p95_cgroup_cpu_percent": 198.5237676915852,
+    "peak_host_bytes": 1541300224,
+    "peak_sampled_gpu_used_mib": 1817.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/p5-L-tune-workers1-r1/4464050_0/events.jsonl": {
+    "sha256": "0fc3d65b62c48e141f33e6460dd67917a2af1c2b67a1009cd58200e56bbe3eff",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 486.5952302796175,
+    "p95_cgroup_cpu_percent": 547.1214358513264,
+    "peak_host_bytes": 4077404160,
+    "peak_sampled_gpu_used_mib": 4217.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-22f80bc6-e9ad-843f-0b2f-bb6af5b1b6aa"
+    ]
+  },
+  "jobs/f2-c104-cat-r1/4461980_0/events.jsonl": {
+    "sha256": "3c3eb600803b7ecce6da3c364a96d955ec404c05b8c9b5dcf5689672d5b858a7",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f6-L-four-n1-r1/4464737_0/events.jsonl": {
+    "sha256": "767c4bf7879cf933e5f5eb1237c567401916dc5f6d3c92b12e8238e677e6af51",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 367.140329043616,
+    "p95_cgroup_cpu_percent": 401.2601314252014,
+    "peak_host_bytes": 3656851456,
+    "peak_sampled_gpu_used_mib": 1111.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-218ff5d3-c4b8-9879-7e6b-94afba8f2ba9",
+      "GPU-59c53e50-f29a-cb69-4e80-b09b2783efcc",
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c",
+      "GPU-cfe87215-4e22-8392-2a0e-39eaf274980e"
+    ]
+  },
+  "jobs/f5-ballast4096-n2-r2/4464274_0/events.jsonl": {
+    "sha256": "31f44554a1715ac5e268153849dfe3209e35a9a216d0f2d56d73395eb2397175",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 193.97191348154053,
+    "p95_cgroup_cpu_percent": 198.4064784580084,
+    "peak_host_bytes": 1560616960,
+    "peak_sampled_gpu_used_mib": 9901.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-e1cdd88e-b138-ff27-e79f-d6cb858faf94"
+    ]
+  },
+  "jobs/p5-L-n2-off-r2/4463888_0/events.jsonl": {
+    "sha256": "81ec2cea955c10ca356358cb53d737b0a4e7d74d3a07c1f7736c90a75d900bf8",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 193.3002108128506,
+    "p95_cgroup_cpu_percent": 198.77291995689473,
+    "peak_host_bytes": 1590632448,
+    "peak_sampled_gpu_used_mib": 2081.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-S-tune-workers1-r1/4462612_0/events.jsonl": {
+    "sha256": "ffccdc01547f39b17153f6e7733448b67d73ec29b3d2ec81e4383e6d5ab39ce5",
+    "samples": 24,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 990.4668588433101,
+    "p95_cgroup_cpu_percent": 1205.669802012125,
+    "peak_host_bytes": 11777695744,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-50ec3688-7b0a-8e45-08b1-e1f1ea567db8"
+    ]
+  },
+  "jobs/p5-M-tune-workers1-r1/4463151_0/events.jsonl": {
+    "sha256": "34c534a1a0d9ef00b70ac95e2ae6b0497732fcb63818de03e770d1d670cbb9c6",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 896.7196106526596,
+    "p95_cgroup_cpu_percent": 1011.8931898372009,
+    "peak_host_bytes": 7858696192,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-caed0809-e387-3680-fa1d-b96cf4553e84"
+    ]
+  },
+  "jobs/p5-M-n12-on-r1/4463110_0/events.jsonl": {
+    "sha256": "ab6cbece70a6be30f907ea64f495e29eb42e8676cda905dbd20ff0139c55dc57",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1030.8111660301165,
+    "p95_cgroup_cpu_percent": 1190.33596712309,
+    "peak_host_bytes": 8779456512,
+    "peak_sampled_gpu_used_mib": 10895.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-08b7c894-4d01-a9b9-0e10-69d0b966fc28"
+    ]
+  },
+  "jobs/f5-ballast4096-n3-r2/4464279_0/events.jsonl": {
+    "sha256": "4e5259cc16303a1cf3999870f7f553110095a3599fa1d55b47c384ec8db6ff9c",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 290.40628616452585,
+    "p95_cgroup_cpu_percent": 296.81228822330155,
+    "peak_host_bytes": 2308210688,
+    "peak_sampled_gpu_used_mib": 14849.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c"
+    ]
+  },
+  "jobs/f5-jobs2-r2-0/4462318_0/events.jsonl": {
+    "sha256": "169ac7845bb43713a6063e1d39f6fa5000b49fb90490fa94300d07f9356defe3",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.74964080799623,
+    "p95_cgroup_cpu_percent": 99.76393501923194,
+    "peak_host_bytes": 816521216,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/p5-S-n1-off-r2/4462398_0/events.jsonl": {
+    "sha256": "c8da0df77c8000815a0ea32b606a68d3cf659ec5284f69a0acb5ceeb4f41295c",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 95.97590930816531,
+    "p95_cgroup_cpu_percent": 99.95540573715421,
+    "peak_host_bytes": 1266442240,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-S-n8-off-r1/4462511_0/events.jsonl": {
+    "sha256": "01c8caf2539039a8a96c3862ef7bbdf23c5de6aebcfa1bce5030108810ac4e6c",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 735.2970009957793,
+    "p95_cgroup_cpu_percent": 787.0888154193005,
+    "peak_host_bytes": 6035263488,
+    "peak_sampled_gpu_used_mib": 6823.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-L-n12-on-r1/4464032_0/events.jsonl": {
+    "sha256": "fcd25592a413a36d32fedee6047769b931ac86d1229a782d6ff666f6e0028413",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1045.719879969582,
+    "p95_cgroup_cpu_percent": 1184.8169403996937,
+    "peak_host_bytes": 9119453184,
+    "peak_sampled_gpu_used_mib": 12479.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0d84e3bd-79b2-b3a8-ecc7-055ae813dbd7"
+    ]
+  },
+  "jobs/p5-S-n8-on-r1/4462518_0/events.jsonl": {
+    "sha256": "e1fd7e757683e0ff34a555d20b6d62e8399b42b88f17bfe5cafea2e7ec1421c3",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 730.8134407349881,
+    "p95_cgroup_cpu_percent": 784.7010744284518,
+    "peak_host_bytes": 6067601408,
+    "peak_sampled_gpu_used_mib": 6857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-M-n8-on-r1/4463051_0/events.jsonl": {
+    "sha256": "2ddc5c0b08731aa60579b9855d97031dbb63f5953828f798e4d766cdb8320a35",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 716.3816888562133,
+    "p95_cgroup_cpu_percent": 790.4857066959687,
+    "peak_host_bytes": 6325661696,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-4c7bcf31-b82f-4cec-da86-63be0bc97c2a"
+    ]
+  },
+  "jobs/p5-L-n4-off-r1/4463952_0/events.jsonl": {
+    "sha256": "78a16376b7a2317887c313f0a499a4f33a856ec9530b78f46c3d6deaa2c8e188",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 379.59336466730576,
+    "p95_cgroup_cpu_percent": 396.29547244570375,
+    "peak_host_bytes": 3088711680,
+    "peak_sampled_gpu_used_mib": 4157.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-124de4d9-3dcb-c5dc-fe88-fef2626a7486"
+    ]
+  },
+  "jobs/p5-L-tune-workers2-r1/4464057_0/events.jsonl": {
+    "sha256": "a917a9303db6d38d33796b1ef568e0ee0142af269c7882e6b6b2f385dd6a5d3c",
+    "samples": 23,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 463.9817020711994,
+    "p95_cgroup_cpu_percent": 541.8472069923254,
+    "peak_host_bytes": 5338501120,
+    "peak_sampled_gpu_used_mib": 4217.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-b77b2ab2-06fc-5be0-090d-dc430a5f23bd"
+    ]
+  },
+  "jobs/p5-M-n12-off-r1/4463085_0/events.jsonl": {
+    "sha256": "80607db07ff574847e7bb888a7ba5eb5857bc59c4d6692439a6f3381fd36d5d2",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1083.2619225859405,
+    "p95_cgroup_cpu_percent": 1192.1138933759617,
+    "peak_host_bytes": 8771694592,
+    "peak_sampled_gpu_used_mib": 10879.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/f6-S-four-n1-r2/4464464_0/events.jsonl": {
+    "sha256": "794b108521825f2fe2a5f029694be126ecf6e40f06aac478cd2ff0f5d2c1b811",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 360.32827050328297,
+    "p95_cgroup_cpu_percent": 398.55888286113617,
+    "peak_host_bytes": 3624333312,
+    "peak_sampled_gpu_used_mib": 925.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470",
+      "GPU-74adb515-de5c-729a-4ce8-159499e8aefa",
+      "GPU-d5145873-1b0d-f61e-9ab1-b5bddd4324bc",
+      "GPU-df860086-0a24-a590-71ee-74614a7f5a4d"
+    ]
+  },
+  "jobs/f6-L-four-n4-r2/4464800_0/events.jsonl": {
+    "sha256": "cf565df349527d5945c313510c85356bb55a6af1c67132a54c2372d9fa05eda3",
+    "samples": 24,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1267.0848165765474,
+    "p95_cgroup_cpu_percent": 1588.045956442511,
+    "peak_host_bytes": 12662947840,
+    "peak_sampled_gpu_used_mib": 4211.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-17c30358-4f70-4636-8400-01ef1e7ba20a",
+      "GPU-71e4967a-fcd6-8a35-3d03-fcdc5615a1f6",
+      "GPU-afd50fa6-bd82-fb87-ccf1-4e930f545212",
+      "GPU-b2424ee1-b93a-67a9-b1b7-53074fa75d40"
+    ]
+  },
+  "jobs/p5-S-tune-workers2-r1/4462618_0/events.jsonl": {
+    "sha256": "246892210f417bbb93e39ca819e8ce95039a8017b0913535e3872de1e918fb5c",
+    "samples": 26,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 920.0829141007098,
+    "p95_cgroup_cpu_percent": 1193.507948068756,
+    "peak_host_bytes": 14478143488,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/f5-ballast4096-n1-r2/4464263_0/events.jsonl": {
+    "sha256": "038d192e61ca6d2894ad57411fc628648935e5e15a77608b97547a4697c463cb",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.7599833219212,
+    "p95_cgroup_cpu_percent": 99.80273068939172,
+    "peak_host_bytes": 813391872,
+    "peak_sampled_gpu_used_mib": 4953.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-M-n4-on-r1/4462994_0/events.jsonl": {
+    "sha256": "a8ab993fd8d186687593269b92620c1d1f57f1fedcc00d1d33e20cbebef3a4ca",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 368.08821320221983,
+    "p95_cgroup_cpu_percent": 395.7041500694431,
+    "peak_host_bytes": 3449081856,
+    "peak_sampled_gpu_used_mib": 3681.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-64c1f879-8805-42db-4c68-e286c41519a9"
+    ]
+  },
+  "jobs/p5-M-n4-off-r1/4462965_0/events.jsonl": {
+    "sha256": "13b25d579d55d5cc5514fe4fe5e1e0b01cab3edddeee12fdd19eea3cca834c5f",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 367.7911234952738,
+    "p95_cgroup_cpu_percent": 395.9570944859016,
+    "peak_host_bytes": 3427020800,
+    "peak_sampled_gpu_used_mib": 3629.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0097da29-7da9-b974-b9b2-0c54845f4b5a"
+    ]
+  },
+  "jobs/p5-S-n4-on-r1/4462482_0/events.jsonl": {
+    "sha256": "7cdf4eef4f03edc2489dec707e46034216714e85e0f70416b179bd3d21ec97bb",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 379.7268748838068,
+    "p95_cgroup_cpu_percent": 393.95537255407993,
+    "peak_host_bytes": 3039494144,
+    "peak_sampled_gpu_used_mib": 3465.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-M-tune-workers2-r1/4463171_0/events.jsonl": {
+    "sha256": "3d30912654cf19ac42691168d28246bbc17992015efe069dd0da11e83563792f",
+    "samples": 24,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 857.7879663883963,
+    "p95_cgroup_cpu_percent": 1043.4683914635136,
+    "peak_host_bytes": 9872302080,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0e4168dc-8bf9-c396-7850-7cdddb6cc06e"
+    ]
+  },
+  "jobs/f5-ballast1024-n8-r1/4464236_0/events.jsonl": {
+    "sha256": "76e03b0dc30f32cf4c30c989e5d3d9dc246da3c4bc8cbd85bf5449e12241fcb8",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 740.0436145071769,
+    "p95_cgroup_cpu_percent": 789.920823517963,
+    "peak_host_bytes": 6045425664,
+    "peak_sampled_gpu_used_mib": 15015.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/f5-ballast4096-n12-r1/4464308_0/events.jsonl": {
+    "sha256": "466f68117de22aa513a95b6c00fbc2f73f14bb201239a2ac7cd95965e4e443b5",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1057.2179910183334,
+    "p95_cgroup_cpu_percent": 1185.0411717143606,
+    "peak_host_bytes": 9021034496,
+    "peak_sampled_gpu_used_mib": 59383.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-L-n8-on-r2/4464018_0/events.jsonl": {
+    "sha256": "29e4cde58f99ad9bc0becbc9a2d34124dd34ec79fe1eae8f4cbb8f312c6ffe44",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 726.2358514165825,
+    "p95_cgroup_cpu_percent": 794.3868842422305,
+    "peak_host_bytes": 6565412864,
+    "peak_sampled_gpu_used_mib": 8345.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-40bc82d2-1423-6106-2ebb-f5315f6cee42"
+    ]
+  },
+  "jobs/p5-L-n4-on-r2/4463973_0/events.jsonl": {
+    "sha256": "3123539dcb43f6f9356e8797739885b2416c628e2130cde8ae9db70212fe7556",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 379.28579174350136,
+    "p95_cgroup_cpu_percent": 396.0538770235408,
+    "peak_host_bytes": 3109867520,
+    "peak_sampled_gpu_used_mib": 4209.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-124de4d9-3dcb-c5dc-fe88-fef2626a7486"
+    ]
+  },
+  "jobs/f5-jobs4-r2-2/4462333_0/events.jsonl": {
+    "sha256": "f2965931d381ac3b3dcc26ebe3f79cbb0da82db8a518e50c87378f1c8452ab77",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.52454173182973,
+    "p95_cgroup_cpu_percent": 99.68161788533982,
+    "peak_host_bytes": 821604352,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2653a87b-eec6-574b-7692-1e661f99e446"
+    ]
+  },
+  "jobs/p5-S-n3-off-r2/4462465_0/events.jsonl": {
+    "sha256": "3f9d317a017ca79231da59c09888525619f479386d882d9dc3c98cacfc6bbce6",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 288.7954879679819,
+    "p95_cgroup_cpu_percent": 296.5874553172935,
+    "peak_host_bytes": 2277793792,
+    "peak_sampled_gpu_used_mib": 2561.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/f5-jobs4-r1-1/4462284_0/events.jsonl": {
+    "sha256": "12a5778192d0a23f7b7866fd435d79720fde8fdc6116bb87eb07d759ce8fd5a8",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.56758728521552,
+    "p95_cgroup_cpu_percent": 100.025345296652,
+    "peak_host_bytes": 1266741248,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-267111f2-7d4d-3465-3f66-b6f53907134e"
+    ]
+  },
+  "jobs/p5-S-n1-on-r2/4462421_0/events.jsonl": {
+    "sha256": "a38801da0f073fd83fc185f14488270107bab777f7b4acc151b0ae5ddb8de208",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 99.10553596881037,
+    "p95_cgroup_cpu_percent": 100.14068535514377,
+    "peak_host_bytes": 839507968,
+    "peak_sampled_gpu_used_mib": 923.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-M-n3-on-r1/4462956_0/events.jsonl": {
+    "sha256": "19a561204136abff761c182a390f2b98c8978827d082fceaec452f549bd5ef53",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 289.62746248444256,
+    "p95_cgroup_cpu_percent": 297.08156261521344,
+    "peak_host_bytes": 2278289408,
+    "peak_sampled_gpu_used_mib": 2780.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/f2-auto-baseline-r2/4461974_0/events.jsonl": {
+    "sha256": "8f6c94a93773fd0c59b763f6d5b8cd86d81b416a238a3e02a488478fc4e92d75",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-ballast1024-n1-r1/4464184_0/events.jsonl": {
+    "sha256": "a32eb3e27e0e0e2dda567348fc37f70a96aee92043598789a3b0b40b5d3cf2ff",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 94.07645188323414,
+    "p95_cgroup_cpu_percent": 99.9268490727612,
+    "peak_host_bytes": 1263775744,
+    "peak_sampled_gpu_used_mib": 1881.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-df860086-0a24-a590-71ee-74614a7f5a4d"
+    ]
+  },
+  "jobs/p5-S-n3-on-r1/4462468_0/events.jsonl": {
+    "sha256": "8ec34b58343bc0c50585045c1294f4328208ea3d3442009b2f37a21e68487ebc",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 289.47877159896547,
+    "p95_cgroup_cpu_percent": 296.2997274165342,
+    "peak_host_bytes": 2306654208,
+    "peak_sampled_gpu_used_mib": 2618.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-M-n1-on-r2/4462915_0/events.jsonl": {
+    "sha256": "6eaaab90c59f3265b6e0b4e264830c73bdb8c196a93a6fcfe9dd0a9a461a9ac5",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 99.19444267050253,
+    "p95_cgroup_cpu_percent": 100.23922456943279,
+    "peak_host_bytes": 830038016,
+    "peak_sampled_gpu_used_mib": 977.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/f5-jobs4-r1-3/4462288_0/events.jsonl": {
+    "sha256": "c086ce5c7560f08b800741ed32994946dbd4d509f2b5851dcda94575104ae8f6",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.47234194952233,
+    "p95_cgroup_cpu_percent": 100.1350377205835,
+    "peak_host_bytes": 1264590848,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-218ff5d3-c4b8-9879-7e6b-94afba8f2ba9"
+    ]
+  },
+  "jobs/f4-workers0-r2/4462224_0/events.jsonl": {
+    "sha256": "bdf10c0e97dc1139ad12817514e369bcbe4be0cb20e637d0f928e7750dd204da",
+    "samples": 8,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.39155131618581,
+    "p95_cgroup_cpu_percent": 99.67017016357929,
+    "peak_host_bytes": 815702016,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-eb2ab46c-ca66-147a-4ebe-510e41b37c8d"
+    ]
+  },
+  "jobs/f2-c104-all-r2/4462098_0/events.jsonl": {
+    "sha256": "7ef16b45d2c631e9c50ab71bd66d0ae10d3b5c196dc1bbabd1845276f77ef8fe",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-L-n12-off-r1/4464025_0/events.jsonl": {
+    "sha256": "7375f97f85ab7e6f6243e4a16be28696838c7b8de5b9427c9441e46e53c13914",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1027.551424082591,
+    "p95_cgroup_cpu_percent": 1192.668974391816,
+    "peak_host_bytes": 9176997888,
+    "peak_sampled_gpu_used_mib": 12463.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-41fd4d44-4545-7ab4-c830-115be64d8dd8"
+    ]
+  },
+  "jobs/f5-jobs4-r2-0/4462329_0/events.jsonl": {
+    "sha256": "52ff59f1a68eb6314ea23ff2d7d83183417096c4506a2bb1fd9287a5049f600f",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.06428150895412,
+    "p95_cgroup_cpu_percent": 99.94883129672381,
+    "peak_host_bytes": 816775168,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/p5-S-n4-off-r1/4462473_0/events.jsonl": {
+    "sha256": "9eeb465673922f6d93f4312e96eac9e701cfe1c55b713b2dc443e59fc2fafd53",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 381.82188046445054,
+    "p95_cgroup_cpu_percent": 395.1135813104552,
+    "peak_host_bytes": 3009536000,
+    "peak_sampled_gpu_used_mib": 3413.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f2-c104-alias-cwd-r2/4462006_0/events.jsonl": {
+    "sha256": "6565d59be79cb1f9e12ad54e34f5e688ca0f684154ed1d8d6cf5aa1b5d6df5a8",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-L-n3-off-r2/4463907_0/events.jsonl": {
+    "sha256": "f387b255118538e1d3c7d0f799f022f54b091637f91c5d32f7af58f97e85dbf3",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 286.8700916823442,
+    "p95_cgroup_cpu_percent": 297.5370703982366,
+    "peak_host_bytes": 2336030720,
+    "peak_sampled_gpu_used_mib": 3119.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-08b7c894-4d01-a9b9-0e10-69d0b966fc28"
+    ]
+  },
+  "jobs/f4-workers1-r2/4462233_0/events.jsonl": {
+    "sha256": "e49866c5c6559d7d757a849982d0ebc4f0862574217b8be6936d105726165a72",
+    "samples": 9,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 160.69920696208624,
+    "p95_cgroup_cpu_percent": 197.0819066313981,
+    "peak_host_bytes": 1046994944,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-eb2ab46c-ca66-147a-4ebe-510e41b37c8d"
+    ]
+  },
+  "jobs/p5-L-n3-on-r2/4463917_0/events.jsonl": {
+    "sha256": "49f973c55662c6696dbeca1acd43baa254d47b363070e63f9a4a5ceee4ee614c",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 274.4236260598222,
+    "p95_cgroup_cpu_percent": 297.0638362887037,
+    "peak_host_bytes": 2811023360,
+    "peak_sampled_gpu_used_mib": 3176.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-124de4d9-3dcb-c5dc-fe88-fef2626a7486"
+    ]
+  },
+  "jobs/f5-ballast1024-n12-r2/4464250_0/events.jsonl": {
+    "sha256": "9effc3f20ece0269f94bb78b7b8798cba33a0583a984c7d634edea5860231182",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1056.9679034335127,
+    "p95_cgroup_cpu_percent": 1190.8420767734444,
+    "peak_host_bytes": 9031925760,
+    "peak_sampled_gpu_used_mib": 22519.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-L-n1-on-r1/4463868_0/events.jsonl": {
+    "sha256": "4bcd41b74f7ef990f51e4c2c8123e62c1d41da8265375858932b4a613708eddb",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.39301377997688,
+    "p95_cgroup_cpu_percent": 100.13990478881803,
+    "peak_host_bytes": 862326784,
+    "peak_sampled_gpu_used_mib": 1111.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/p5-M-n3-off-r2/4462949_0/events.jsonl": {
+    "sha256": "2be3f3d5c3dba0f9065fcdd4ede5397b312dde4aa259fb829bd0f95e8d6c11a1",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 290.454247956913,
+    "p95_cgroup_cpu_percent": 297.43400632020257,
+    "peak_host_bytes": 2256449536,
+    "peak_sampled_gpu_used_mib": 2723.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/f2-c104-touch-r1/4461986_0/events.jsonl": {
+    "sha256": "7d9d08e9eff304c969e90903d2eb59190515e4f73eb2e65e617e6c47fb81035a",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-ballast4096-n8-r2/4464300_0/events.jsonl": {
+    "sha256": "b585fb235b95e568ae5618209bcc01d83db35443e2a43f7e87d9cc68d4b11544",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 738.2836202003284,
+    "p95_cgroup_cpu_percent": 788.0523891920624,
+    "peak_host_bytes": 6040920064,
+    "peak_sampled_gpu_used_mib": 39591.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c"
+    ]
+  },
+  "jobs/p5-M-throughput-long/4463566_0/events.jsonl": {
+    "sha256": "1b2aad5c6b8c0692968e31b95de0a79919c8139f72b9f2bf22c28dcaa24ee066",
+    "samples": 722,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1345.4377977692707,
+    "p95_cgroup_cpu_percent": 1372.7754553178859,
+    "peak_host_bytes": 6054510592,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-fc0de04c-6b52-9191-31c5-1a0e4779a954"
+    ]
+  },
+  "jobs/p5-S-tune-threads2-r1/4462558_0/events.jsonl": {
+    "sha256": "8061a892ac0c217fa1e15876b65ac7e88d48b7fd84d25a79191a8864576ec02c",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1211.2309802696154,
+    "p95_cgroup_cpu_percent": 1384.1950181115753,
+    "peak_host_bytes": 9374433280,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f2-c104-default-r2/4462105_0/events.jsonl": {
+    "sha256": "77d244632fd278cf9ad8b3e3dd639566027e946355dc0bca420b68de726ebad4",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-S-n2-off-r2/4462447_0/events.jsonl": {
+    "sha256": "53bbf12b8a448ef744742a28341ca57d527eeec8582c0d334d5b689d66ed936c",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 194.80515977702123,
+    "p95_cgroup_cpu_percent": 198.37220133801208,
+    "peak_host_bytes": 1558233088,
+    "peak_sampled_gpu_used_mib": 1709.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-S-n2-on-r1/4462451_0/events.jsonl": {
+    "sha256": "290a0c0ab77e2bde794b9eaf95d4fe10a8b53dda887ad5b7da79d097a0ea4ac2",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 194.6309539185032,
+    "p95_cgroup_cpu_percent": 198.43261063788046,
+    "peak_host_bytes": 1587621888,
+    "peak_sampled_gpu_used_mib": 1770.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-M-n2-on-r1/4462928_0/events.jsonl": {
+    "sha256": "5c6999acfb5715b627c3e9229ed249504568c316945e5822f74bd2f097f2de07",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 190.75509647235637,
+    "p95_cgroup_cpu_percent": 198.43643303532045,
+    "peak_host_bytes": 2014121984,
+    "peak_sampled_gpu_used_mib": 1878.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-08b7c894-4d01-a9b9-0e10-69d0b966fc28"
+    ]
+  },
+  "jobs/f5-ballast1024-n2-r1/4464194_0/events.jsonl": {
+    "sha256": "90dcd783fff26ba4941160a5a06ae4bb5e79092e4f1f1ec202bc8331c476386d",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 194.79556479773603,
+    "p95_cgroup_cpu_percent": 198.50638381242737,
+    "peak_host_bytes": 1559928832,
+    "peak_sampled_gpu_used_mib": 3757.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c"
+    ]
+  },
+  "jobs/p5-S-n12-off-r2/4462546_0/events.jsonl": {
+    "sha256": "dbce0a60123e3839a8265d4b0e33d23771b1137a6dc0b4b35572dbb63c2bfa6e",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1044.4499435516652,
+    "p95_cgroup_cpu_percent": 1182.6927638944887,
+    "peak_host_bytes": 8866590720,
+    "peak_sampled_gpu_used_mib": 10231.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f5-one-four-r1/4462294_0/events.jsonl": {
+    "sha256": "a70afbca52c7e0c3d73689e3d342613cf8b4d36034df89faf794a58c2a3d2e01",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 367.85920404203165,
+    "p95_cgroup_cpu_percent": 398.02734029136207,
+    "peak_host_bytes": 3493392384,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e53cfed-4e18-242d-d0a1-1989c1561341",
+      "GPU-95b00562-52e1-e641-8eb5-b5a039e30ee6",
+      "GPU-9b7f65cf-2345-9d65-bdb7-bbf31ab989cc",
+      "GPU-eed12d8e-5ec4-52c0-80c2-aaf2927319eb"
+    ]
+  },
+  "jobs/f2-c104-cat-cwd-r2/4462074_0/events.jsonl": {
+    "sha256": "b0cefc6443d075682d2695e7239d52502e53aee262dadeb120f4dbae36ba29b4",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-jobs2-r1-1/4462270_0/events.jsonl": {
+    "sha256": "cee770c4cb9c39751b30490436e0d671d1c95df2f163ff1d6e916a927268e095",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.38043478034777,
+    "p95_cgroup_cpu_percent": 99.89944742741496,
+    "peak_host_bytes": 1267642368,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-db03d358-7194-1592-afd0-029f070f8e7a"
+    ]
+  },
+  "jobs/p4-own-1gpu/4462127_0/events.jsonl": {
+    "sha256": "9ea45adf44d3edb576d7ee2a965dbb12d9b39f11e913f3cc0ec70be407dbe9f5",
+    "samples": 6,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 89.09166349393332,
+    "p95_cgroup_cpu_percent": 99.63596333550619,
+    "peak_host_bytes": 1112854528,
+    "peak_sampled_gpu_used_mib": 817.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-e685946c-9ace-786e-1db0-050abc258363"
+    ]
+  },
+  "jobs/f5-ballast1024-n4-r2/4464226_0/events.jsonl": {
+    "sha256": "7fd3668310f88dd651668bd11d91bca21e6a980e9d2630a3522d99f38718cc9f",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 382.8196321900872,
+    "p95_cgroup_cpu_percent": 395.61778358213616,
+    "peak_host_bytes": 3026165760,
+    "peak_sampled_gpu_used_mib": 7509.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-4f7af9ca-8840-5bda-277e-263b9419d754"
+    ]
+  },
+  "jobs/f2-c104-cat-log-r1/4461998_0/events.jsonl": {
+    "sha256": "916af389f5acbd3d5217c1fce9489187fb2c67846c0f330d86328266037dc86a",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-L-tune-threads2-r1/4464045_0/events.jsonl": {
+    "sha256": "bb89e07e8c2491b8f04c14b17e37021a0f5728aa540e16c93444d51e5f3ac340",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 740.8207812866376,
+    "p95_cgroup_cpu_percent": 789.9137636923069,
+    "peak_host_bytes": 3117498368,
+    "peak_sampled_gpu_used_mib": 4209.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-3755b1b9-b092-20c1-b1fb-d9bdcb385cef"
+    ]
+  },
+  "jobs/p5-L-throughput-long/4464134_0/events.jsonl": {
+    "sha256": "07c412c883e804ad9f7832053288124af178ac9832d9b64c2537c2d0655b6ad0",
+    "samples": 721,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 394.91979494800927,
+    "p95_cgroup_cpu_percent": 396.1125721025678,
+    "peak_host_bytes": 3442671616,
+    "peak_sampled_gpu_used_mib": 4217.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-e7c0f38f-2ce2-f382-a82f-14a5d4cf27a1"
+    ]
+  },
+  "jobs/f4-workers2-r2/4462254_0/events.jsonl": {
+    "sha256": "818a1dd719a4aad5ff7b23d834ed22281552f6a8d2d4010a90ed2458297a4122",
+    "samples": 10,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 149.1900136662966,
+    "p95_cgroup_cpu_percent": 202.99787134504038,
+    "peak_host_bytes": 1280790528,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f2-c104-ntpn-r1/4462000_0/events.jsonl": {
+    "sha256": "6d8a5926bf7684b231c6e80eb78689aa12a1303eb8509e469ca0fa4a80852e55",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-S-n12-on-r1/4462552_0/events.jsonl": {
+    "sha256": "c4de4ef81fb42ad9c0d408718a4db43de52e8a8ac3d963518bca9a0dd9f50d13",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1020.2370332520154,
+    "p95_cgroup_cpu_percent": 1171.193055954588,
+    "peak_host_bytes": 9367588864,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/p5-L-n8-off-r1/4463976_0/events.jsonl": {
+    "sha256": "9e83418aa5baacb4bb259c82d8a8ea0a000424bf71e92ceb2f7c1ebc342f9507",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 722.2822681558357,
+    "p95_cgroup_cpu_percent": 791.6338202061432,
+    "peak_host_bytes": 6098546688,
+    "peak_sampled_gpu_used_mib": 8311.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-124de4d9-3dcb-c5dc-fe88-fef2626a7486"
+    ]
+  },
+  "jobs/p5-L-n1-off-r2/4463860_0/events.jsonl": {
+    "sha256": "09ac71ee44b954f5ee8e45de7573e2415af7725139cc6b16d8ba6c27129d24ad",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.59720920708796,
+    "p95_cgroup_cpu_percent": 100.10522966550653,
+    "peak_host_bytes": 835272704,
+    "peak_sampled_gpu_used_mib": 1045.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/p5-L-n2-on-r2/4463895_0/events.jsonl": {
+    "sha256": "ad4e2c1a873caec9d13bd3ef9276ff6030d13eefd72731ecdea11453236dd662",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 186.03629108846908,
+    "p95_cgroup_cpu_percent": 198.9003655698857,
+    "peak_host_bytes": 2064089088,
+    "peak_sampled_gpu_used_mib": 2146.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-007c26c8-d2cf-0d3d-292f-3b0aef2ef632"
+    ]
+  },
+  "jobs/p6-io/4464327_0/events.jsonl": {
+    "sha256": "aa0d1931e0c9ed3508a155993c4f04444087dcd66e22a1682c3d6602fb143ff3",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-ballast1024-n3-r1/4464207_0/events.jsonl": {
+    "sha256": "c17589930c1e788d433f6278c2357915306a924c2584b287a353e238698ccc13",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 290.93680606200195,
+    "p95_cgroup_cpu_percent": 297.16647940693304,
+    "peak_host_bytes": 2298540032,
+    "peak_sampled_gpu_used_mib": 5633.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-M-tune-threads2-r1/4463133_0/events.jsonl": {
+    "sha256": "6ce02c138b93867bffde709fae37b5d2ca0777235d7144f0760a473f2152dd16",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1262.8702697921294,
+    "p95_cgroup_cpu_percent": 1387.5487323427471,
+    "peak_host_bytes": 6000963584,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-3433fdc4-e5dd-c2ea-c466-adae3be7b76f"
+    ]
+  },
+  "jobs/f5-jobs1-r1-0/4462259_0/events.jsonl": {
+    "sha256": "68c16c2818679f3852ece42fe152775b3958b7fcfc2cc2111eb64ebe3359612c",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.27901165571102,
+    "p95_cgroup_cpu_percent": 100.07901463547333,
+    "peak_host_bytes": 1265324032,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-95b00562-52e1-e641-8eb5-b5a039e30ee6"
+    ]
+  },
+  "jobs/p5-M-n8-off-r1/4463023_0/events.jsonl": {
+    "sha256": "17faadad28558c6a199d38a06d95c7dc8145625e6ac0fb93ce7fb0fac3f45a2c",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 707.111707292431,
+    "p95_cgroup_cpu_percent": 792.6827471471835,
+    "peak_host_bytes": 6420619264,
+    "peak_sampled_gpu_used_mib": 7255.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-3433fdc4-e5dd-c2ea-c466-adae3be7b76f"
+    ]
+  },
+  "jobs/p5-M-n1-off-r2/4462894_0/events.jsonl": {
+    "sha256": "49725e4e5a157440241e958765f1077386a5616671797973d7ae80037a7213a9",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.97846235837434,
+    "p95_cgroup_cpu_percent": 100.25728872851836,
+    "peak_host_bytes": 803971072,
+    "peak_sampled_gpu_used_mib": 911.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-M-n1-on-r1/4462910_0/events.jsonl": {
+    "sha256": "f0d5264eeaa353fbf127b525209c17e24d121d6df63519bd89c0ed412e0087cd",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 94.55091210181446,
+    "p95_cgroup_cpu_percent": 100.72641791248232,
+    "peak_host_bytes": 1277358080,
+    "peak_sampled_gpu_used_mib": 977.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/p5-S-n3-on-r2/4462471_0/events.jsonl": {
+    "sha256": "6e7bec7d8a32b13f55c94d9d24f017dd14d33e41904f7ab6ad5ed150d4fc877a",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 288.7553476402063,
+    "p95_cgroup_cpu_percent": 296.5136881668835,
+    "peak_host_bytes": 2304331776,
+    "peak_sampled_gpu_used_mib": 2618.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f5-ballast1024-n1-r2/4464186_0/events.jsonl": {
+    "sha256": "bb5d5239db6cafba458590c320297c090df0b435db04c667f27d5a99de4d06a7",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.40804777346122,
+    "p95_cgroup_cpu_percent": 100.0423285950071,
+    "peak_host_bytes": 1265754112,
+    "peak_sampled_gpu_used_mib": 1881.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-398924f1-fb53-7ddb-f093-5364c6bf9580"
+    ]
+  },
+  "jobs/f2-auto-baseline-r1/4461972_0/events.jsonl": {
+    "sha256": "6f61786d71e2a59b6c916b8cb4b99a4a77acd613194a954912a51438405bdc22",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p4-own-4gpu/4462138_0/events.jsonl": {
+    "sha256": "c07d4c13bbbb8ac13fba52afb7c2f17f1664444c4dfb7b65db26cc416dee8c25",
+    "samples": 7,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 306.0000991129126,
+    "p95_cgroup_cpu_percent": 397.825159044738,
+    "peak_host_bytes": 3066150912,
+    "peak_sampled_gpu_used_mib": 817.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e53cfed-4e18-242d-d0a1-1989c1561341",
+      "GPU-95b00562-52e1-e641-8eb5-b5a039e30ee6",
+      "GPU-9b7f65cf-2345-9d65-bdb7-bbf31ab989cc",
+      "GPU-eed12d8e-5ec4-52c0-80c2-aaf2927319eb"
+    ]
+  },
+  "jobs/p5-M-n3-on-r2/4462959_0/events.jsonl": {
+    "sha256": "67d9d0f2a4b3d12dedb55c292c064dfb7642a94d48a81d2b108b4c377b34f7d2",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 289.50089077807036,
+    "p95_cgroup_cpu_percent": 296.84329807812276,
+    "peak_host_bytes": 2272256000,
+    "peak_sampled_gpu_used_mib": 2780.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/p5-S-n1-on-r1/4462418_0/events.jsonl": {
+    "sha256": "289017838810efc58881fceb10b1355c204eb2720e48cba94d943c8127fe41ff",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 99.54496153594351,
+    "p95_cgroup_cpu_percent": 100.36514843192678,
+    "peak_host_bytes": 840155136,
+    "peak_sampled_gpu_used_mib": 923.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-S-n4-off-r2/4462475_0/events.jsonl": {
+    "sha256": "7bb0602557ce0bc791151aaf02b9c8f4ae17fa37cd89113343496e2bf7af59f6",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 382.43967574321965,
+    "p95_cgroup_cpu_percent": 395.39031807004517,
+    "peak_host_bytes": 3015614464,
+    "peak_sampled_gpu_used_mib": 3413.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f5-jobs4-r2-3/4462335_0/events.jsonl": {
+    "sha256": "e8155d9e393a422249fe4926dbb5d37e72eca3e0df02662b002f53f6ba62bedb",
+    "samples": 19,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.80322496291409,
+    "p95_cgroup_cpu_percent": 99.8200561521133,
+    "peak_host_bytes": 813879296,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-6e11d39a-4364-b560-89be-e566e613c015"
+    ]
+  },
+  "jobs/p5-L-n12-off-r2/4464028_0/events.jsonl": {
+    "sha256": "138ff4a07da3e30c81cfd9e2abe4f484de09a223a496c7d83a3c21e7edf5ec40",
+    "samples": 23,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1011.0998406996736,
+    "p95_cgroup_cpu_percent": 1184.654614161485,
+    "peak_host_bytes": 9762537472,
+    "peak_sampled_gpu_used_mib": 12463.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0d84e3bd-79b2-b3a8-ecc7-055ae813dbd7"
+    ]
+  },
+  "jobs/f2-c104-all-r1/4461983_0/events.jsonl": {
+    "sha256": "5e0b10ca8d2297e9708d20cc635ffcf88e33378d5443981166cfaf53b05e20c7",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f4-workers0-r1/4462214_0/events.jsonl": {
+    "sha256": "6905a89cdb0013b88fc1012f4f6b8229b215948c9d6501b65b11e7e887345ee1",
+    "samples": 9,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 85.79679237223672,
+    "p95_cgroup_cpu_percent": 99.65618748752712,
+    "peak_host_bytes": 1266679808,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-eb2ab46c-ca66-147a-4ebe-510e41b37c8d"
+    ]
+  },
+  "jobs/f5-jobs4-r1-0/4462282_0/events.jsonl": {
+    "sha256": "a78c9f09d606a53896239cd37c7ba95f601a2bef66831bc4c3af5ebec7306ced",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 96.61314776040332,
+    "p95_cgroup_cpu_percent": 100.16754669900006,
+    "peak_host_bytes": 1291710464,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-95b00562-52e1-e641-8eb5-b5a039e30ee6"
+    ]
+  },
+  "jobs/p5-L-n1-on-r2/4463874_0/events.jsonl": {
+    "sha256": "a8ef5d4f95d657a08452172a25bb6ab7a3b0cafd05f5df5c99e65d85b71fd744",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.67048297063693,
+    "p95_cgroup_cpu_percent": 100.326556074614,
+    "peak_host_bytes": 857145344,
+    "peak_sampled_gpu_used_mib": 1109.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/f5-ballast1024-n12-r1/4464243_0/events.jsonl": {
+    "sha256": "96cad8a45253dc24ce3c3c2acc800daf818e4287f343ab70bc116346cacceb8e",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1061.664591257839,
+    "p95_cgroup_cpu_percent": 1190.8289165984252,
+    "peak_host_bytes": 9023193088,
+    "peak_sampled_gpu_used_mib": 22519.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-L-n3-on-r1/4463910_0/events.jsonl": {
+    "sha256": "4eba836636594c0104cbf62db249b80fb0aa1e9cf68ee9ad90d228e228e2972b",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 287.4740925018053,
+    "p95_cgroup_cpu_percent": 297.1874565279398,
+    "peak_host_bytes": 2324865024,
+    "peak_sampled_gpu_used_mib": 3176.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-08b7c894-4d01-a9b9-0e10-69d0b966fc28"
+    ]
+  },
+  "jobs/f4-workers1-r1/4462229_0/events.jsonl": {
+    "sha256": "54ed49910ea7ea6f18653f30cbfe2379974a0ad0d0bce269bbb05aa9da501b19",
+    "samples": 9,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 159.43697282404798,
+    "p95_cgroup_cpu_percent": 196.1173129902579,
+    "peak_host_bytes": 1048866816,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-eb2ab46c-ca66-147a-4ebe-510e41b37c8d"
+    ]
+  },
+  "jobs/p5-L-n3-off-r1/4463902_0/events.jsonl": {
+    "sha256": "75d7beea754ee661a1edbc54724185de7eac7bfe36632ae3f92157592b59dab8",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 288.13977917155063,
+    "p95_cgroup_cpu_percent": 297.79182484551364,
+    "peak_host_bytes": 2326966272,
+    "peak_sampled_gpu_used_mib": 3119.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-08b7c894-4d01-a9b9-0e10-69d0b966fc28"
+    ]
+  },
+  "jobs/f2-c104-alias-cwd-r1/4461996_0/events.jsonl": {
+    "sha256": "da9ba1b6bc42dc1337c78ed040807d08a566d3ba69102dc973245f2cc147cb00",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-ballast4096-n8-r1/4464288_0/events.jsonl": {
+    "sha256": "9fe5ec24f1b2034e6e5f9f63dc41e92fca2998c5fde24cb8b58dc06624b9bb06",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 736.7262130175458,
+    "p95_cgroup_cpu_percent": 788.5905823833675,
+    "peak_host_bytes": 6039154688,
+    "peak_sampled_gpu_used_mib": 39591.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-612e2b89-2fa1-1d2b-9b40-c2fb39f7d83c"
+    ]
+  },
+  "jobs/f2-c104-touch-r2/4462077_0/events.jsonl": {
+    "sha256": "a009dadce362586e1bf4020e6b131c9873de0fbe4ba3279d84da78ddd528699e",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f6-S-four-n12-r2/4464548_0/events.jsonl": {
+    "sha256": "a20096c1516e489c521f085f5e030f64b6fd03e98190fd8f84d942b0a8bb74e9",
+    "samples": 32,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 2859.5233617605136,
+    "p95_cgroup_cpu_percent": 4701.895189578505,
+    "peak_host_bytes": 36467740672,
+    "peak_sampled_gpu_used_mib": 10249.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470",
+      "GPU-74adb515-de5c-729a-4ce8-159499e8aefa",
+      "GPU-d5145873-1b0d-f61e-9ab1-b5bddd4324bc",
+      "GPU-df860086-0a24-a590-71ee-74614a7f5a4d"
+    ]
+  },
+  "jobs/p5-M-n3-off-r1/4462939_0/events.jsonl": {
+    "sha256": "5bb68d2b7309ca6ac518e254d09896703c3f1743ce1196a233d58855fb56aa09",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 290.79588758396596,
+    "p95_cgroup_cpu_percent": 296.9235541423034,
+    "peak_host_bytes": 2257522688,
+    "peak_sampled_gpu_used_mib": 2723.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-S-n12-off-r1/4462543_0/events.jsonl": {
+    "sha256": "3dd888d76954587ec6d1925ce4239a713cfc677b51dcdcf4a393bd55962f43de",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1028.6892726943288,
+    "p95_cgroup_cpu_percent": 1179.4855919760375,
+    "peak_host_bytes": 8883896320,
+    "peak_sampled_gpu_used_mib": 10231.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f5-ballast1024-n2-r2/4464198_0/events.jsonl": {
+    "sha256": "f48a7eeee51473b636d665e18c7b774d10d221af7232947dedec1f7b6ae4106a",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 195.44800185259933,
+    "p95_cgroup_cpu_percent": 198.5648649380692,
+    "peak_host_bytes": 1558282240,
+    "peak_sampled_gpu_used_mib": 3757.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/p5-M-n2-on-r2/4462933_0/events.jsonl": {
+    "sha256": "81fe96ec7ac9d7f7590f74c05e4fa5c3d56457138873a3999168b0f5e0095325",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 194.9885997440868,
+    "p95_cgroup_cpu_percent": 198.6326293794754,
+    "peak_host_bytes": 1569873920,
+    "peak_sampled_gpu_used_mib": 1878.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-S-throughput-long/4462818_0/events.jsonl": {
+    "sha256": "ab9d5ce6d08f5406d439e4336c07ecdcb9d08d39759546127c66f95670a3da18",
+    "samples": 723,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1158.4032324952486,
+    "p95_cgroup_cpu_percent": 1181.0126330581083,
+    "peak_host_bytes": 9121288192,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-S-n2-on-r2/4462457_0/events.jsonl": {
+    "sha256": "413f63ffd95f69cdd0a861bbd53154a0f35badae57122cdd2fdae6df44a8ab68",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 195.10279174901953,
+    "p95_cgroup_cpu_percent": 198.52537648778335,
+    "peak_host_bytes": 1590276096,
+    "peak_sampled_gpu_used_mib": 1770.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/f2-c104-default-r1/4461978_0/events.jsonl": {
+    "sha256": "5d1c7eda6072550c89eab77c7f6fea82e1ac3b726e0dfe794726b2540fd485f0",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-S-n2-off-r1/4462433_0/events.jsonl": {
+    "sha256": "a06d8087b6f800da639ce9ecf43628b3412926a5c6edf53556866c1562c77ac7",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 194.9910149543389,
+    "p95_cgroup_cpu_percent": 198.4401766584498,
+    "peak_host_bytes": 1556934656,
+    "peak_sampled_gpu_used_mib": 1709.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-73689114-fb79-2e38-2d11-48350ec76920"
+    ]
+  },
+  "jobs/p5-S-tune-threads2-r2/4462562_0/events.jsonl": {
+    "sha256": "fdb0b243237f2722a41cb7a6d33f2ac39a2a21b384efdc851d2cf50d9d3520ac",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1238.503899015083,
+    "p95_cgroup_cpu_percent": 1381.2961314466402,
+    "peak_host_bytes": 8897859584,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-50ec3688-7b0a-8e45-08b1-e1f1ea567db8"
+    ]
+  },
+  "jobs/p5-L-tune-threads2-r2/4464047_0/events.jsonl": {
+    "sha256": "a5f81607c6d9af3ef07d87eb02b52f93084382a74352aad968e5857500f98db9",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 673.4421712750755,
+    "p95_cgroup_cpu_percent": 744.2264029311226,
+    "peak_host_bytes": 3562602496,
+    "peak_sampled_gpu_used_mib": 4209.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-22f80bc6-e9ad-843f-0b2f-bb6af5b1b6aa"
+    ]
+  },
+  "jobs/f2-c104-cat-log-r2/4462004_0/events.jsonl": {
+    "sha256": "2d673ca7454ada89e1c2f11ffa2ddc082642c2185b91b9cae2aaa0d08f5c2896",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-ballast1024-n4-r1/4464224_0/events.jsonl": {
+    "sha256": "241bfbc5055598a86e85e48fe6da5bdc57eb60e23afbcde02ad05d12beed216b",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 384.01151338367833,
+    "p95_cgroup_cpu_percent": 395.918756337981,
+    "peak_host_bytes": 3007782912,
+    "peak_sampled_gpu_used_mib": 7509.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  },
+  "jobs/f5-jobs2-r2-1/4462320_0/events.jsonl": {
+    "sha256": "1a54522302923b6ac4a2a93f4f7fb5f3790732020822ec63058ecf7131df6489",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 95.84819114914335,
+    "p95_cgroup_cpu_percent": 99.98600295579945,
+    "peak_host_bytes": 1263017984,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2653a87b-eec6-574b-7692-1e661f99e446"
+    ]
+  },
+  "jobs/p5-M-stable-long/4463205_0/events.jsonl": {
+    "sha256": "1c9173a1d8d0f1b1de984a842a141a0a04779191638dcc1124f64a1bdf40b6b6",
+    "samples": 721,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 99.97048304838353,
+    "p95_cgroup_cpu_percent": 100.19026799218551,
+    "peak_host_bytes": 1275117568,
+    "peak_sampled_gpu_used_mib": 911.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-fc0de04c-6b52-9191-31c5-1a0e4779a954"
+    ]
+  },
+  "jobs/f2-c104-cat-cwd-r1/4461992_0/events.jsonl": {
+    "sha256": "03e240fd3e99324d46ad0d19a8f4bf71baf8544932d7b67c223bf9566972e848",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/f5-one-four-r2/4462341_0/events.jsonl": {
+    "sha256": "465ccc6bde7c47e3f8d50f4f82ce35be4f80cbc7e33ad44d9b30351f503e9203",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 368.56300577835094,
+    "p95_cgroup_cpu_percent": 398.0786418543164,
+    "peak_host_bytes": 3493662720,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e53cfed-4e18-242d-d0a1-1989c1561341",
+      "GPU-95b00562-52e1-e641-8eb5-b5a039e30ee6",
+      "GPU-9b7f65cf-2345-9d65-bdb7-bbf31ab989cc",
+      "GPU-eed12d8e-5ec4-52c0-80c2-aaf2927319eb"
+    ]
+  },
+  "jobs/p5-S-stable-long/4462630_0/events.jsonl": {
+    "sha256": "5e32d754bdd38fe84d45f8673b6497305b55c73063ea0e87d8c95e1d0ae1df8c",
+    "samples": 721,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 99.75561706327557,
+    "p95_cgroup_cpu_percent": 99.95868350838276,
+    "peak_host_bytes": 893218816,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-L-n2-on-r1/4463892_0/events.jsonl": {
+    "sha256": "6a4cdad84e70f4b68e48ead318e9ba02dccbdfdd27ad72e2f43ebb213dfdec1e",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 193.2463358982975,
+    "p95_cgroup_cpu_percent": 198.8596049310352,
+    "peak_host_bytes": 1609850880,
+    "peak_sampled_gpu_used_mib": 2142.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-L-n1-off-r1/4463857_0/events.jsonl": {
+    "sha256": "8f3e618427cea6c7009c97b0c03a38aefba271721c177abae001710172dd727f",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.17378248944257,
+    "p95_cgroup_cpu_percent": 100.04435861141077,
+    "peak_host_bytes": 839622656,
+    "peak_sampled_gpu_used_mib": 1043.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-2e3e5ee0-5589-bd53-6490-d07e5f684ce6"
+    ]
+  },
+  "jobs/p5-L-n8-off-r2/4464008_0/events.jsonl": {
+    "sha256": "cd2a1a8fee80c358b0e158d2f00d0b2f281f5023484a6ce1c7b5f4df852fead0",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 706.8294068711247,
+    "p95_cgroup_cpu_percent": 794.6867350428188,
+    "peak_host_bytes": 6505742336,
+    "peak_sampled_gpu_used_mib": 8311.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0e8b89f8-e8cb-e172-1a23-5811e9c0aaf5"
+    ]
+  },
+  "jobs/p5-S-n12-on-r2/4462555_0/events.jsonl": {
+    "sha256": "b95dd97096ea0d295118bc6394cdc7240a45d403207dc82233f59770828f8088",
+    "samples": 22,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1028.3101817881359,
+    "p95_cgroup_cpu_percent": 1169.2112728201116,
+    "peak_host_bytes": 9380290560,
+    "peak_sampled_gpu_used_mib": 10247.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f4-workers2-r1/4462245_0/events.jsonl": {
+    "sha256": "9d34b6cf5954144eee16edba1fad09b7491c2cca8609858633c04d6b76e851cd",
+    "samples": 13,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 114.21013117428288,
+    "p95_cgroup_cpu_percent": 204.00799306785476,
+    "peak_host_bytes": 1732755456,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-493843e6-7c6e-9f08-d550-0f476cc666cd"
+    ]
+  },
+  "jobs/f2-c104-ntpn-r2/4462002_0/events.jsonl": {
+    "sha256": "237d96e718dbc6738cc0ff577a1cbc942c8dac8ef9a05c1788038aee4df071c9",
+    "samples": 0,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": null,
+    "p95_cgroup_cpu_percent": null,
+    "peak_host_bytes": 0,
+    "peak_sampled_gpu_used_mib": 0,
+    "gpu_memory_total_mib": [],
+    "gpu_uuids": []
+  },
+  "jobs/p5-M-n1-off-r1/4462892_0/events.jsonl": {
+    "sha256": "e8af190621f7800b1fe7175e271854559752452a685c048bb708cec1712a8ed8",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.97087983267583,
+    "p95_cgroup_cpu_percent": 100.03817372985797,
+    "peak_host_bytes": 807624704,
+    "peak_sampled_gpu_used_mib": 911.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-05ec6c09-3f5c-bd7e-426e-376043e5b1d7"
+    ]
+  },
+  "jobs/p5-M-n8-off-r2/4463036_0/events.jsonl": {
+    "sha256": "e4f1f05f8c2138b1d530c5f13c870db67b920afbb53ae36dac3b4ce3f936e743",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 717.2603139129383,
+    "p95_cgroup_cpu_percent": 793.3577901485903,
+    "peak_host_bytes": 5871489024,
+    "peak_sampled_gpu_used_mib": 7255.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-3433fdc4-e5dd-c2ea-c466-adae3be7b76f"
+    ]
+  },
+  "jobs/f5-jobs1-r2-0/4462310_0/events.jsonl": {
+    "sha256": "eee64c5247a673c7dc8a39d2ff54191ada6325fdab0fdceadc2c51c53856cea4",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 98.2393128002896,
+    "p95_cgroup_cpu_percent": 99.87790277489263,
+    "peak_host_bytes": 815910912,
+    "peak_sampled_gpu_used_mib": 857.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-c2be9038-0122-7476-cee5-8029c320b22f"
+    ]
+  },
+  "jobs/p5-M-tune-threads2-r2/4463143_0/events.jsonl": {
+    "sha256": "b0b26c88ee366c085a1355415bf6a0efcc2efec63df735d0ffc20186980f229d",
+    "samples": 21,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 1221.8899205823072,
+    "p95_cgroup_cpu_percent": 1371.4779422165664,
+    "peak_host_bytes": 6297661440,
+    "peak_sampled_gpu_used_mib": 7289.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-caed0809-e387-3680-fa1d-b96cf4553e84"
+    ]
+  },
+  "jobs/f6-S-local-pipeline/4464619_0/events.jsonl": {
+    "sha256": "8ad9ceeb01b55c626526e672addd91f1e363156e1435c4a995226c9abf0fc865",
+    "samples": 723,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 397.04802952710725,
+    "p95_cgroup_cpu_percent": 398.5054690468206,
+    "peak_host_bytes": 3912544256,
+    "peak_sampled_gpu_used_mib": 925.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470",
+      "GPU-74adb515-de5c-729a-4ce8-159499e8aefa",
+      "GPU-d5145873-1b0d-f61e-9ab1-b5bddd4324bc",
+      "GPU-df860086-0a24-a590-71ee-74614a7f5a4d"
+    ]
+  },
+  "jobs/f5-ballast1024-n3-r2/4464210_0/events.jsonl": {
+    "sha256": "b2b09f3e775c838d797cda1db1edf2646ce8bf1796d3e4237b8c62d6e82090e1",
+    "samples": 20,
+    "positive_oom_times": [],
+    "mean_cgroup_cpu_percent": 290.434912693382,
+    "p95_cgroup_cpu_percent": 296.9655314184549,
+    "peak_host_bytes": 2278428672,
+    "peak_sampled_gpu_used_mib": 5633.0,
+    "gpu_memory_total_mib": [
+      95830.0
+    ],
+    "gpu_uuids": [
+      "GPU-0c157147-3d39-bee5-3d5d-f7bca1efd470"
+    ]
+  }
+}
